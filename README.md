@@ -2,7 +2,7 @@
 
 Offline ski and freestyle tracker for iPhone (iOS 17+, aimed at iPhone 15 Pro). No account, no server. Install it from a Mac with Xcode and a **free Apple ID**.
 
-The interface is **English and French**. Profile → Language: System (follows the phone), English, or Français. iOS permission dialogs stay in the phone’s language. Everything inside Slide follows the switch.
+The interface is in **14 languages**: English, Français, Deutsch, Italiano, Español, Português, Nederlands, Svenska, Norsk, Polski, Čeština, 日本語, 한국어 and 简体中文. Profile → Language: System (follows the phone) or any of those. iOS permission dialogs stay in the phone’s language. Everything inside Slide, including the freestyle library, follows the switch.
 
 The install path below does **not** use Xcode. It uses Sideloadly on Windows. A later section still explains the Mac + Xcode path.
 
@@ -169,7 +169,7 @@ You can still send a day with AirDrop or Messages:
 - **Dynamic Island / Lock Screen** — a Live Activity with current speed while you track. This uses ActivityKit only. It does **not** need a paid entitlement. If Live Activities are off in iOS settings, Slide just skips it.
 - **No home-screen widget.** A widget that reads your saved days would need App Groups, and a free Personal Team cannot use App Groups.
 - **History** — season totals (1 September–31 August), records, speed and altitude charts, bars per run, replay of the track on the map, tap the line to read the speed at that point.
-- **Freestyle** — offline tips in both languages, from park rules up through grabs, rails, butters, 540, and supervised inversions (backflip, frontflip, cork 360). Those are marked **Coach required**. The order is trampoline with a spotter, then water ramp or airbag, then snow only with a coach. The checklist and notes stay on the phone.
+- **Freestyle** — offline tips in all 14 languages, from park rules up through grabs, rails, butters, 540, and supervised inversions (backflip, frontflip, cork 360). Those are marked **Coach required**. The order is trampoline with a spotter, then water ramp or airbag, then snow only with a coach. The checklist and notes stay on the phone.
 - **Profile** — name, resort, units (km/h by default), language, screen-on while tracking, sample day.
 
 ## Tests
@@ -189,7 +189,7 @@ In Xcode: **Product → Test** (`Cmd + U`) with an iPhone simulator. The tests r
 
 Application de ski et de freestyle pour iPhone (iOS 17+, visée iPhone 15 Pro). **Sans compte et sans serveur.** Elle s’installe depuis un Mac avec Xcode et un **Apple ID gratuit**.
 
-L’interface est en **anglais et en français**. Profil → Langue : Système (celle du téléphone), English, ou Français. Les demandes iOS (position, mouvement) restent dans la langue du téléphone. Tout l’intérieur de Slide suit le réglage.
+L’interface est en **14 langues** : English, Français, Deutsch, Italiano, Español, Português, Nederlands, Svenska, Norsk, Polski, Čeština, 日本語, 한국어 et 简体中文. Profil → Langue : Système (celle du téléphone), ou l’une de ces langues. Les demandes iOS (position, mouvement) restent dans la langue du téléphone. Tout l’intérieur de Slide, bibliothèque freestyle comprise, suit le réglage.
 
 ## Ce qu’il te faut
 
@@ -282,7 +282,7 @@ Tu peux quand même envoyer une journée par AirDrop ou Messages :
 - **Dynamic Island / écran verrouillé** — une Live Activity avec la vitesse pendant le suivi. ActivityKit seulement, **sans** capacité payante. Si les activités en direct sont désactivées dans les réglages iOS, Slide n’en lance pas.
 - **Pas de widget d’écran d’accueil.** Un widget qui lirait tes journées aurait besoin d’App Groups, et une équipe personnelle gratuite ne peut pas s’en servir.
 - **Historique** — totaux de saison (1er septembre–31 août), records, graphiques de vitesse et d’altitude, barres par descente, replay de la trace sur la carte, toucher la ligne pour la vitesse à cet endroit.
-- **Freestyle** — textes hors ligne dans les deux langues, des règles du park jusqu’aux grabs, rails, butters, 540, et aux inversés supervisés (backflip, frontflip, cork 360). Ils sont marqués **Avec un coach**. L’ordre : trampoline avec un pareur, puis tremplin d’eau ou airbag, puis neige seulement avec un coach. La checklist et les notes restent dans le téléphone.
+- **Freestyle** — textes hors ligne dans les 14 langues, des règles du park jusqu’aux grabs, rails, butters, 540, et aux inversés supervisés (backflip, frontflip, cork 360). Ils sont marqués **Avec un coach**. L’ordre : trampoline avec un pareur, puis tremplin d’eau ou airbag, puis neige seulement avec un coach. La checklist et les notes restent dans le téléphone.
 - **Profil** — prénom, station, unités (km/h par défaut), langue, écran allumé pendant le suivi, journée d’exemple.
 
 ## Tests

@@ -594,3 +594,7 @@ info = {
 info_path = ROOT / "Slide" / "Localization" / "InfoPlist.xcstrings"
 info_path.write_text(json.dumps(info, ensure_ascii=False, indent=2) + "\n")
 print("infoplist", info_path)
+merge = ROOT / "tooling" / "i18n" / "merge_languages.py"
+if merge.exists() and (ROOT / "tooling" / "i18n" / "locales").is_dir():
+    import runpy
+    runpy.run_path(str(merge), run_name="__main__")

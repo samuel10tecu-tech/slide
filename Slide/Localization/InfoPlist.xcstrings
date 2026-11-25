@@ -15,6 +15,78 @@
             "state": "translated",
             "value": "Slide utilise ta position pour mesurer la vitesse, la distance et tracer tes descentes, sans réseau."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide používá polohu k měření rychlosti, vzdálenosti a stopy, bez sítě."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide nutzt deinen Ort, um Tempo, Distanz und die Spur zu messen, ohne Netz."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide usa tu ubicación para medir velocidad, distancia y el track, sin red."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide usa la tua posizione per misurare velocità, distanza e la traccia, senza rete."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideは速度、距離、トラックを測るために位置情報を使う。ネットは要らない。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide는 속도, 거리, 트랙을 재려고 위치를 써. 인터넷은 필요 없어."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide bruker posisjonen din til å måle fart, distanse og sporet, uten nett."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide gebruikt je locatie om snelheid, afstand en het spoor te meten, zonder netwerk."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide używa lokalizacji, żeby mierzyć prędkość, dystans i ślad, bez sieci."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide usa a tua localização para medir velocidade, distância e o traçado, sem rede."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide använder din plats för att mäta fart, sträcka och spåret, utan nät."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 用你的位置测量速度、距离和轨迹，不需要网络。"
+          }
         }
       }
     },
@@ -31,6 +103,78 @@
           "stringUnit": {
             "state": "translated",
             "value": "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Rien n'est envoyé sur Internet. Le GPS s'arrête quand tu termines."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou, na rychlost, vzdálenost a stopu. Nic nejde na internet. GPS se vypne, když skončíš."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm, für Tempo, Distanz und die Spur. Nichts geht ins Internet. Das GPS stoppt, wenn du beendest."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada, para velocidad, distancia y el track. Nada se envía a internet. El GPS se para al terminar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato, per velocità, distanza e traccia. Niente va su internet. Il GPS si ferma quando termini."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideはセッション中ずっと、画面ロック中も、速度・距離・トラックのために位置情報が要る。インターネットには送らない。終了するとGPSは止まる。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide는 세션 내내, 화면이 잠겨 있어도, 속도·거리·트랙을 위해 위치가 필요해. 인터넷으로는 안 보내. 끝내면 GPS가 멈춰."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm, for fart, distanse og sporet. Ingenting sendes til internett. GPS stopper når du er ferdig."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm, voor snelheid, afstand en het spoor. Niets gaat naar internet. Gps stopt als je klaar bent."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie, do prędkości, dystansu i śladu. Nic nie idzie do internetu. GPS staje, gdy kończysz."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado, para velocidade, distância e o traçado. Nada vai para a internet. O GPS pára quando terminas."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide behöver din plats under hela åket, även med låst skärm, för fart, sträcka och spåret. Inget skickas till internet. GPS stannar när du slutar."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 在整段记录里都需要定位，锁屏时也要，用来测速度、距离和轨迹。不会发到网上。你结束时 GPS 会停。"
           }
         }
       }
@@ -49,6 +193,78 @@
             "state": "translated",
             "value": "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Rien n'est envoyé sur Internet."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou. Nic nejde na internet."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm. Nichts geht ins Internet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada. Nada se envía a internet."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato. Niente va su internet."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideはセッション中ずっと、画面ロック中も位置情報が要る。インターネットには送らない。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide는 세션 내내, 화면이 잠겨 있어도 위치가 필요해. 인터넷으로는 안 보내."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm. Ingenting sendes til internett."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm. Niets gaat naar internet."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie. Nic nie idzie do internetu."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado. Nada vai para a internet."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide behöver din plats under hela åket, även med låst skärm. Inget skickas till internet."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 在整段记录里都需要定位，锁屏时也要。不会发到网上。"
+          }
         }
       }
     },
@@ -65,6 +281,78 @@
           "stringUnit": {
             "state": "translated",
             "value": "Slide utilise le baromètre pour l'altitude et l'accéléromètre pour estimer le temps de vol des sauts."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide používá barometr na výšku a akcelerometr na odhad času ve vzduchu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide nutzt das Barometer für die Höhe und den Beschleunigungssensor für die geschätzte Luftzeit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide usa el barómetro para la altitud y el acelerómetro para estimar el aire."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide usa il barometro per la quota e l'accelerometro per stimare l'aria."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideは高度に気圧計、ジャンプの滞空推定に加速度センサーを使う。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide는 고도에 기압계, 점프 공중 시간 추정에 가속도계를 써."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide bruker barometeret for høyde og akselerometeret for anslått luft."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide gebruikt de barometer voor hoogte en de versnellingsmeter voor geschatte lucht."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide używa barometru do wysokości i akcelerometru do szacowanego czasu w powietrzu."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide usa o barómetro para a altitude e o acelerómetro para estimar o ar."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide använder barometern för höjd och accelerometern för uppskattad luft."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 用气压计测高度，用加速度计估计跳跃滞空。"
           }
         }
       }

@@ -232,7 +232,7 @@ struct TrickDetailView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(on ? language.t("freestyle.learned") : language.t("freestyle.notyet")).font(.headline)
                     if let date = entry?.learnedAt, on {
-                        Text(FormatFR.dayTitle(date, french: language.frenchNumbers))
+                        Text(FormatFR.dayTitle(date, french: language.frenchNumbers, localeID: language.localeIdentifier))
                             .font(.caption).foregroundStyle(Theme.muted)
                     } else {
                         Text(language.t("freestyle.learned.hint")).font(.caption).foregroundStyle(Theme.muted)

@@ -52,10 +52,11 @@ struct ProfileView: View {
                 .foregroundStyle(Theme.muted)
             Picker(language.t("profile.language"), selection: Bindable(language).choice) {
                 Text(language.t("profile.language.system")).tag(AppLanguage.system)
-                Text(language.t("profile.language.en")).tag(AppLanguage.en)
-                Text(language.t("profile.language.fr")).tag(AppLanguage.fr)
+                ForEach(AppLanguage.allCases.filter { $0 != .system }) { item in
+                    Text(item.endonym).tag(item)
+                }
             }
-            .pickerStyle(.segmented)
+            .pickerStyle(.menu)
             Text(language.t("profile.language.note"))
                 .font(.footnote)
                 .foregroundStyle(Theme.muted)

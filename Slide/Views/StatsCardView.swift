@@ -16,7 +16,7 @@ struct StatsCardView: View {
                     .font(.caption.weight(.heavy))
                     .tracking(2.2)
                 Spacer()
-                Text(FormatFR.dayShort(archive.startedAt, french: french))
+                Text(FormatFR.dayShort(archive.startedAt, french: french, localeID: language.localeIdentifier))
                     .font(.caption.weight(.semibold))
             }
             .foregroundStyle(Theme.accent)

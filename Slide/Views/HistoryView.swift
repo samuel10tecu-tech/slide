@@ -188,9 +188,9 @@ struct RecordsRow: View {
         let french = language.frenchNumbers
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                record(language.t("history.record.speed"), rollup.topSpeed > 0 ? FormatFR.speed(rollup.topSpeed, prefs: prefs, french: french) : "—", rollup.topSpeedDate.map { FormatFR.dayShort($0, french: french) } ?? language.t("history.record.none.speed"), Theme.accent)
-                record(language.t("history.record.longest"), rollup.longestRun > 0 ? FormatFR.distance(rollup.longestRun, prefs: prefs, french: french) : "—", rollup.longestRunDate.map { FormatFR.dayShort($0, french: french) } ?? language.t("history.record.none.long"), Theme.ice)
-                record(language.t("history.record.day"), rollup.bestDayVertical > 0 ? FormatFR.altitude(rollup.bestDayVertical, prefs: prefs, french: french) : "—", rollup.bestDayDate.map { FormatFR.dayShort($0, french: french) } ?? language.t("history.record.none.vert"), Theme.orange)
+                record(language.t("history.record.speed"), rollup.topSpeed > 0 ? FormatFR.speed(rollup.topSpeed, prefs: prefs, french: french) : "—", rollup.topSpeedDate.map { FormatFR.dayShort($0, french: french, localeID: language.localeIdentifier) } ?? language.t("history.record.none.speed"), Theme.accent)
+                record(language.t("history.record.longest"), rollup.longestRun > 0 ? FormatFR.distance(rollup.longestRun, prefs: prefs, french: french) : "—", rollup.longestRunDate.map { FormatFR.dayShort($0, french: french, localeID: language.localeIdentifier) } ?? language.t("history.record.none.long"), Theme.ice)
+                record(language.t("history.record.day"), rollup.bestDayVertical > 0 ? FormatFR.altitude(rollup.bestDayVertical, prefs: prefs, french: french) : "—", rollup.bestDayDate.map { FormatFR.dayShort($0, french: french, localeID: language.localeIdentifier) } ?? language.t("history.record.none.vert"), Theme.orange)
             }
             .padding(.horizontal, 16)
         }
@@ -217,7 +217,7 @@ struct DayRow: View {
         let french = language.frenchNumbers
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text(FormatFR.dayTitle(day.startedAt, french: french)).font(.subheadline.weight(.semibold))
+                Text(FormatFR.dayTitle(day.startedAt, french: french, localeID: language.localeIdentifier)).font(.subheadline.weight(.semibold))
                 Spacer()
                 if day.isSample { pill(language.t("history.example"), Theme.ice) }
                 if !day.isComplete { pill(language.t("history.open"), Theme.orange) }
@@ -315,7 +315,7 @@ struct DayDetailView: View {
             .padding(20)
         }
         .background(ScreenBackground())
-        .navigationTitle(FormatFR.dayShort(day.startedAt, french: french))
+        .navigationTitle(FormatFR.dayShort(day.startedAt, french: french, localeID: language.localeIdentifier))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             resortDraft = day.resort

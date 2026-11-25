@@ -92,22 +92,22 @@ enum FormatFR {
         return decimal(Units.feet(fromMeters: meters), fractionDigits: 0, french: french) + " ft"
     }
 
-    static func dayTitle(_ date: Date, french: Bool = true, calendar: Calendar = .zurich) -> String {
-        dated(date, format: "EEEE d MMMM", french: french, calendar: calendar)
+    static func dayTitle(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .zurich) -> String {
+        dated(date, format: "EEEE d MMMM", french: french, localeID: localeID, calendar: calendar)
     }
 
-    static func dayShort(_ date: Date, french: Bool = true, calendar: Calendar = .zurich) -> String {
-        dated(date, format: "EEE d MMM", french: french, calendar: calendar)
+    static func dayShort(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .zurich) -> String {
+        dated(date, format: "EEE d MMM", french: french, localeID: localeID, calendar: calendar)
     }
 
     static func clock(_ date: Date, calendar: Calendar = .zurich) -> String {
-        dated(date, format: "HH:mm", french: true, calendar: calendar)
+        dated(date, format: "HH:mm", french: true, localeID: nil, calendar: calendar)
     }
 
-    private static func dated(_ date: Date, format: String, french: Bool, calendar: Calendar) -> String {
+    private static func dated(_ date: Date, format: String, french: Bool, localeID: String?, calendar: Calendar) -> String {
         let formatter = DateFormatter()
         formatter.calendar = calendar
-        formatter.locale = Locale(identifier: french ? "fr_CH" : "en_GB")
+        formatter.locale = Locale(identifier: localeID ?? (french ? "fr_CH" : "en_GB"))
         formatter.timeZone = calendar.timeZone
         formatter.dateFormat = format
         return formatter.string(from: date)
