@@ -45,6 +45,10 @@ struct ProfileView: View {
         }
     }
 
+    private var audioCoach: some View {
+        AudioCoachCard(language: language)
+    }
+
     private var languageBlock: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(language.t("profile.language"))
@@ -82,6 +86,7 @@ struct ProfileView: View {
             .tint(Theme.accent)
             .padding(14)
             .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            audioCoach
             locationCard
             Button {
                 note = controller.toggleSampleDay()
@@ -185,5 +190,70 @@ struct ProfileView: View {
         }
         .padding(14)
         .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct AudioCoachCard: View {
+    var language: LanguageSettings
+    @AppStorage(AudioCoachSettings.enabled) private var enabled = false
+    @AppStorage(AudioCoachSettings.threshold) private var threshold = 60.0
+    @AppStorage(AudioCoachSettings.everyKm) private var everyKm = 1.0
+    @AppStorage(AudioCoachSettings.period) private var period = 0.0
+    @AppStorage(AudioCoachSettings.partDistance) private var sayDistance = true
+    @AppStorage(AudioCoachSettings.partSpeed) private var saySpeed = true
+    @AppStorage(AudioCoachSettings.partMax) private var sayMax = true
+    @AppStorage(AudioCoachSettings.partVertical) private var sayVertical = true
+    @AppStorage(AudioCoachSettings.partRuns) private var sayRuns = true
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Toggle(isOn: $enabled) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(language.t("audio.title")).font(.headline)
+                    Text(language.t("audio.detail")).font(.footnote).foregroundStyle(Theme.muted)
+                }
+            }
+            .tint(Theme.accent)
+            if enabled {
+                slider(language.t("audio.threshold"), value: "\(Int(threshold)) km/h", range: 20...130, step: 5, binding: $threshold)
+                slider(language.t("audio.every"), value: String(format: "%.1f km", everyKm), range: 0.5...10, step: 0.5, binding: $everyKm)
+                slider(language.t("audio.period"), value: period < 1 ? language.t("audio.period.off") : "\(Int(period)) min", range: 0...30, step: 1, binding: $period)
+                Text(language.t("audio.include")).font(.subheadline.weight(.bold)).foregroundStyle(Theme.muted)
+                part(language.t("audio.part.distance"), $sayDistance)
+                part(language.t("audio.part.speed"), $saySpeed)
+                part(language.t("audio.part.max"), $sayMax)
+                part(language.t("audio.part.vertical"), $sayVertical)
+                part(language.t("audio.part.runs"), $sayRuns)
+                Button {
+                    AudioCoach().test(language: language)
+                    Haptics.tap()
+                } label: {
+                    Label(language.t("audio.test"), systemImage: "speaker.wave.2.fill")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Theme.accent, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .foregroundStyle(Theme.ink)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(14)
+        .background(Theme.surface, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
+    private func slider(_ title: String, value: String, range: ClosedRange<Double>, step: Double, binding: Binding<Double>) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(title).font(.subheadline.weight(.semibold))
+                Spacer()
+                Text(value).font(.subheadline.weight(.heavy).monospacedDigit()).foregroundStyle(Theme.accent)
+            }
+            Slider(value: binding, in: range, step: step).tint(Theme.accent)
+        }
+    }
+
+    private func part(_ title: String, _ binding: Binding<Bool>) -> some View {
+        Toggle(title, isOn: binding).tint(Theme.accent).font(.subheadline)
     }
 }

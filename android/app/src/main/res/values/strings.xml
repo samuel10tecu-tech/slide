@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slide</string>
+    <string name="track">Track</string>
+    <string name="map">Map</string>
+    <string name="history">History</string>
+    <string name="learn">Learn</string>
+    <string name="profile">Profile</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="ready">Ready to ski</string>
+    <string name="live">Session on</string>
+    <string name="kmh">km/h</string>
+    <string name="need_location">Location is off. Allow it to track.</string>
+    <string name="notify_title">Slide is tracking</string>
+    <string name="notify_text">Speed and runs stay on this phone.</string>
+    <string name="max_today">Max speed today</string>
+    <string name="distance_today">Distance today</string>
+    <string name="runs">Runs</string>
+    <string name="vertical">Vertical</string>
+    <string name="no_days">No day yet.</string>
+    <string name="spots_empty">Pins appear after a saved day.</string>
+    <string name="audio">Audio coach</string>
+    <string name="audio_detail">Speaks in the headset. Music stays on, quieter.</string>
+    <string name="threshold">Speed mark</string>
+    <string name="every_km">Every</string>
+    <string name="interval">Time interval</string>
+    <string name="off">Off</string>
+    <string name="test_voice">Test voice</string>
+    <string name="hear_me">Slide. Can you hear me?</string>
+    <string name="share_gpx">Share GPX</string>
+    <string name="beginner">Beginner</string>
+    <string name="park">Park</string>
+    <string name="advanced">Advanced</string>
+    <string name="watch">Watch tutorial</string>
+    <string name="coach">Coach required</string>
+</resources>

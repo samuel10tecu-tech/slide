@@ -356,6 +356,95 @@
           }
         }
       }
+    },
+    "NSSiriUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide answers Siri about today's speed, distance and runs, on this phone only."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide répond à Siri sur la vitesse, la distance et les descentes d'aujourd'hui, seulement sur ce téléphone."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide odpovídá Siri na rychlost, vzdálenost a sjezdy z dneška, jen v tomto telefonu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide beantwortet Siri zu Tempo, Distanz und Abfahrten von heute, nur auf diesem Telefon."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide responde a Siri sobre velocidad, distancia y bajadas de hoy, solo en este teléfono."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide risponde a Siri su velocità, distanza e discese di oggi, solo su questo telefono."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideは今日の速度・距離・本数をSiriに答えます。この電話の中だけ。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide가 오늘의 속도, 거리, 활강을 Siri에 답해. 이 휴대폰 안에서만."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide svarer Siri om fart, distanse og nedfarter i dag, bare på denne telefonen."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide antwoordt Siri over snelheid, afstand en afdalingen van vandaag, alleen op deze telefoon."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide odpowiada Siri o prędkości, dystansie i zjazdach z dziś, tylko na tym telefonie."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide responde à Siri sobre velocidade, distância e descidas de hoje, só neste telemóvel."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide svarar Siri om fart, sträcka och åk idag, bara på den här telefonen."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 会用 Siri 回答今天的速度、距离和滑降，只在这台手机上。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

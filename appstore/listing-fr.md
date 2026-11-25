@@ -24,4 +24,4 @@ Rien n'est envoyé. Pas de compte. Tu peux partager une journée en GPX, en imag
 ski,freestyle,hors ligne,gps,dénivelé,snowpark,alpes,trace,vitesse,station
 
 ## Nouveautés
-Le nom de la station s'affiche sur les épingles, et la journée s'ouvre sur une grande vitesse max.
+Coach audio dans le casque, Siri pour la vitesse et la distance du jour, le nom de la station sur les épingles, et une grande vitesse max sur la journée.

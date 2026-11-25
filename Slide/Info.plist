@@ -60,9 +60,12 @@
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 	</dict>
+	<key>NSSiriUsageDescription</key>
+	<string>Slide answers Siri about today's speed, distance and runs, on this phone only.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
+		<string>audio</string>
 	</array>
 	<key>UIDeviceFamily</key>
 	<array>

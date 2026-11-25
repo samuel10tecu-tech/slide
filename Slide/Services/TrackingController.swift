@@ -45,6 +45,8 @@ final class TrackingController {
     private var latestRelative: Double?
     private var powerObserver: NSObjectProtocol?
     private var language: LanguageSettings?
+    private let audio = AudioCoach()
+    private var personalBest = 0.0
     private let liveActivity = LiveActivityBridge()
     private var lastMapPush = Date.distantPast
 
@@ -343,6 +345,9 @@ final class TrackingController {
         latestRelative = nil
         activity = .tracking
         recoverableID = nil
+        personalBest = ((try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []).map(\.maxSpeed).max() ?? 0
+        audio.resetSession(personalBest: personalBest)
+        if AudioCoachSettings.isOn { audio.prepare() }
         startSensors()
         flush(complete: false)
         publish()
@@ -463,6 +468,59 @@ final class TrackingController {
             lastMapPush = now
         }
         pushLiveActivity(force: false)
+        if activity == .tracking, let language {
+            let totals = todayTotals()
+            audio.consider(
+                summary: summary,
+                runs: tracker.runs,
+                todayDistance: totals.distance,
+                personalBest: personalBest,
+                elapsed: duration(at: Date()),
+                language: language,
+                prefs: prefs
+            )
+        }
+    }
+
+    func todayTotals() -> (distance: Double, vertical: Double, maxSpeed: Double, runs: Int) {
+        let start = Calendar.zurich.startOfDay(for: Date())
+        let stored = (try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []
+        var distance = 0.0
+        var vertical = 0.0
+        var maxSpeed = 0.0
+        var runs = 0
+        for day in stored where day.startedAt >= start {
+            if activity != .idle, day.uuid == dayID { continue }
+            distance += day.distance
+            vertical += day.vertical
+            maxSpeed = max(maxSpeed, day.maxSpeed)
+            runs += day.runCount
+        }
+        if activity != .idle {
+            distance += summary.distance
+            vertical += summary.vertical
+            maxSpeed = max(maxSpeed, summary.maxSpeed)
+            runs += summary.qualifiedRuns
+        }
+        return (distance, vertical, maxSpeed, runs)
+    }
+
+    func speed(minutesAgo minutes: Int) -> Double? {
+        let target = Date().addingTimeInterval(-Double(minutes) * 60)
+        var best: (TimeInterval, Double)?
+        func consider(time: Date, speed: Double) {
+            let gap = abs(time.timeIntervalSince(target))
+            if best == nil || gap < best!.0 { best = (gap, speed) }
+        }
+        for sample in tracker.samples { consider(time: sample.time, speed: sample.speed) }
+        let start = Calendar.zurich.startOfDay(for: Date())
+        let stored = (try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []
+        for day in stored where day.startedAt >= start {
+            guard let archive = day.readArchive() else { continue }
+            for sample in archive.samples { consider(time: sample.time, speed: sample.speed) }
+        }
+        guard let best, best.0 <= 180 else { return nil }
+        return best.1
     }
 
     private func warmMapIfNeeded() {

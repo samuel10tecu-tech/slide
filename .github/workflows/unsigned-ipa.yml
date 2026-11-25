@@ -42,7 +42,7 @@ jobs:
           mkdir -p build
           rm -f build/Slide-appstore.zip
           (cd appstore && zip -r -q "../build/Slide-appstore.zip" .)
-          notes=$"Slide ${VERSION} for Sideloadly.\n\nUse Slide.ipa. If Sideloadly refuses the Live Activity extension, use Slide-no-extension.ipa. A free Apple ID must re-sign about every 7 days. Do not delete the app first if you want to keep saved days.\n\nSlide-appstore.zip holds the App Store listing text and screenshots."
+          notes=$"Slide ${VERSION}.\n\nSideload Slide.ipa with a free Apple ID (or Slide-no-extension.ipa if the Live Activity is refused). Re-sign about every 7 days without deleting the app.\n\nSlide.apk is the Android debug build. Slide-appstore.zip holds the store listing and screenshots."
           files=(build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa build/Slide-appstore.zip)
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "${files[@]}" --clobber
@@ -51,4 +51,54 @@ jobs:
               --title "Slide ${VERSION}" \
               --notes "$notes" \
               --latest
+          fi
+
+  apk:
+    name: Build debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: SDK packages
+        run: sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Debug keystore
+        working-directory: android/app
+        run: keytool -genkeypair -keystore slide-debug.keystore -storepass android -alias slide -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Slide,O=Slide,C=CH"
+
+      - name: Gradle
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.10.2/bin" >> "$GITHUB_PATH"
+
+      - name: Assemble
+        working-directory: android
+        env:
+          SLIDE_KEYSTORE: slide-debug.keystore
+        run: gradle assembleDebug --no-daemon
+
+      - name: Attach Slide.apk
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION=$(sed -n 's/^[[:space:]]*MARKETING_VERSION = \(.*\);/\1/p' Slide.xcodeproj/project.pbxproj | head -1)
+          TAG="v${VERSION}"
+          APK=$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)
+          cp "$APK" Slide.apk
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" Slide.apk --clobber
+          else
+            gh release create "$TAG" Slide.apk --title "Slide ${VERSION}" --notes "Slide ${VERSION}. Android debug APK plus the iOS build." --latest
           fi

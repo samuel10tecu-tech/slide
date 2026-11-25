@@ -24,4 +24,4 @@ Nothing is uploaded. There is no account. Share a day as GPX, an image, or a .sl
 ski,snowboard,freestyle,tracker,gps,offline,vertical,runs,snowpark,alps
 
 ## What's new
-Resort names sit on the map pins, and the day opens with a large top speed.
+Audio coach in your headset, Siri answers for today's speed and distance, resort names on the map, and a large top speed on the day.

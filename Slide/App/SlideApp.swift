@@ -4,8 +4,8 @@ import UIKit
 
 @main
 struct SlideApp: App {
-    @State private var controller = TrackingController()
-    @State private var language = LanguageSettings()
+    @State private var controller = SlideServices.controller
+    @State private var language = SlideServices.language
 
     var body: some Scene {
         WindowGroup {
