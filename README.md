@@ -4,6 +4,76 @@ Offline ski and freestyle tracker for iPhone (iOS 17+, aimed at iPhone 15 Pro). 
 
 The interface is **English and French**. Profile → Language: System (follows the phone), English, or Français. iOS permission dialogs stay in the phone’s language. Everything inside Slide follows the switch.
 
+The install path below does **not** use Xcode. It uses Sideloadly on Windows. A later section still explains the Mac + Xcode path.
+
+## Install with Sideloadly on Windows
+
+Use this when the Mac’s Apple ID is blocked by Screen Time and Xcode cannot be installed.
+
+### On the Windows PC
+
+1. Install **iTunes** and **iCloud** from Apple’s website, not from the Microsoft Store. The Microsoft Store versions do not talk to Sideloadly.
+   - iTunes: https://www.apple.com/itunes/
+   - iCloud: https://www.apple.com/icloud/ (download the Windows installer from the page, or the direct Apple support download if the site offers “iCloud for Windows”)
+2. Install **Sideloadly** from https://sideloadly.io/ (the Windows installer).
+3. Download `Slide.ipa`. If Sideloadly refuses the Live Activity extension, use `Slide-no-extension.ipa` instead. You lose the speed on the Dynamic Island; the rest of the app is the same.
+4. Plug the iPhone into the PC with a cable. Unlock the phone and tap **Trust** if it asks.
+5. Open Sideloadly. Drag the `.ipa` onto the window.
+6. Pick the iPhone in the device list.
+7. Enter the **free Apple ID** (an email Apple accepts). An adult’s free Apple ID is fine if a child’s ID is too young. Sideloadly may send a verification code.
+8. Start the install and leave the cable connected until it finishes. The first time can take several minutes.
+
+Sideloadly re-signs the app with that Apple ID. The `.ipa` in this project is only ad-hoc signed (or unsigned). It is not tied to a paid developer account.
+
+### On the iPhone
+
+1. **Settings → Privacy & Security → Developer Mode**. Turn it on. The iPhone restarts. After restart, confirm **Turn On**. If the row is missing, finish the Sideloadly install once and look again.
+2. **Settings → General → VPN & Device Management**.
+3. Under **Developer App**, tap the Apple ID that Sideloadly used, then **Trust**.
+4. Open **Slide** from the home screen.
+5. On the first **Start**, allow location. Then set **Settings → Privacy & Security → Location Services → Slide → Always**, so tracking continues with the screen locked.
+6. Allow Motion if iOS asks (altitude and estimated airtime).
+
+### Every 7 days
+
+A free Apple ID install expires after about **7 days**. The icon stays, but the app will not open.
+
+Sideload the **same** `.ipa` again with Sideloadly. **Do not delete Slide first.** Deleting it erases the saved days. Re-sideloading with the same Apple ID and the same bundle id (`ch.geneve.slide.ski`) keeps the data.
+
+## Installer avec Sideloadly sur Windows
+
+À utiliser quand l’Apple ID du Mac est limité par Temps d’écran et que Xcode ne s’installe pas.
+
+### Sur le PC Windows
+
+1. Installe **iTunes** et **iCloud** depuis le site d’Apple, pas depuis le Microsoft Store. Les versions du Store ne parlent pas à Sideloadly.
+   - iTunes : https://www.apple.com/itunes/
+   - iCloud : https://www.apple.com/icloud/ (l’installateur Windows proposé sur la page, ou le téléchargement « iCloud pour Windows » d’Apple)
+2. Installe **Sideloadly** depuis https://sideloadly.io/ (l’installateur Windows).
+3. Télécharge `Slide.ipa`. Si Sideloadly refuse l’extension Live Activity, prends `Slide-no-extension.ipa`. Tu perds la vitesse sur la Dynamic Island ; le reste de l’app est le même.
+4. Branche l’iPhone au PC avec un câble. Déverrouille-le et touche **Faire confiance** s’il le demande.
+5. Ouvre Sideloadly. Glisse le fichier `.ipa` dans la fenêtre.
+6. Choisis l’iPhone dans la liste.
+7. Entre l’**Apple ID gratuit** (une adresse qu’Apple accepte). L’Apple ID gratuit d’un adulte convient si celui d’un enfant est trop jeune. Sideloadly peut envoyer un code de vérification.
+8. Lance l’installation et laisse le câble branché jusqu’à la fin. La première fois peut prendre plusieurs minutes.
+
+Sideloadly re-signe l’app avec cet Apple ID. Le `.ipa` du projet n’est signé qu’en ad hoc (ou pas du tout). Il n’est pas lié à un compte développeur payant.
+
+### Sur l’iPhone
+
+1. **Réglages → Confidentialité et sécurité → Mode développeur**. Active-le. L’iPhone redémarre. Après le redémarrage, confirme **Activer**. Si la ligne n’existe pas, termine une fois l’installation Sideloadly puis regarde encore.
+2. **Réglages → Général → VPN et gestion de l’appareil**.
+3. Sous **App de développement**, touche l’Apple ID utilisé par Sideloadly, puis **Faire confiance**.
+4. Ouvre **Slide** depuis l’écran d’accueil.
+5. Au premier **Démarrer**, autorise la position. Ensuite : **Réglages → Confidentialité et sécurité → Service de localisation → Slide → Toujours**, pour que le suivi continue écran verrouillé.
+6. Autorise le mouvement si iOS le demande (altitude et airtime estimé).
+
+### Tous les 7 jours
+
+Une installation avec un Apple ID gratuit expire au bout d’environ **7 jours**. L’icône reste, mais l’app ne s’ouvre plus.
+
+Recharge le **même** `.ipa` avec Sideloadly. **Ne supprime pas Slide avant.** La supprimer efface les journées enregistrées. Recharger avec le même Apple ID et le même identifiant (`ch.geneve.slide.ski`) garde les données.
+
 ---
 
 # English

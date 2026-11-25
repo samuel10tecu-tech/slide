@@ -1,0 +1,8 @@
+steps:
+  - label: "Unsigned Slide IPA"
+    command: bash tooling/build-ipa.sh
+    artifact_paths:
+      - "build/ipa/Slide.ipa"
+      - "build/ipa/Slide-no-extension.ipa"
+    agents:
+      os: macos

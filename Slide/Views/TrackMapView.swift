@@ -129,7 +129,7 @@ struct LiveTrackMap: View {
                     }
                 }
             }
-            .mapStyle(.hybrid(elevation: .realistic))
+            .mapStyle(.hybrid())
             .onTapGesture { location in
                 guard let sample = TrackGeometry.nearest(to: location, proxy: proxy, samples: samples) else { return }
                 onSelect?(sample)

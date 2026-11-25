@@ -1,0 +1,30 @@
+name: Unsigned Slide IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  ipa:
+    name: Build unsigned IPA
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build IPA and run tests
+        run: bash tooling/build-ipa.sh
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: Slide-ipa
+          path: |
+            build/ipa/Slide.ipa
+            build/ipa/Slide-no-extension.ipa
+          if-no-files-found: error
+          retention-days: 14
