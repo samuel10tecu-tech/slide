@@ -24,4 +24,4 @@ Nothing is uploaded. There is no account. Share a day as GPX, an image, or a .sl
 ski,snowboard,freestyle,tracker,gps,offline,vertical,runs,snowpark,alps
 
 ## What's new
-A night-alpine look, a map of places you have skied, and a clearer learn path with tutorial search.
+Resort names sit on the map pins, and the day opens with a large top speed.

@@ -70,7 +70,18 @@ struct PlacesMapView: View {
                                 }
                                 Haptics.tap()
                             } label: {
-                                pin(cluster)
+                                VStack(spacing: 4) {
+                                    pin(cluster)
+                                    if let name = resortName(cluster) {
+                                        Text(name)
+                                            .font(.caption2.weight(.heavy))
+                                            .foregroundStyle(Theme.snow)
+                                            .lineLimit(1)
+                                            .padding(.horizontal, 6)
+                                            .padding(.vertical, 2)
+                                            .background(Theme.ink.opacity(0.82), in: Capsule())
+                                    }
+                                }
                             }
                             .buttonStyle(.plain)
                         }
@@ -138,6 +149,13 @@ struct PlacesMapView: View {
                     .foregroundStyle(Theme.accent)
             }
         }
+    }
+
+    private func resortName(_ cluster: PlaceCluster) -> String? {
+        guard cluster.dayIDs.count == 1,
+              let day = days.first(where: { $0.uuid == cluster.dayIDs[0] }) else { return nil }
+        let name = day.resort.trimmingCharacters(in: .whitespacesAndNewlines)
+        return name.isEmpty ? nil : name
     }
 
     private func fit() {

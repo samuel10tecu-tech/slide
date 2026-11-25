@@ -24,4 +24,4 @@ Rien n'est envoyé. Pas de compte. Tu peux partager une journée en GPX, en imag
 ski,freestyle,hors ligne,gps,dénivelé,snowpark,alpes,trace,vitesse,station
 
 ## Nouveautés
-Un look nuit alpine, une carte des endroits skiés, et un parcours d'apprentissage plus clair avec recherche de tutos.
+Le nom de la station s'affiche sur les épingles, et la journée s'ouvre sur une grande vitesse max.
