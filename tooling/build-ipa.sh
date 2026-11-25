@@ -33,18 +33,8 @@ else
   echo "No iPhone simulator found. Skipping xcodebuild test." >&2
 fi
 
-sign_flags=(
-  CODE_SIGN_STYLE=Manual
-  "CODE_SIGN_IDENTITY=-"
-  CODE_SIGNING_REQUIRED=NO
-  CODE_SIGNING_ALLOWED=YES
-  "DEVELOPMENT_TEAM="
-  "PROVISIONING_PROFILE_SPECIFIER="
-  "PROVISIONING_PROFILE="
-)
-
-echo "=== Release device build (ad-hoc signature, no Apple ID) ==="
-set +e
+echo "=== Release device build (unsigned, no Apple ID) ==="
+# The iOS 18 SDK rejects an ad-hoc identity ("-"). Sideloadly re-signs the IPA.
 xcodebuild build \
   -project Slide.xcodeproj \
   -scheme Slide \
@@ -52,27 +42,13 @@ xcodebuild build \
   -destination 'generic/platform=iOS' \
   -sdk iphoneos \
   -derivedDataPath "$DERIVED" \
-  "${sign_flags[@]}"
-BUILD_STATUS=$?
-set -e
-
-if [[ "$BUILD_STATUS" -ne 0 ]]; then
-  echo "Ad-hoc signature failed. Retrying fully unsigned." >&2
-  xcodebuild build \
-    -project Slide.xcodeproj \
-    -scheme Slide \
-    -configuration Release \
-    -destination 'generic/platform=iOS' \
-    -sdk iphoneos \
-    -derivedDataPath "$DERIVED" \
-    CODE_SIGN_STYLE=Manual \
-    "CODE_SIGN_IDENTITY=" \
-    CODE_SIGNING_REQUIRED=NO \
-    CODE_SIGNING_ALLOWED=NO \
-    "DEVELOPMENT_TEAM=" \
-    "PROVISIONING_PROFILE_SPECIFIER=" \
-    "PROVISIONING_PROFILE="
-fi
+  CODE_SIGN_STYLE=Manual \
+  "CODE_SIGN_IDENTITY=" \
+  CODE_SIGNING_REQUIRED=NO \
+  CODE_SIGNING_ALLOWED=NO \
+  "DEVELOPMENT_TEAM=" \
+  "PROVISIONING_PROFILE_SPECIFIER=" \
+  "PROVISIONING_PROFILE="
 
 APP="$(find "$DERIVED" -path '*Release-iphoneos/Slide.app' -type d | head -n 1)"
 if [[ -z "$APP" || ! -d "$APP" ]]; then

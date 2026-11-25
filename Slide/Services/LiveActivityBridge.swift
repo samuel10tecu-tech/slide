@@ -3,16 +3,16 @@ import Foundation
 
 @MainActor
 final class LiveActivityBridge {
-    private var activity: Activity<SlideActivityAttributes>?
+    private var activity: ActivityKit.Activity<SlideActivityAttributes>?
     private var lastPush = Date.distantPast
 
     func start(resort: String, state: SlideActivityAttributes.ContentState) {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
         end()
         do {
-            activity = try Activity.request(
+            activity = try ActivityKit.Activity.request(
                 attributes: SlideActivityAttributes(resort: resort),
-                content: ActivityContent(state: state, staleDate: nil),
+                content: ActivityKit.ActivityContent(state: state, staleDate: nil),
                 pushType: nil
             )
             lastPush = Date()
@@ -27,7 +27,7 @@ final class LiveActivityBridge {
         if !force && now.timeIntervalSince(lastPush) < 2 { return }
         lastPush = now
         Task {
-            await activity.update(ActivityContent(state: state, staleDate: nil))
+            await activity.update(ActivityKit.ActivityContent(state: state, staleDate: nil))
         }
     }
 
@@ -35,8 +35,7 @@ final class LiveActivityBridge {
         guard let activity else { return }
         self.activity = nil
         Task {
-            let empty: ActivityContent<SlideActivityAttributes.ContentState>? = nil
-            await activity.end(empty, dismissalPolicy: .immediate)
+            await activity.end(nil, dismissalPolicy: .immediate)
         }
     }
 }

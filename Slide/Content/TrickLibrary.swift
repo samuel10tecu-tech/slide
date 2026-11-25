@@ -29,17 +29,17 @@ struct Trick: Identifiable, Hashable {
     let tipCount: Int
     let requiresCoach: Bool
 
-    func name(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).name") }
-    func summary(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).summary") }
-    func safety(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).safety") }
-    func steps(_ lang: LanguageSettings) -> [String] {
+    @MainActor func name(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).name") }
+    @MainActor func summary(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).summary") }
+    @MainActor func safety(_ lang: LanguageSettings) -> String { lang.t("trick.\(id).safety") }
+    @MainActor func steps(_ lang: LanguageSettings) -> [String] {
         (0..<stepCount).map { lang.t("trick.\(id).step.\($0)") }
     }
-    func tips(_ lang: LanguageSettings) -> [String] {
+    @MainActor func tips(_ lang: LanguageSettings) -> [String] {
         (0..<tipCount).map { lang.t("trick.\(id).tip.\($0)") }
     }
-    func levelName(_ lang: LanguageSettings) -> String { lang.t("level.\(level.rawValue)") }
-    func categoryName(_ lang: LanguageSettings) -> String { lang.t("cat.\(category.rawValue)") }
+    @MainActor func levelName(_ lang: LanguageSettings) -> String { lang.t("level.\(level.rawValue)") }
+    @MainActor func categoryName(_ lang: LanguageSettings) -> String { lang.t("cat.\(category.rawValue)") }
 }
 
 enum TrickLibrary {

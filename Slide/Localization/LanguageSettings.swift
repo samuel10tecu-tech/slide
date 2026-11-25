@@ -12,7 +12,7 @@ enum AppNotice: Equatable {
     case sampleRemoved
     case sampleRetry
 
-    func message(_ lang: LanguageSettings) -> String {
+    @MainActor func message(_ lang: LanguageSettings) -> String {
         switch self {
         case .fileUnreadable:
             return lang.t("notice.file.unreadable")

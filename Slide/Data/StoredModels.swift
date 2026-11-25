@@ -41,10 +41,6 @@ final class SkiDay {
     }
 
     func readArchive() -> SessionArchive? {
-        if let inflated = try? payload.decompressed(using: .zlib),
-           let archive = try? SessionFile.decode(inflated) {
-            return archive
-        }
         return try? SessionFile.decode(payload)
     }
 
@@ -64,7 +60,7 @@ final class SkiDay {
         airtime = archive.airtime
         longestRunDistance = archive.longestRunDistance
         if let encoded = try? SessionFile.encode(archive) {
-            payload = (try? encoded.compressed(using: .zlib)) ?? encoded
+            payload = encoded
         }
     }
 }
