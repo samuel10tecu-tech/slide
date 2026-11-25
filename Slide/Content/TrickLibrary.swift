@@ -1,12 +1,26 @@
 import Foundation
 
 struct Trick: Identifiable, Hashable {
+    enum Course: String, CaseIterable, Identifiable {
+        case beginner
+        case park
+        case advanced
+        var id: String { rawValue }
+    }
+
     enum Level: String, CaseIterable, Identifiable {
         case debutant
         case intermediaire
         case avance
         case expert
         var id: String { rawValue }
+        var course: Course {
+            switch self {
+            case .debutant: return .beginner
+            case .intermediaire: return .park
+            case .avance, .expert: return .advanced
+            }
+        }
     }
 
     enum Category: String, CaseIterable, Identifiable {
@@ -40,6 +54,12 @@ struct Trick: Identifiable, Hashable {
     }
     @MainActor func levelName(_ lang: LanguageSettings) -> String { lang.t("level.\(level.rawValue)") }
     @MainActor func categoryName(_ lang: LanguageSettings) -> String { lang.t("cat.\(category.rawValue)") }
+
+    @MainActor func tutorialURL(_ lang: LanguageSettings) -> URL? {
+        var parts = URLComponents(string: "https://www.youtube.com/results")
+        parts?.queryItems = [URLQueryItem(name: "search_query", value: "ski \(name(lang)) tutorial")]
+        return parts?.url
+    }
 }
 
 enum TrickLibrary {

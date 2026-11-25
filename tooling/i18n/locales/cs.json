@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Vzdání: nejsi-li kolem, nestav ruku. Brada dovnitř, zkus klouzat na zádech, sjeď z linie. Cítil-li ses na hraně pozdě, měl jsi jet rovně.",
   "trick.cork-360.step.5": "Sníh jen na malém skoku, který čistě 360, se stejným trenérem, který viděl opakování na airbagu, a se strmým prázdným dopadem.",
   "trick.cork-360.tip.0": "Je-li rovná 360 tvůj nejčistší trik, nech ji. Cork může počkat sezonu.",
-  "trick.cork-360.tip.1": "Helma a chránič zad jsou na hlavě a na zádech před prvním pokusem mimo osu, i na airbagu."
+  "trick.cork-360.tip.1": "Helma a chránič zad jsou na hlavě a na zádech před prvním pokusem mimo osu, i na airbagu.",
+  "freestyle.learn": "Učit se",
+  "freestyle.watch": "Pustit návod",
+  "freestyle.mistakes": "Časté chyby",
+  "freestyle.course.beginner": "Začátečník",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Pokročilý",
+  "tab.map": "Mapa",
+  "map.title": "Kde jsi lyžoval",
+  "map.empty": "Zatím žádný den. Špendlík se objeví, až uložíš stopu.",
+  "map.cluster": "%d dny"
 }

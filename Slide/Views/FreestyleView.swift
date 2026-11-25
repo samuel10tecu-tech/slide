@@ -5,7 +5,7 @@ struct FreestyleView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(LanguageSettings.self) private var language
     @Query private var entries: [TrickEntry]
-    @State private var level: Trick.Level?
+    @State private var course: Trick.Course?
     @State private var query = ""
 
     private var learnedIDs: Set<String> {
@@ -14,7 +14,7 @@ struct FreestyleView: View {
 
     private var filtered: [Trick] {
         TrickLibrary.tricks.filter { trick in
-            let levelOK = level == nil || trick.level == level
+            let levelOK = course == nil || trick.level.course == course
             let text = query.trimmingCharacters(in: .whitespacesAndNewlines)
             let queryOK = text.isEmpty
                 || trick.name(language).localizedCaseInsensitiveContains(text)
@@ -34,7 +34,7 @@ struct FreestyleView: View {
                         .padding(14)
                         .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     chips
-                    if let pinned = TrickLibrary.trick("park-rules"), query.isEmpty && level == nil {
+                    if let pinned = TrickLibrary.trick("park-rules"), query.isEmpty && course == nil {
                         NavigationLink { TrickDetailView(trick: pinned) } label: {
                             Banner(text: language.t("freestyle.pinned"), systemImage: "shield.fill", tint: Theme.accent)
                         }
@@ -43,17 +43,23 @@ struct FreestyleView: View {
                     if filtered.isEmpty {
                         Text(language.t("freestyle.empty")).foregroundStyle(Theme.muted).padding(.top, 12)
                     }
-                    ForEach(filtered) { trick in
-                        NavigationLink { TrickDetailView(trick: trick) } label: {
-                            trickRow(trick)
+                    ForEach(Trick.Course.allCases) { item in
+                        let rows = filtered.filter { $0.level.course == item }
+                        if !rows.isEmpty {
+                            courseHeader(item)
+                            ForEach(rows) { trick in
+                                NavigationLink { TrickDetailView(trick: trick) } label: {
+                                    trickRow(trick)
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
-                        .buttonStyle(.plain)
                     }
                 }
                 .padding(20)
             }
             .background(ScreenBackground())
-            .navigationTitle(language.t("freestyle.title"))
+            .navigationTitle(language.t("freestyle.learn"))
         }
     }
 
@@ -82,10 +88,10 @@ struct FreestyleView: View {
     private var chips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                chip(language.t("freestyle.filter.all"), selected: level == nil) { level = nil }
-                ForEach(Trick.Level.allCases) { item in
-                    chip(language.t("level.\(item.rawValue)"), selected: level == item) {
-                        level = level == item ? nil : item
+                chip(language.t("freestyle.filter.all"), selected: course == nil) { course = nil }
+                ForEach(Trick.Course.allCases) { item in
+                    chip(language.t("freestyle.course.\(item.rawValue)"), selected: course == item) {
+                        course = course == item ? nil : item
                     }
                 }
             }
@@ -99,9 +105,20 @@ struct FreestyleView: View {
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
                 .background(selected ? Theme.accent : Theme.surface, in: Capsule())
-                .foregroundStyle(selected ? Color.black : Theme.text)
+                .foregroundStyle(selected ? Theme.ink : Theme.text)
         }
         .buttonStyle(.plain)
+    }
+
+    private func courseHeader(_ item: Trick.Course) -> some View {
+        let tint = item == .beginner ? Theme.pisteGreen : (item == .park ? Theme.pisteBlue : Theme.pisteRed)
+        return HStack(spacing: 8) {
+            RoundedRectangle(cornerRadius: 2).fill(tint).frame(width: 4, height: 18)
+            Text(language.t("freestyle.course.\(item.rawValue)"))
+                .font(.headline.weight(.heavy))
+            Spacer()
+        }
+        .padding(.top, 6)
     }
 
     private func trickRow(_ trick: Trick) -> some View {
@@ -177,10 +194,20 @@ struct TrickDetailView: View {
                         }
                     }
                 }
+                if let url = trick.tutorialURL(language) {
+                    Link(destination: url) {
+                        Label(language.t("freestyle.watch"), systemImage: "play.rectangle.fill")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(Theme.accent, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            .foregroundStyle(Theme.ink)
+                    }
+                }
                 Banner(text: trick.safety(language), systemImage: "shield.lefthalf.filled", tint: Theme.orange)
                 if trick.tipCount > 0 {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(language.t("freestyle.remember")).font(.headline)
+                        Text(language.t("freestyle.mistakes")).font(.headline)
                         ForEach(trick.tips(language), id: \.self) { tip in
                             HStack(alignment: .top, spacing: 8) {
                                 Image(systemName: "sparkles").foregroundStyle(Theme.accent).padding(.top, 2)

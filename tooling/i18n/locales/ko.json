@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "포기: 다 돌지 않았으면 팔을 짚지 마. 턱을 넣고 등으로 미끄러지려 하고, 라인에서 나와. 립에서 늦다고 느꼈다면 곧게 넘겼어야 해.",
   "trick.cork-360.step.5": "눈은 깨끗하게 360하는 작은 점프에서만. 에어백 반복을 본 같은 코치와. 착지는 가파르고 비어 있어야 해.",
   "trick.cork-360.tip.0": "곧은 360이 가장 깨끗한 트릭이면 그걸 둬. 코크는 한 시즌 기다릴 수 있어.",
-  "trick.cork-360.tip.1": "축을 빼는 첫 시도 전에, 에어백에서도 헬멧과 등 보호대를 착용해."
+  "trick.cork-360.tip.1": "축을 빼는 첫 시도 전에, 에어백에서도 헬멧과 등 보호대를 착용해.",
+  "freestyle.learn": "배우기",
+  "freestyle.watch": "튜토리얼 보기",
+  "freestyle.mistakes": "흔한 실수",
+  "freestyle.course.beginner": "초급",
+  "freestyle.course.park": "파크",
+  "freestyle.course.advanced": "고급",
+  "tab.map": "지도",
+  "map.title": "탄 곳",
+  "map.empty": "아직 기록이 없어. 트랙을 저장하면 핀이 생겨.",
+  "map.cluster": "%d일"
 }

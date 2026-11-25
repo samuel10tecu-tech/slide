@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Avbryt: är du inte runt, sätt inte i en arm. Hakan in, försök glida på ryggen, lämna linjen. Kände du dig sen på lippen skulle du ha åkt rakt.",
   "trick.cork-360.step.5": "Snö bara på ett litet hopp du 360:ar rent, med samma coach som såg airbag-repetitionerna, och med en brant, tom landning.",
   "trick.cork-360.tip.0": "Om den raka 360:an är ditt renaste trick, behåll den. Corken kan vänta en säsong.",
-  "trick.cork-360.tip.1": "Hjälm och ryggskydd är på innan första försöket ur axel, också på en airbag."
+  "trick.cork-360.tip.1": "Hjälm och ryggskydd är på innan första försöket ur axel, också på en airbag.",
+  "freestyle.learn": "Lär dig",
+  "freestyle.watch": "Se en tutorial",
+  "freestyle.mistakes": "Vanliga misstag",
+  "freestyle.course.beginner": "Nybörjare",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Avancerat",
+  "tab.map": "Karta",
+  "map.title": "Där du åkt",
+  "map.empty": "Ingen dag än. En nål syns när du sparar ett spår.",
+  "map.cluster": "%d dagar"
 }

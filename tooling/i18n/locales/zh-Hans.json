@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "放弃：没转过来就不要撑出一只手臂。下巴收回，尽量用后背滑，离开线路。如果在唇沿上觉得晚了，你本来就该直着滑过去。",
   "trick.cork-360.step.5": "雪上只在一个你能干净做 360 的小跳台上，和看过你气垫练习的同一位教练，落地区要陡、要空。",
   "trick.cork-360.tip.0": "如果直的 360 是你最干净的动作，就留着它。Cork 可以等一个雪季。",
-  "trick.cork-360.tip.1": "第一次偏离轴线之前，包括在气垫上，头盔和护背都要戴上。"
+  "trick.cork-360.tip.1": "第一次偏离轴线之前，包括在气垫上，头盔和护背都要戴上。",
+  "freestyle.learn": "学习",
+  "freestyle.watch": "看教程",
+  "freestyle.mistakes": "常见错误",
+  "freestyle.course.beginner": "入门",
+  "freestyle.course.park": "公园",
+  "freestyle.course.advanced": "进阶",
+  "tab.map": "地图",
+  "map.title": "你滑过的地方",
+  "map.empty": "还没有记录。保存一条轨迹后这里会出现图钉。",
+  "map.cluster": "%d 天"
 }

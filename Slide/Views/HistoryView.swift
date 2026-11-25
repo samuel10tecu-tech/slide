@@ -353,6 +353,8 @@ struct DayDetailView: View {
             StatTile(label: language.t("tracking.stat.distance"), value: FormatFR.distance(archive.distance, prefs: prefs, french: french), systemImage: "ruler")
             StatTile(label: language.t("tracking.stat.vertical"), value: FormatFR.altitude(archive.vertical, prefs: prefs, french: french), systemImage: "arrow.down")
             StatTile(label: language.t("tracking.stat.duration"), value: FormatFR.duration(archive.duration), systemImage: "timer")
+            StatTile(label: language.t("tracking.stat.runs"), value: "\(archive.runs.count)", systemImage: "mountain.2.fill")
+            StatTile(label: language.t("history.jumps"), value: "\(archive.jumpCount)", systemImage: "arrow.up")
         }
     }
 
@@ -434,6 +436,13 @@ struct DayDetailView: View {
                 }
                 .padding(14)
                 .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(alignment: .leading) {
+                    Capsule()
+                        .fill(Theme.color(for: SpeedBand.forSpeed(run.maxSpeed)))
+                        .frame(width: 6)
+                        .padding(.vertical, 12)
+                        .padding(.leading, 6)
+                }
             }
         }
     }

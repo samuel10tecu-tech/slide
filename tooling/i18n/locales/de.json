@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Abbruch: wenn du nicht herum bist, stell keinen Arm auf. Kinn rein, versuch auf dem Rücken zu rutschen, verlass die Linie. Wenn du dich an der Lippe spät gefühlt hast, hättest du geradeaus fahren sollen.",
   "trick.cork-360.step.5": "Schnee nur auf einem kleinen Sprung, den du sauber 360st, mit demselben Coach, der die Airbag-Wiederholungen gesehen hat, und mit steiler, leerer Landung.",
   "trick.cork-360.tip.0": "Wenn die gerade 360 dein sauberster Trick ist, behalt sie. Der Cork kann eine Saison warten.",
-  "trick.cork-360.tip.1": "Helm und Rückenprotektor sind an, bevor der erste Versuch aus der Achse kommt, auch auf einem Airbag."
+  "trick.cork-360.tip.1": "Helm und Rückenprotektor sind an, bevor der erste Versuch aus der Achse kommt, auch auf einem Airbag.",
+  "freestyle.learn": "Lernen",
+  "freestyle.watch": "Tutorial ansehen",
+  "freestyle.mistakes": "Häufige Fehler",
+  "freestyle.course.beginner": "Anfänger",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Fortgeschritten",
+  "tab.map": "Karte",
+  "map.title": "Wo du gefahren bist",
+  "map.empty": "Noch kein Tag. Eine Nadel erscheint, wenn du eine Spur speicherst.",
+  "map.cluster": "%d Tage"
 }

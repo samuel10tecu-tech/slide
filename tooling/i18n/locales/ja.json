@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "放棄：回りきっていなければ腕をつかない。あごを引き、背中で滑ろうとし、ラインを出る。リップで遅いと感じたなら、まっすぐ抜くべきだった。",
   "trick.cork-360.step.5": "雪は、きれいに360できる小さいジャンプだけ。エアバッグの繰り返しを見た同じコーチと。着地は急で、誰もいない。",
   "trick.cork-360.tip.0": "まっすぐな360がいちばんきれいな技なら、それを残す。コークは一シーズン待てる。",
-  "trick.cork-360.tip.1": "軸を外す最初の一回の前に、エアバッグでもヘルメットとバックプロテクターを着ける。"
+  "trick.cork-360.tip.1": "軸を外す最初の一回の前に、エアバッグでもヘルメットとバックプロテクターを着ける。",
+  "freestyle.learn": "学ぶ",
+  "freestyle.watch": "チュートリアルを見る",
+  "freestyle.mistakes": "よくある失敗",
+  "freestyle.course.beginner": "初級",
+  "freestyle.course.park": "パーク",
+  "freestyle.course.advanced": "上級",
+  "tab.map": "地図",
+  "map.title": "滑った場所",
+  "map.empty": "まだ日がない。トラックを保存するとピンが出る。",
+  "map.cluster": "%d日"
 }

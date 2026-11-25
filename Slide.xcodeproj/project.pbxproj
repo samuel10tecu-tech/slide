@@ -33,6 +33,7 @@
 		C65C9C4A2C4D0E1F2CCB4DE0 /* Components.swift */ = {isa = PBXBuildFile; fileRef = F77572CAD9F686B6F759613E /* Components.swift */; };
 		4B42C42E7ED5F38C58DC1809 /* FreestyleView.swift */ = {isa = PBXBuildFile; fileRef = F419EA6314EBD38CF9EE5CA9 /* FreestyleView.swift */; };
 		2F0CC37AC1A21D2587022763 /* HistoryView.swift */ = {isa = PBXBuildFile; fileRef = 360186FE4A28641C4E4C0414 /* HistoryView.swift */; };
+		425ACFCF251E8A5E171155FD /* PlacesMapView.swift */ = {isa = PBXBuildFile; fileRef = C28C003221FA4FC71F7DB069 /* PlacesMapView.swift */; };
 		6744D90CD2895451E30D3A9C /* ProfileView.swift */ = {isa = PBXBuildFile; fileRef = 5FA7DEE7F863A2C3662561D0 /* ProfileView.swift */; };
 		A6AB2461A63ED4F520F6916A /* SessionCharts.swift */ = {isa = PBXBuildFile; fileRef = 1613A1C5B9C89F70687FE36E /* SessionCharts.swift */; };
 		F88A17301294B0CAF31795F2 /* StatsCardView.swift */ = {isa = PBXBuildFile; fileRef = FEEA8852B6F6B10AC11F35D4 /* StatsCardView.swift */; };
@@ -80,6 +81,7 @@
 		F77572CAD9F686B6F759613E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components.swift"; sourceTree = "<group>"; };
 		F419EA6314EBD38CF9EE5CA9 /* FreestyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FreestyleView.swift"; sourceTree = "<group>"; };
 		360186FE4A28641C4E4C0414 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryView.swift"; sourceTree = "<group>"; };
+		C28C003221FA4FC71F7DB069 /* PlacesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesMapView.swift"; sourceTree = "<group>"; };
 		5FA7DEE7F863A2C3662561D0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView.swift"; sourceTree = "<group>"; };
 		1613A1C5B9C89F70687FE36E /* SessionCharts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionCharts.swift"; sourceTree = "<group>"; };
 		FEEA8852B6F6B10AC11F35D4 /* StatsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsCardView.swift"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				F77572CAD9F686B6F759613E /* Components.swift */,
 				F419EA6314EBD38CF9EE5CA9 /* FreestyleView.swift */,
 				360186FE4A28641C4E4C0414 /* HistoryView.swift */,
+				C28C003221FA4FC71F7DB069 /* PlacesMapView.swift */,
 				5FA7DEE7F863A2C3662561D0 /* ProfileView.swift */,
 				1613A1C5B9C89F70687FE36E /* SessionCharts.swift */,
 				FEEA8852B6F6B10AC11F35D4 /* StatsCardView.swift */,
@@ -379,6 +382,7 @@
 				C65C9C4A2C4D0E1F2CCB4DE0 /* Components.swift */,
 				4B42C42E7ED5F38C58DC1809 /* FreestyleView.swift */,
 				2F0CC37AC1A21D2587022763 /* HistoryView.swift */,
+				425ACFCF251E8A5E171155FD /* PlacesMapView.swift */,
 				6744D90CD2895451E30D3A9C /* ProfileView.swift */,
 				A6AB2461A63ED4F520F6916A /* SessionCharts.swift */,
 				F88A17301294B0CAF31795F2 /* StatsCardView.swift */,
@@ -462,7 +466,7 @@
 								"$(inherited)",
 								"@executable_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
@@ -490,7 +494,7 @@
 								"$(inherited)",
 								"@executable_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
@@ -516,7 +520,7 @@
 								"@executable_path/Frameworks",
 								"@loader_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.tests;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
@@ -543,7 +547,7 @@
 								"@executable_path/Frameworks",
 								"@loader_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.tests;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
@@ -682,7 +686,7 @@
 								"@executable_path/Frameworks",
 								"@executable_path/../../Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.liveactivity;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
@@ -707,7 +711,7 @@
 								"@executable_path/Frameworks",
 								"@executable_path/../../Frameworks",
 							);
-							MARKETING_VERSION = 1.0;
+							MARKETING_VERSION = 1.1;
 							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.liveactivity;
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;

@@ -32,17 +32,23 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Attach the IPA to release v1.0
+      - name: Attach the IPA to this version's release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          notes=$'Unsigned Slide build for Sideloadly.\n\nUse Slide.ipa. If Sideloadly refuses the Live Activity extension, use Slide-no-extension.ipa. A free Apple ID must re-sign about every 7 days. Do not delete the app first if you want to keep saved days.'
-          if gh release view v1.0 >/dev/null 2>&1; then
-            gh release upload v1.0 build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa --clobber
+          VERSION=$(sed -n 's/^[[:space:]]*MARKETING_VERSION = \(.*\);/\1/p' Slide.xcodeproj/project.pbxproj | head -1)
+          TAG="v${VERSION}"
+          mkdir -p build
+          rm -f build/Slide-appstore.zip
+          (cd appstore && zip -r -q "../build/Slide-appstore.zip" .)
+          notes=$"Slide ${VERSION} for Sideloadly.\n\nUse Slide.ipa. If Sideloadly refuses the Live Activity extension, use Slide-no-extension.ipa. A free Apple ID must re-sign about every 7 days. Do not delete the app first if you want to keep saved days.\n\nSlide-appstore.zip holds the App Store listing text and screenshots."
+          files=(build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa build/Slide-appstore.zip)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "${files[@]}" --clobber
           else
-            gh release create v1.0 build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa \
-              --title "Slide 1.0" \
+            gh release create "$TAG" "${files[@]}" \
+              --title "Slide ${VERSION}" \
               --notes "$notes" \
               --latest
           fi

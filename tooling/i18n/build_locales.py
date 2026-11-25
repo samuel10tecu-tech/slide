@@ -23,8 +23,9 @@ from gen_tricks11 import T11  # noqa: E402
 from gen_tricks12 import T12  # noqa: E402
 from gen_tricks14 import T14  # noqa: E402
 from gen_tricks13 import T13  # noqa: E402
+from gen_pass import PASS  # noqa: E402
 
-MAPS = [UI, UI2, TRICKS, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14]
+MAPS = [UI, UI2, TRICKS, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, PASS]
 
 
 def main():

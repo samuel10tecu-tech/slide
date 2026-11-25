@@ -112,9 +112,48 @@ struct Banner: View {
     }
 }
 
+struct MountainSilhouette: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let w = rect.width
+        let h = rect.height
+        path.move(to: CGPoint(x: 0, y: h))
+        path.addLine(to: CGPoint(x: 0, y: h * 0.78))
+        path.addLine(to: CGPoint(x: w * 0.16, y: h * 0.46))
+        path.addLine(to: CGPoint(x: w * 0.28, y: h * 0.62))
+        path.addLine(to: CGPoint(x: w * 0.48, y: h * 0.18))
+        path.addLine(to: CGPoint(x: w * 0.64, y: h * 0.55))
+        path.addLine(to: CGPoint(x: w * 0.8, y: h * 0.32))
+        path.addLine(to: CGPoint(x: w, y: h * 0.7))
+        path.addLine(to: CGPoint(x: w, y: h))
+        path.closeSubpath()
+        return path
+    }
+}
+
 struct ScreenBackground: View {
     var body: some View {
-        Theme.background.ignoresSafeArea()
+        ZStack(alignment: .bottom) {
+            LinearGradient(
+                colors: [Color(hex: 0x071526), Color(hex: 0x0C2A40), Color(hex: 0x12344C)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            MountainSilhouette()
+                .fill(Color.white.opacity(0.07))
+                .frame(height: 220)
+            MountainSilhouette()
+                .fill(
+                    LinearGradient(
+                        colors: [Color.white.opacity(0.16), Color.white.opacity(0.02)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(height: 150)
+                .offset(y: 18)
+        }
+        .ignoresSafeArea()
     }
 }
 
@@ -141,31 +180,39 @@ struct SpeedGauge: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.white.opacity(0.08), lineWidth: 16)
+                .stroke(Color.white.opacity(0.16), lineWidth: 18)
+            ForEach(0..<9, id: \.self) { tick in
+                Capsule()
+                    .fill(Color.white.opacity(tick % 2 == 0 ? 0.85 : 0.35))
+                    .frame(width: tick % 2 == 0 ? 3 : 2, height: tick % 2 == 0 ? 12 : 8)
+                    .offset(y: -118)
+                    .rotationEffect(.degrees(Double(tick) * 28 - 112))
+            }
             Circle()
                 .trim(from: 0.12, to: 0.12 + 0.76 * min(max(fraction, 0), 1))
                 .stroke(
                     AngularGradient(
-                        colors: [Theme.ice, Theme.accent, Theme.orange, Color(hex: 0xFF4D6A)],
+                        colors: [Theme.pisteGreen, Theme.pisteBlue, Theme.accent, Theme.pisteRed],
                         center: .center
                     ),
-                    style: StrokeStyle(lineWidth: 16, lineCap: .round)
+                    style: StrokeStyle(lineWidth: 18, lineCap: .round)
                 )
                 .rotationEffect(.degrees(90))
                 .animation(.spring(duration: 0.45), value: fraction)
             VStack(spacing: 0) {
                 Text(text)
-                    .font(.system(size: 58, weight: .bold, design: .rounded))
+                    .font(.system(size: 76, weight: .heavy, design: .rounded))
                     .monospacedDigit()
                     .foregroundStyle(tint)
                     .contentTransition(.numericText())
-                    .minimumScaleFactor(0.4)
+                    .minimumScaleFactor(0.35)
                     .lineLimit(1)
+                    .shadow(color: .black.opacity(0.35), radius: 8, y: 2)
                 Text(unit)
-                    .font(.subheadline.weight(.bold))
-                    .foregroundStyle(Theme.muted)
+                    .font(.headline.weight(.heavy))
+                    .foregroundStyle(Theme.snow)
             }
-            .padding(.horizontal, 28)
+            .padding(.horizontal, 36)
         }
         .accessibilityElement(children: .combine)
     }

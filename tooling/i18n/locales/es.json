@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Abortar: si no estás alrededor, no plantes un brazo. Barbilla dentro, intenta deslizar sobre la espalda, sal de la línea. Si en el labio te sentías tarde, deberías haber pasado recto.",
   "trick.cork-360.step.5": "Nieve solo en un salto pequeño que haces en 360 limpio, con el mismo coach que vio las repeticiones en el airbag, y con una recepción empinada y vacía.",
   "trick.cork-360.tip.0": "Si el 360 recto es tu trick más limpio, quédate con él. El cork puede esperar una temporada.",
-  "trick.cork-360.tip.1": "Casco y espaldera puestos antes del primer intento fuera de eje, también en un airbag."
+  "trick.cork-360.tip.1": "Casco y espaldera puestos antes del primer intento fuera de eje, también en un airbag.",
+  "freestyle.learn": "Aprender",
+  "freestyle.watch": "Ver un tutorial",
+  "freestyle.mistakes": "Errores frecuentes",
+  "freestyle.course.beginner": "Principiante",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Avanzado",
+  "tab.map": "Mapa",
+  "map.title": "Dónde has esquiado",
+  "map.empty": "Aún no hay días. Un pin aparece al guardar un track.",
+  "map.cluster": "%d días"
 }

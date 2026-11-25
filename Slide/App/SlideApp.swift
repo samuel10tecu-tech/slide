@@ -53,14 +53,17 @@ struct MainTabView: View {
             TrackingView()
                 .tag(0)
                 .tabItem { Label(language.t("tab.tracking"), systemImage: "gauge.with.needle.fill") }
-            HistoryView()
+            PlacesMapView()
                 .tag(1)
+                .tabItem { Label(language.t("tab.map"), systemImage: "map.fill") }
+            HistoryView()
+                .tag(2)
                 .tabItem { Label(language.t("tab.history"), systemImage: "clock.arrow.circlepath") }
             FreestyleView()
-                .tag(2)
+                .tag(3)
                 .tabItem { Label(language.t("tab.freestyle"), systemImage: "figure.skiing.downhill") }
             ProfileView()
-                .tag(3)
+                .tag(4)
                 .tabItem { Label(language.t("tab.profile"), systemImage: "person.crop.circle") }
         }
         .onAppear {
@@ -84,7 +87,7 @@ struct MainTabView: View {
         .onChange(of: controller.notice) { _, note in
             switch note {
             case .gpxImported, .sessionImported, .fileUnknown, .fileUnreadable, .memoryNotReady:
-                tab = 1
+                tab = 2
             default:
                 break
             }

@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Rezygnacja: jeśli nie jesteś dookoła, nie stawiaj ręki. Broda w środku, spróbuj ślizgać się na plecach, zejdź z linii. Jeśli na krawędzi czułeś się późno, powinieneś był jechać prosto.",
   "trick.cork-360.step.5": "Śnieg tylko na małym skoku, który czysto 360-ujesz, z tym samym trenerem, który widział powtórzenia na airbagu, i ze stromym, pustym lądowaniem.",
   "trick.cork-360.tip.0": "Jeśli proste 360 jest twoim najczystszym trikiem, zostań przy nim. Cork może poczekać sezon.",
-  "trick.cork-360.tip.1": "Kask i ochraniacz pleców są założone przed pierwszą próbą poza osią, także na airbagu."
+  "trick.cork-360.tip.1": "Kask i ochraniacz pleców są założone przed pierwszą próbą poza osią, także na airbagu.",
+  "freestyle.learn": "Nauka",
+  "freestyle.watch": "Zobacz tutorial",
+  "freestyle.mistakes": "Częste błędy",
+  "freestyle.course.beginner": "Początkujący",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Zaawansowany",
+  "tab.map": "Mapa",
+  "map.title": "Gdzie jeździłaś",
+  "map.empty": "Jeszcze bez dnia. Pinezka pojawi się, gdy zapiszesz ślad.",
+  "map.cluster": "%d dni"
 }

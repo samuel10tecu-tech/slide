@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Desistir: se não estás à volta, não plantas um braço. Queixo para dentro, tenta deslizar nas costas, sai da linha. Se no lábio te sentias atrasado, devias ter passado a direito.",
   "trick.cork-360.step.5": "Neve só num salto pequeno que fazes em 360 limpo, com o mesmo treinador que viu as repetições no airbag, e com uma receção íngreme e vazia.",
   "trick.cork-360.tip.0": "Se o 360 a direito é o teu trick mais limpo, fica com ele. O cork pode esperar uma época.",
-  "trick.cork-360.tip.1": "Capacete e proteção dorsal postos antes da primeira tentativa fora de eixo, também num airbag."
+  "trick.cork-360.tip.1": "Capacete e proteção dorsal postos antes da primeira tentativa fora de eixo, também num airbag.",
+  "freestyle.learn": "Aprender",
+  "freestyle.watch": "Ver um tutorial",
+  "freestyle.mistakes": "Erros frequentes",
+  "freestyle.course.beginner": "Iniciante",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Avançado",
+  "tab.map": "Mapa",
+  "map.title": "Onde esquiast",
+  "map.empty": "Ainda sem dias. Um alfinete aparece quando guardas um traçado.",
+  "map.cluster": "%d dias"
 }

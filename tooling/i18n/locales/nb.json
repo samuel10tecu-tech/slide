@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Avbryt: er du ikke rundt, ikke sett ned en arm. Haken inn, prøv å skli på ryggen, forlat linjen. Kjente du deg sen på lippen, skulle du ha kjørt rett.",
   "trick.cork-360.step.5": "Snø bare på et lite hopp du 360-er rent, med samme trener som så airbag-repetisjonene, og med en bratt, tom landing.",
   "trick.cork-360.tip.0": "Hvis den rette 360-en er det reneste trikset ditt, behold den. Corken kan vente en sesong.",
-  "trick.cork-360.tip.1": "Hjelm og ryggbeskytter er på før første forsøk ute av aksen, også på en airbag."
+  "trick.cork-360.tip.1": "Hjelm og ryggbeskytter er på før første forsøk ute av aksen, også på en airbag.",
+  "freestyle.learn": "Lær",
+  "freestyle.watch": "Se en veiledning",
+  "freestyle.mistakes": "Vanlige feil",
+  "freestyle.course.beginner": "Nybegynner",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Avansert",
+  "tab.map": "Kart",
+  "map.title": "Der du har kjørt",
+  "map.empty": "Ingen dag ennå. En nål vises når du lagrer et spor.",
+  "map.cluster": "%d dager"
 }

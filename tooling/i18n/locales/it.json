@@ -449,5 +449,15 @@
   "trick.cork-360.step.4": "Rinuncia: se non sei intorno, non pianti un braccio. Mento dentro, prova a scivolare sulla schiena, esci dalla linea. Se sul lip ti sentivi in ritardo, avresti dovuto passare dritto.",
   "trick.cork-360.step.5": "Neve solo su un salto piccolo che fai in 360 pulito, con lo stesso coach che ha visto le ripetizioni sull'airbag, e con una ricezione ripida e vuota.",
   "trick.cork-360.tip.0": "Se il 360 dritto è il tuo trick più pulito, tienilo. Il cork può aspettare una stagione.",
-  "trick.cork-360.tip.1": "Casco e paraschiena sono messi prima del primo tentativo fuori asse, anche su un airbag."
+  "trick.cork-360.tip.1": "Casco e paraschiena sono messi prima del primo tentativo fuori asse, anche su un airbag.",
+  "freestyle.learn": "Impara",
+  "freestyle.watch": "Guarda un tutorial",
+  "freestyle.mistakes": "Errori frequenti",
+  "freestyle.course.beginner": "Principiante",
+  "freestyle.course.park": "Park",
+  "freestyle.course.advanced": "Avanzato",
+  "tab.map": "Mappa",
+  "map.title": "Dove hai sciato",
+  "map.empty": "Nessuna giornata. Un pin compare quando salvi una traccia.",
+  "map.cluster": "%d giorni"
 }
