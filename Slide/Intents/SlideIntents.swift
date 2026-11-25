@@ -116,14 +116,31 @@ struct CurrentSpeedIntent: AppIntent {
     }
 }
 
+enum MinutesAgo: Int, AppEnum {
+    case one = 1
+    case five = 5
+    case ten = 10
+    case fifteen = 15
+    case thirty = 30
+
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Minutes")
+    static var caseDisplayRepresentations: [MinutesAgo: DisplayRepresentation] = [
+        .one: "1",
+        .five: "5",
+        .ten: "10",
+        .fifteen: "15",
+        .thirty: "30"
+    ]
+}
+
 struct SpeedAgoIntent: AppIntent {
     static var title: LocalizedStringResource = "siri.title.ago"
     static var openAppWhenRun = true
-    @Parameter(title: "siri.param.minutes", default: 5)
-    var minutes: Int
+    @Parameter(title: "siri.param.minutes", default: MinutesAgo.five)
+    var minutes: MinutesAgo
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        let minutes = minutes
-        let text = await MainActor.run { SlideAnswers.speed(minutesAgo: minutes) }
+        let count = minutes.rawValue
+        let text = await MainActor.run { SlideAnswers.speed(minutesAgo: count) }
         return .result(dialog: IntentDialog(stringLiteral: text))
     }
 }
