@@ -5,6 +5,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   ipa:
     name: Build unsigned IPA
@@ -28,3 +31,18 @@ jobs:
             build/ipa/Slide-no-extension.ipa
           if-no-files-found: error
           retention-days: 14
+
+      - name: Attach the IPA to release v1.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          notes=$'Unsigned Slide build for Sideloadly.\n\nUse Slide.ipa. If Sideloadly refuses the Live Activity extension, use Slide-no-extension.ipa. A free Apple ID must re-sign about every 7 days. Do not delete the app first if you want to keep saved days.'
+          if gh release view v1.0 >/dev/null 2>&1; then
+            gh release upload v1.0 build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa --clobber
+          else
+            gh release create v1.0 build/ipa/Slide.ipa build/ipa/Slide-no-extension.ipa \
+              --title "Slide 1.0" \
+              --notes "$notes" \
+              --latest
+          fi

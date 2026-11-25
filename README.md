@@ -1,5 +1,31 @@
 # Slide
 
+Offline ski and freestyle tracker for iPhone (iOS 17+). No account and no server. Days stay on the phone. Fourteen languages, including English and French.
+
+Install without Xcode: **Sideloadly** on Windows and a **free Apple ID**. The files are on the [v1.0 release](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.0).
+
+1. Download [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide.ipa). If Sideloadly refuses the Live Activity extension, use [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide-no-extension.ipa). The speed on the Dynamic Island is the only thing you lose.
+2. On Windows, install **iTunes** and **iCloud** from Apple’s website, not the Microsoft Store. Install **Sideloadly** from https://sideloadly.io/.
+3. Plug in the iPhone, unlock it, and tap Trust. Drag the `.ipa` into Sideloadly and sign in with a free Apple ID.
+4. On the iPhone, turn on **Settings → Privacy & Security → Developer Mode**. Then open **Settings → General → VPN & Device Management** and trust that Apple ID.
+5. A free Apple ID install lasts about **7 days**. Sideload the same file again. Do not delete Slide first, or the saved days are erased.
+
+## Français
+
+Slide est un suivi de ski et de freestyle pour iPhone (iOS 17+). Sans compte et sans serveur. Les journées restent dans le téléphone. Quatorze langues, dont le français et l’anglais.
+
+Installation sans Xcode : **Sideloadly** sur Windows et un **Apple ID gratuit**. Les fichiers sont sur la [version v1.0](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.0).
+
+1. Télécharge [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide.ipa). Si Sideloadly refuse l’extension Live Activity, prends [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide-no-extension.ipa). Tu perds seulement la vitesse sur la Dynamic Island.
+2. Sur Windows, installe **iTunes** et **iCloud** depuis le site d’Apple, pas depuis le Microsoft Store. Installe **Sideloadly** depuis https://sideloadly.io/.
+3. Branche l’iPhone, déverrouille-le et touche Faire confiance. Glisse le `.ipa` dans Sideloadly et connecte-toi avec un Apple ID gratuit.
+4. Sur l’iPhone, active **Réglages → Confidentialité et sécurité → Mode développeur**. Puis ouvre **Réglages → Général → VPN et gestion de l’appareil** et fais confiance à cet Apple ID.
+5. Une installation avec un Apple ID gratuit dure environ **7 jours**. Recharge le même fichier. Ne supprime pas Slide avant, sinon les journées disparaissent.
+
+---
+
+# Guide
+
 Offline ski and freestyle tracker for iPhone (iOS 17+, aimed at iPhone 15 Pro). No account, no server. Install it from a Mac with Xcode and a **free Apple ID**.
 
 The interface is in **14 languages**: English, Français, Deutsch, Italiano, Español, Português, Nederlands, Svenska, Norsk, Polski, Čeština, 日本語, 한국어 and 简体中文. Profile → Language: System (follows the phone) or any of those. iOS permission dialogs stay in the phone’s language. Everything inside Slide, including the freestyle library, follows the switch.
