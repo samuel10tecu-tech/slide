@@ -30,7 +30,14 @@ struct SpeedAltitudeChart: View {
                     y: .value("v", displaySpeed(sample.speed))
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(Theme.accent)
+                .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: SpeedPaint.stops.map { Color(hex: $0.hex) },
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
+                )
             }
             .frame(height: 160)
             .chartXAxis(.hidden)

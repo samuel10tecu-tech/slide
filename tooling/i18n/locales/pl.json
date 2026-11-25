@@ -505,5 +505,19 @@
   "siri.title.start": "Zacznij nagranie",
   "siri.title.stop": "Zatrzymaj nagranie",
   "siri.param.minutes": "Minuty",
-  "NSSiriUsageDescription": "Slide odpowiada Siri o prędkości, dystansie i zjazdach z dziś, tylko na tym telefonie."
+  "NSSiriUsageDescription": "Slide odpowiada Siri o prędkości, dystansie i zjazdach z dziś, tylko na tym telefonie.",
+  "tab.voice": "Głos",
+  "voice.title": "Głos",
+  "voice.lead": "Dla Cardo albo słuchawek Bluetooth. Muzyka zostaje.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Powiedz zdanie i nazwę aplikacji. Stuknij, aby otworzyć Skróty.",
+  "voice.add": "Otwórz Skróty",
+  "siri.phrase.max": "Jaka jest moja maksymalna prędkość dziś",
+  "siri.phrase.distance": "Jaki dystans dziś",
+  "siri.phrase.now": "Jak szybko jadę teraz",
+  "siri.phrase.ago": "Jak szybko jechałam pięć minut temu",
+  "siri.phrase.start": "Zacznij nagranie",
+  "siri.phrase.stop": "Zatrzymaj nagranie",
+  "siri.phrase.runs": "Ile zjazdów dziś",
+  "legend.relative": "Kolory według maksimum dnia"
 }

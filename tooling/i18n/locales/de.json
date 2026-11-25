@@ -505,5 +505,19 @@
   "siri.title.start": "Aufzeichnung starten",
   "siri.title.stop": "Aufzeichnung stoppen",
   "siri.param.minutes": "Minuten",
-  "NSSiriUsageDescription": "Slide beantwortet Siri zu Tempo, Distanz und Abfahrten von heute, nur auf diesem Telefon."
+  "NSSiriUsageDescription": "Slide beantwortet Siri zu Tempo, Distanz und Abfahrten von heute, nur auf diesem Telefon.",
+  "tab.voice": "Stimme",
+  "voice.title": "Stimme",
+  "voice.lead": "Für ein Cardo- oder Bluetooth-Headset. Die Musik bleibt an.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Sag den Satz und den Namen der App. Tippe auf die Taste, um die Kurzbefehle zu öffnen.",
+  "voice.add": "In Kurzbefehle",
+  "siri.phrase.max": "Wie schnell war ich heute maximal",
+  "siri.phrase.distance": "Wie weit bin ich heute gefahren",
+  "siri.phrase.now": "Wie schnell fahre ich jetzt",
+  "siri.phrase.ago": "Wie schnell war ich vor fünf Minuten",
+  "siri.phrase.start": "Starte die Aufzeichnung",
+  "siri.phrase.stop": "Stoppe die Aufzeichnung",
+  "siri.phrase.runs": "Wie viele Abfahrten heute",
+  "legend.relative": "Farben nach dem Tagesmaximum"
 }

@@ -13,3 +13,4 @@ xcuserdata/
 *.dSYM
 timeline.xctimeline
 playground.xcworkspace
+GoogleService-Info.plist

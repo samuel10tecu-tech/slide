@@ -505,5 +505,19 @@
   "siri.title.start": "Avvia tracciamento",
   "siri.title.stop": "Ferma tracciamento",
   "siri.param.minutes": "Minuti",
-  "NSSiriUsageDescription": "Slide risponde a Siri su velocità, distanza e discese di oggi, solo su questo telefono."
+  "NSSiriUsageDescription": "Slide risponde a Siri su velocità, distanza e discese di oggi, solo su questo telefono.",
+  "tab.voice": "Voce",
+  "voice.title": "Voce",
+  "voice.lead": "Per un Cardo o un auricolare Bluetooth. La musica resta.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Di la frase e il nome dell'app. Tocca il pulsante per aprire Comandi.",
+  "voice.add": "Apri Comandi",
+  "siri.phrase.max": "Qual è la velocità massima di oggi",
+  "siri.phrase.distance": "Quanta distanza ho fatto oggi",
+  "siri.phrase.now": "A che velocità vado adesso",
+  "siri.phrase.ago": "Che velocità facevo cinque minuti fa",
+  "siri.phrase.start": "Avvia il tracciamento",
+  "siri.phrase.stop": "Ferma il tracciamento",
+  "siri.phrase.runs": "Quante discese oggi",
+  "legend.relative": "Colori sul massimo del giorno"
 }

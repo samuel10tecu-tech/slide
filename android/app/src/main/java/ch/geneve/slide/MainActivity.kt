@@ -1,5 +1,7 @@
 package ch.geneve.slide
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -146,7 +148,11 @@ private fun TrackScreen(onStart: () -> Unit) {
         Text("${"%.1f".format(Live.speed * 3.6)}", color = Snow, fontSize = 72.sp, fontWeight = FontWeight.Black)
         Text(context.getString(R.string.kmh), color = Snow)
         Text("${context.getString(R.string.runs)} ${Live.engine.runs.size} · ${"%.1f".format(Live.engine.distance / 1000)} km · ${Live.engine.vertical.roundToInt()} m", color = Snow)
-        if (Live.samples.size > 1) OsmMap(Live.samples.map { GeoPoint(it.lat, it.lon) }, emptyList(), Modifier.fillMaxWidth().height(280.dp))
+        if (Live.samples.size > 1) {
+            val pts = Live.samples.map { GeoPoint(it.lat, it.lon) }
+            val tint = speedColor(Live.samples.maxOf { it.speed })
+            OsmMap(listOf(tint to pts), emptyList(), Modifier.fillMaxWidth().height(280.dp), follow = true)
+        }
         Button(onClick = {
             if (Live.tracking) TrackService.stop(context) else onStart()
         }) { Text(if (Live.tracking) context.getString(R.string.stop) else context.getString(R.string.start)) }
@@ -156,25 +162,53 @@ private fun TrackScreen(onStart: () -> Unit) {
 private fun Modifier.weightMissing() = this.then(Modifier.fillMaxWidth())
 
 @Composable
-private fun OsmMap(line: List<GeoPoint>, pins: List<GeoPoint>, modifier: Modifier) {
+private fun OsmMap(lines: List<Pair<Int, List<GeoPoint>>>, pins: List<GeoPoint>, modifier: Modifier, follow: Boolean = false) {
     AndroidView(modifier = modifier.fillMaxWidth().padding(vertical = 8.dp), factory = { ctx ->
         MapView(ctx).apply {
             setTileSource(TileSourceFactory.MAPNIK)
             setMultiTouchControls(true)
-            controller.setZoom(14.0)
+            controller.setZoom(if (pins.size > 1) 5.0 else 14.0)
         }
     }, update = { map ->
         map.overlays.clear()
-        if (line.size > 1) {
-            map.overlays.add(Polyline().apply { setPoints(line); outlinePaint.color = android.graphics.Color.parseColor("#7EE7FF"); outlinePaint.strokeWidth = 8f })
-            map.controller.setCenter(line.last())
+        val far = map.zoomLevelDouble < 9.0
+        if (!far) {
+            lines.forEach { (color, points) ->
+                if (points.size > 1) {
+                    map.overlays.add(Polyline().apply {
+                        setPoints(points)
+                        outlinePaint.color = color
+                        outlinePaint.strokeWidth = 8f
+                        outlinePaint.strokeCap = Paint.Cap.ROUND
+                        outlinePaint.strokeJoin = Paint.Join.ROUND
+                    })
+                }
+            }
         }
-        pins.forEach { point ->
-            map.overlays.add(Marker(map).apply { position = point; setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM) })
+        if (far || lines.isEmpty()) {
+            pins.forEach { point ->
+                map.overlays.add(Marker(map).apply { position = point; setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM) })
+            }
         }
-        if (line.isEmpty() && pins.isNotEmpty()) map.controller.setCenter(pins.first())
+        val focus = lines.lastOrNull()?.second?.lastOrNull() ?: pins.firstOrNull()
+        if (follow && focus != null) map.controller.setCenter(focus)
+        if (!follow && focus != null && map.zoomLevelDouble < 3) map.controller.setCenter(focus)
         map.invalidate()
     })
+}
+
+private fun speedColor(mps: Double): Int {
+    val kmh = mps * 3.6
+    val hex = when {
+        kmh >= 90 -> "#E23BFF"
+        kmh >= 75 -> "#FF3B4E"
+        kmh >= 60 -> "#FF9A2E"
+        kmh >= 45 -> "#FFE14A"
+        kmh >= 30 -> "#3DDC6A"
+        kmh >= 15 -> "#14C8C0"
+        else -> "#3B82F6"
+    }
+    return Color.parseColor(hex)
 }
 
 @Composable
@@ -182,7 +216,13 @@ private fun SpotScreen() {
     val context = LocalContext.current
     val days = remember { DayStore.load(context) }
     if (days.isEmpty()) Text(context.getString(R.string.spots_empty), color = Snow)
-    OsmMap(emptyList(), days.map { GeoPoint(it.lat, it.lon) }, Modifier.fillMaxWidth().height(480.dp))
+    val lines = days.map { day ->
+        val step = maxOf(1, day.track.size / 160)
+        val points = day.track.filterIndexed { index, _ -> index % step == 0 || index == day.track.lastIndex }
+            .map { GeoPoint(it.lat, it.lon) }
+        speedColor(day.track.maxOfOrNull { it.speed } ?: 0.0) to points
+    }
+    OsmMap(lines, days.map { GeoPoint(it.lat, it.lon) }, Modifier.fillMaxWidth().height(480.dp))
 }
 
 @Composable

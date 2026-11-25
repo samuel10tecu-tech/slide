@@ -505,5 +505,19 @@
   "siri.title.start": "Começar registo",
   "siri.title.stop": "Parar registo",
   "siri.param.minutes": "Minutos",
-  "NSSiriUsageDescription": "O Slide responde à Siri sobre velocidade, distância e descidas de hoje, só neste telemóvel."
+  "NSSiriUsageDescription": "O Slide responde à Siri sobre velocidade, distância e descidas de hoje, só neste telemóvel.",
+  "tab.voice": "Voz",
+  "voice.title": "Voz",
+  "voice.lead": "Para um Cardo ou auricular Bluetooth. A música continua.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Diz a frase e o nome da app. Toca no botão para abrir os Atalhos.",
+  "voice.add": "Abrir Atalhos",
+  "siri.phrase.max": "Qual foi a velocidade máxima hoje",
+  "siri.phrase.distance": "Que distância fiz hoje",
+  "siri.phrase.now": "A que velocidade vou agora",
+  "siri.phrase.ago": "Que velocidade tinha há cinco minutos",
+  "siri.phrase.start": "Começa o registo",
+  "siri.phrase.stop": "Pára o registo",
+  "siri.phrase.runs": "Quantas descidas hoje",
+  "legend.relative": "Cores pelo máximo do dia"
 }

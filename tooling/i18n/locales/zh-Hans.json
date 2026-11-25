@@ -505,5 +505,19 @@
   "siri.title.start": "开始记录",
   "siri.title.stop": "停止记录",
   "siri.param.minutes": "分钟",
-  "NSSiriUsageDescription": "Slide 会用 Siri 回答今天的速度、距离和滑降，只在这台手机上。"
+  "NSSiriUsageDescription": "Slide 会用 Siri 回答今天的速度、距离和滑降，只在这台手机上。",
+  "tab.voice": "语音",
+  "voice.title": "语音",
+  "voice.lead": "给 Cardo 或蓝牙耳机。音乐继续播放。",
+  "voice.siri": "Siri",
+  "voice.siri.help": "说出这句话和应用名。点按钮打开快捷指令。",
+  "voice.add": "打开快捷指令",
+  "siri.phrase.max": "今天最高速度",
+  "siri.phrase.distance": "今天的距离",
+  "siri.phrase.now": "现在的速度",
+  "siri.phrase.ago": "五分钟前的速度",
+  "siri.phrase.start": "开始记录",
+  "siri.phrase.stop": "停止记录",
+  "siri.phrase.runs": "今天几次滑降",
+  "legend.relative": "按当天最高速度上色"
 }

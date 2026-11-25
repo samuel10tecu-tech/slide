@@ -505,5 +505,19 @@
   "siri.title.start": "Starta spårning",
   "siri.title.stop": "Stoppa spårning",
   "siri.param.minutes": "Minuter",
-  "NSSiriUsageDescription": "Slide svarar Siri om fart, sträcka och åk idag, bara på den här telefonen."
+  "NSSiriUsageDescription": "Slide svarar Siri om fart, sträcka och åk idag, bara på den här telefonen.",
+  "tab.voice": "Röst",
+  "voice.title": "Röst",
+  "voice.lead": "För ett Cardo eller Bluetooth-headset. Musiken fortsätter.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Säg meningen och appens namn. Tryck för att öppna Genvägar.",
+  "voice.add": "Öppna Genvägar",
+  "siri.phrase.max": "Vad är min maxfart idag",
+  "siri.phrase.distance": "Hur långt har jag åkt idag",
+  "siri.phrase.now": "Hur fort åker jag nu",
+  "siri.phrase.ago": "Hur fort åkte jag för fem minuter sedan",
+  "siri.phrase.start": "Starta spårningen",
+  "siri.phrase.stop": "Stoppa spårningen",
+  "siri.phrase.runs": "Hur många åk idag",
+  "legend.relative": "Färger efter dagens max"
 }

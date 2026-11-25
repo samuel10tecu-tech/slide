@@ -505,5 +505,19 @@
   "siri.title.start": "Volgen starten",
   "siri.title.stop": "Volgen stoppen",
   "siri.param.minutes": "Minuten",
-  "NSSiriUsageDescription": "Slide antwoordt Siri over snelheid, afstand en afdalingen van vandaag, alleen op deze telefoon."
+  "NSSiriUsageDescription": "Slide antwoordt Siri over snelheid, afstand en afdalingen van vandaag, alleen op deze telefoon.",
+  "tab.voice": "Stem",
+  "voice.title": "Stem",
+  "voice.lead": "Voor een Cardo of Bluetooth-headset. De muziek blijft aan.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Zeg de zin en de naam van de app. Tik om Opdrachten te openen.",
+  "voice.add": "Open Opdrachten",
+  "siri.phrase.max": "Wat is mijn topsnelheid vandaag",
+  "siri.phrase.distance": "Hoe ver heb ik vandaag gereden",
+  "siri.phrase.now": "Hoe snel ga ik nu",
+  "siri.phrase.ago": "Hoe snel ging ik vijf minuten geleden",
+  "siri.phrase.start": "Start het volgen",
+  "siri.phrase.stop": "Stop het volgen",
+  "siri.phrase.runs": "Hoeveel afdalingen vandaag",
+  "legend.relative": "Kleuren op het dagmaximum"
 }

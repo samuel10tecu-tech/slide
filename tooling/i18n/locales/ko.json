@@ -505,5 +505,19 @@
   "siri.title.start": "기록 시작",
   "siri.title.stop": "기록 정지",
   "siri.param.minutes": "분",
-  "NSSiriUsageDescription": "Slide가 오늘의 속도, 거리, 활강을 Siri에 답해. 이 휴대폰 안에서만."
+  "NSSiriUsageDescription": "Slide가 오늘의 속도, 거리, 활강을 Siri에 답해. 이 휴대폰 안에서만.",
+  "tab.voice": "음성",
+  "voice.title": "음성",
+  "voice.lead": "Cardo나 블루투스 헤드셋용. 음악은 계속.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "문장과 앱 이름을 말해. 버튼으로 단축어를 열어.",
+  "voice.add": "단축어",
+  "siri.phrase.max": "오늘 최고 속도",
+  "siri.phrase.distance": "오늘 거리",
+  "siri.phrase.now": "지금 속도",
+  "siri.phrase.ago": "5분 전 속도",
+  "siri.phrase.start": "기록 시작",
+  "siri.phrase.stop": "기록 정지",
+  "siri.phrase.runs": "오늘 활강 수",
+  "legend.relative": "오늘 최고에 맞추기"
 }

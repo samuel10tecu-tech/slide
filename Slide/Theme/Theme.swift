@@ -18,13 +18,18 @@ enum Theme {
     static let pisteRed = Color(hex: 0xFF4D5E)
     static let ink = Color(hex: 0x071526)
 
+    static func speedColor(_ metersPerSecond: Double, dayMaxKmh: Double? = nil) -> Color {
+        let rgb = SpeedPaint.rgb(metersPerSecond, dayMaxKmh: dayMaxKmh)
+        return Color(red: rgb.0, green: rgb.1, blue: rgb.2)
+    }
+
     static func color(for band: SpeedBand) -> Color {
         switch band {
-        case .slow: return pisteGreen
-        case .cruise: return pisteBlue
-        case .fast: return pisteRed
-        case .flying: return Color(hex: 0xFFE14A)
-        case .extreme: return snow
+        case .slow: return Color(hex: 0x3B82F6)
+        case .cruise: return Color(hex: 0x3DDC6A)
+        case .fast: return Color(hex: 0xFFE14A)
+        case .flying: return Color(hex: 0xFF9A2E)
+        case .extreme: return Color(hex: 0xE23BFF)
         }
     }
 

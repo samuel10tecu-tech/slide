@@ -505,5 +505,19 @@
   "siri.title.start": "Start sporing",
   "siri.title.stop": "Stopp sporing",
   "siri.param.minutes": "Minutter",
-  "NSSiriUsageDescription": "Slide svarer Siri om fart, distanse og nedfarter i dag, bare på denne telefonen."
+  "NSSiriUsageDescription": "Slide svarer Siri om fart, distanse og nedfarter i dag, bare på denne telefonen.",
+  "tab.voice": "Stemme",
+  "voice.title": "Stemme",
+  "voice.lead": "For et Cardo eller Bluetooth-headset. Musikken fortsetter.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Si setningen og appnavnet. Trykk for å åpne Snarveier.",
+  "voice.add": "Åpne Snarveier",
+  "siri.phrase.max": "Hva er toppfarten min i dag",
+  "siri.phrase.distance": "Hvor langt har jeg kjørt i dag",
+  "siri.phrase.now": "Hvor fort kjører jeg nå",
+  "siri.phrase.ago": "Hvor fort kjørte jeg for fem minutter siden",
+  "siri.phrase.start": "Start sporingen",
+  "siri.phrase.stop": "Stopp sporingen",
+  "siri.phrase.runs": "Hvor mange nedfarter i dag",
+  "legend.relative": "Farger etter dagens maks"
 }

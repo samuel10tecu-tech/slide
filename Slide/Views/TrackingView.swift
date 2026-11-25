@@ -63,7 +63,7 @@ struct TrackingView: View {
 
     private func screen(now: Date) -> some View {
         VStack(spacing: 0) {
-            if controller.activity != .idle {
+            if controller.activity != .idle || SlidePreview.on {
                 mapBlock
                     .frame(height: verticalSize == .compact ? 180 : 300)
             }
@@ -99,7 +99,7 @@ struct TrackingView: View {
     private var mapBlock: some View {
         ZStack(alignment: .bottomLeading) {
             LiveTrackMap(
-                samples: controller.mapSamples,
+                samples: SlidePreview.on && controller.mapSamples.isEmpty ? SlidePreview.samples : controller.mapSamples,
                 follow: follow,
                 userCoordinate: userCoordinate,
                 replay: nil,
@@ -164,12 +164,12 @@ struct TrackingView: View {
     }
 
     private var gauge: some View {
-        let speed = controller.summary.hasFix ? controller.summary.speed : 0
+        let speed = (controller.summary.hasFix ? controller.summary.speed : 0) + (SlidePreview.on && controller.activity != .tracking ? 67.4 / 3.6 : 0)
         let kmh = Units.kmh(fromMps: speed)
-        let tint = controller.activity == .tracking && controller.summary.hasFix
-            ? Theme.color(for: SpeedBand.forSpeed(speed))
-            : Theme.text
-        return VStack(spacing: 10) {
+        let tint = (controller.activity == .tracking && controller.summary.hasFix) || SlidePreview.on
+            ? Theme.speedColor(speed)
+            : Theme.snow
+        return VStack(spacing: 6) {
             PhaseBadge(
                 title: phaseTitle,
                 color: phaseColor,
@@ -181,7 +181,8 @@ struct TrackingView: View {
                 fraction: min(kmh / 100, 1),
                 tint: tint
             )
-            .frame(width: 250, height: 250)
+            .frame(width: controller.activity == .idle ? 230 : 300, height: controller.activity == .idle ? 230 : 300)
+            .animation(.spring(duration: 0.35), value: kmh)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
@@ -316,7 +317,7 @@ struct TrackingView: View {
                 if controller.auth == .denied || controller.auth == .restricted {
                     settingsHint = true
                 } else {
-                    controller.requestPermissionThenStart(resort: homeMountain, rider: riderName)
+                    controller.requestPermissionThenStart(resort: "", rider: riderName)
                 }
             }
         case .tracking:

@@ -2,9 +2,9 @@
 
 Offline ski and freestyle tracker for iPhone (iOS 17+). No account and no server. Days stay on the phone. Fourteen languages, including English and French.
 
-Install without Xcode: **Sideloadly** on Windows and a **free Apple ID**. The files are on the [v1.0 release](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.0).
+Install without Xcode: **Sideloadly** on Windows and a **free Apple ID**. The files are on the [v1.3 release](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.3).
 
-1. Download [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide.ipa). If Sideloadly refuses the Live Activity extension, use [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide-no-extension.ipa). The speed on the Dynamic Island is the only thing you lose.
+1. Download [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide.ipa). If Sideloadly refuses the Live Activity extension, use [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide-no-extension.ipa). The speed on the Dynamic Island is the only thing you lose. Android: [Slide.apk](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide.apk).
 2. On Windows, install **iTunes** and **iCloud** from Apple’s website, not the Microsoft Store. Install **Sideloadly** from https://sideloadly.io/.
 3. Plug in the iPhone, unlock it, and tap Trust. Drag the `.ipa` into Sideloadly and sign in with a free Apple ID.
 4. On the iPhone, turn on **Settings → Privacy & Security → Developer Mode**. Then open **Settings → General → VPN & Device Management** and trust that Apple ID.
@@ -14,9 +14,9 @@ Install without Xcode: **Sideloadly** on Windows and a **free Apple ID**. The fi
 
 Slide est un suivi de ski et de freestyle pour iPhone (iOS 17+). Sans compte et sans serveur. Les journées restent dans le téléphone. Quatorze langues, dont le français et l’anglais.
 
-Installation sans Xcode : **Sideloadly** sur Windows et un **Apple ID gratuit**. Les fichiers sont sur la [version v1.0](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.0).
+Installation sans Xcode : **Sideloadly** sur Windows et un **Apple ID gratuit**. Les fichiers sont sur la [version v1.3](https://github.com/samuel10tecu-tech/slide/releases/tag/v1.3).
 
-1. Télécharge [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide.ipa). Si Sideloadly refuse l’extension Live Activity, prends [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.0/Slide-no-extension.ipa). Tu perds seulement la vitesse sur la Dynamic Island.
+1. Télécharge [Slide.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide.ipa). Si Sideloadly refuse l’extension Live Activity, prends [Slide-no-extension.ipa](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide-no-extension.ipa). Tu perds seulement la vitesse sur la Dynamic Island. Android : [Slide.apk](https://github.com/samuel10tecu-tech/slide/releases/download/v1.3/Slide.apk).
 2. Sur Windows, installe **iTunes** et **iCloud** depuis le site d’Apple, pas depuis le Microsoft Store. Installe **Sideloadly** depuis https://sideloadly.io/.
 3. Branche l’iPhone, déverrouille-le et touche Faire confiance. Glisse le `.ipa` dans Sideloadly et connecte-toi avec un Apple ID gratuit.
 4. Sur l’iPhone, active **Réglages → Confidentialité et sécurité → Mode développeur**. Puis ouvre **Réglages → Général → VPN et gestion de l’appareil** et fais confiance à cet Apple ID.
@@ -197,6 +197,13 @@ You can still send a day with AirDrop or Messages:
 - **History** — season totals (1 September–31 August), records, speed and altitude charts, bars per run, replay of the track on the map, tap the line to read the speed at that point.
 - **Freestyle** — offline tips in all 14 languages, from park rules up through grabs, rails, butters, 540, and supervised inversions (backflip, frontflip, cork 360). Those are marked **Coach required**. The order is trampoline with a spotter, then water ramp or airbag, then snow only with a coach. The checklist and notes stay on the phone.
 - **Profile** — name, resort, units (km/h by default), language, screen-on while tracking, sample day.
+- **Voice** — headset coach (speed, distance, runs) and the list of Siri phrases. Add them in Shortcuts.
+- **Map** — every saved track as one smooth speed-coloured line when you zoom in. Pins and clusters when you are zoomed far out. Tap a track to open that day.
+- **Resort** — named automatically from an offline list of ski areas. If none match and the phone is online, the map service fills the name. A name you type in History is kept.
+
+## Optional account
+
+This build has no sign-in. Slide stays fully usable with no account, and days stay on the phone. To add Google or email later: create a Firebase project, put `GoogleService-Info.plist` in the `Slide` folder (the file is gitignored — do not commit it), then in Xcode add the packages `https://github.com/firebase/firebase-ios-sdk` (products FirebaseAuth and FirebaseCore) and `https://github.com/google/GoogleSignIn-iOS`. The account card appears only when that plist is in the app and those packages are linked.
 
 ## Tests
 

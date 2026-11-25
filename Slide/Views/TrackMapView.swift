@@ -79,26 +79,26 @@ enum TrackGeometry {
 }
 
 struct SpeedLegend: View {
+    @AppStorage("slide.speed.relative") private var relative = false
+    @Environment(LanguageSettings.self) private var language
+
     var body: some View {
-        HStack(spacing: 8) {
-            ForEach(SpeedBand.allCases, id: \.rawValue) { band in
-                HStack(spacing: 4) {
-                    Circle().fill(Theme.color(for: band)).frame(width: 8, height: 8)
-                    Text(legend(band))
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Theme.muted)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                ForEach(Array(SpeedPaint.stops.enumerated()), id: \.offset) { _, stop in
+                    HStack(spacing: 4) {
+                        Circle().fill(Color(hex: stop.hex)).frame(width: 8, height: 8)
+                        Text(stop.kmh == 0 ? "<15" : "\(Int(stop.kmh))")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(Theme.muted)
+                    }
                 }
             }
-        }
-    }
-
-    private func legend(_ band: SpeedBand) -> String {
-        switch band {
-        case .slow: return "<20"
-        case .cruise: return "20"
-        case .fast: return "40"
-        case .flying: return "60"
-        case .extreme: return "80+"
+            Toggle(isOn: $relative) {
+                Text(language.t("legend.relative"))
+                    .font(.caption.weight(.semibold))
+            }
+            .tint(Theme.accent)
         }
     }
 }
@@ -109,48 +109,21 @@ struct LiveTrackMap: View {
     var userCoordinate: CLLocationCoordinate2D?
     var replay: CLLocationCoordinate2D?
     var onSelect: ((TrackSample) -> Void)?
+    @AppStorage("slide.speed.relative") private var relative = false
 
-    @State private var position: MapCameraPosition = .automatic
+    private var dayMaxKmh: Double? {
+        guard relative, let peak = samples.map(\.speed).max(), peak > 1 else { return nil }
+        return peak * 3.6
+    }
 
     var body: some View {
-        MapReader { proxy in
-            Map(position: $position) {
-                UserAnnotation()
-                ForEach(TrackGeometry.segments(from: samples)) { segment in
-                    MapPolyline(coordinates: segment.coordinates)
-                        .stroke(Theme.color(for: segment.band), lineWidth: 5)
-                }
-                if let replay {
-                    Annotation("replay", coordinate: replay) {
-                        Circle()
-                            .fill(Theme.accent)
-                            .frame(width: 18, height: 18)
-                            .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                    }
-                }
-            }
-            .mapStyle(.hybrid(elevation: .realistic))
-            .onTapGesture { location in
-                guard let sample = TrackGeometry.nearest(to: location, proxy: proxy, samples: samples) else { return }
-                onSelect?(sample)
-            }
-        }
-        .onChange(of: followToken) { _, _ in
-            recenter()
-        }
-        .onAppear { recenter() }
-    }
-
-    private var followToken: String {
-        guard follow, let userCoordinate else { return "idle" }
-        return "\(userCoordinate.latitude),\(userCoordinate.longitude)"
-    }
-
-    private func recenter() {
-        if follow, let userCoordinate {
-            position = .camera(MapCamera(centerCoordinate: userCoordinate, distance: 900, heading: 0, pitch: 45))
-        } else if let region = TrackGeometry.region(for: samples) {
-            position = .region(region)
-        }
+        GradientTrackMap(
+            samples: samples,
+            follow: follow,
+            userCoordinate: userCoordinate,
+            replay: replay,
+            dayMaxKmh: dayMaxKmh,
+            onSelect: onSelect
+        )
     }
 }

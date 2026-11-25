@@ -28,7 +28,8 @@ final class TrackingController {
     var recoverableID: UUID?
     var recoverableTitle = ""
 
-    private var tracker = SessionTracker()
+    private var lookedUpResort = false
+    private let geocoder = CLGeocoder()
     private var airtimeDetector = AirtimeDetector()
     private var jumps: [JumpRecord] = []
     private var dayID: UUID?
@@ -339,6 +340,8 @@ final class TrackingController {
         lastFlush = nil
         lastArchive = nil
         lastFixAt = nil
+        lookedUpResort = false
+        geocoder.cancelGeocode()
         notice = nil
         baroOriginGPS = nil
         baroOriginRel = nil
@@ -459,6 +462,7 @@ final class TrackingController {
     }
 
     private func publish() {
+        nameResortIfNeeded()
         summary = tracker.summary
         jumpCount = jumps.count
         airtime = jumps.reduce(0) { $0 + $1.duration }
@@ -573,11 +577,41 @@ final class TrackingController {
         }
     }
 
+    private func nameResortIfNeeded() {
+        guard resort.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        guard tracker.samples.count >= 8 else { return }
+        if let place = ResortIndex.match(samples: tracker.samples) {
+            resort = place.name
+            return
+        }
+        guard !lookedUpResort, let last = tracker.samples.last else { return }
+        lookedUpResort = true
+        let location = CLLocation(latitude: last.latitude, longitude: last.longitude)
+        geocoder.reverseGeocodeLocation(location) { marks, _ in
+            let found = marks?.first?.locality ?? marks?.first?.subLocality ?? marks?.first?.name ?? ""
+            let trimmed = found.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else { return }
+            Task { @MainActor in
+                if self.resort.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    self.resort = trimmed
+                    self.flush(complete: false)
+                }
+            }
+        }
+    }
+
     private func flush(complete: Bool) {
         // Un flush en arrière-plan ne doit pas rouvrir une sortie déjà terminée.
         guard activity != .idle || complete else { return }
         guard let context, let dayID, let startedAt else { return }
         if tracker.samples.isEmpty && !complete { return }
+        var resortName = resort.trimmingCharacters(in: .whitespacesAndNewlines)
+        if resortName.isEmpty,
+           let existing = DayStore.all(in: context).first(where: { $0.uuid == dayID }),
+           !existing.resort.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            resortName = existing.resort
+            resort = existing.resort
+        }
         let ended = complete ? Date() : nil
         let archive = DayStore.archive(
             from: tracker,
@@ -585,7 +619,7 @@ final class TrackingController {
             id: dayID,
             startedAt: startedAt,
             endedAt: ended,
-            resort: resort,
+            resort: resortName,
             riderName: riderName,
             isComplete: complete,
             isSample: false,

@@ -505,5 +505,19 @@
   "siri.title.start": "Spustit záznam",
   "siri.title.stop": "Zastavit záznam",
   "siri.param.minutes": "Minuty",
-  "NSSiriUsageDescription": "Slide odpovídá Siri na rychlost, vzdálenost a sjezdy z dneška, jen v tomto telefonu."
+  "NSSiriUsageDescription": "Slide odpovídá Siri na rychlost, vzdálenost a sjezdy z dneška, jen v tomto telefonu.",
+  "tab.voice": "Hlas",
+  "voice.title": "Hlas",
+  "voice.lead": "Pro Cardo nebo Bluetooth sluchátka. Hudba hraje dál.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Řekni větu a název aplikace. Klepni pro otevření Zkratek.",
+  "voice.add": "Otevřít Zkratky",
+  "siri.phrase.max": "Jaká je dnešní nejvyšší rychlost",
+  "siri.phrase.distance": "Jaká je dnešní vzdálenost",
+  "siri.phrase.now": "Jak rychle jedu teď",
+  "siri.phrase.ago": "Jak rychle jsem jel před pěti minutami",
+  "siri.phrase.start": "Spusť záznam",
+  "siri.phrase.stop": "Zastav záznam",
+  "siri.phrase.runs": "Kolik sjezdů dnes",
+  "legend.relative": "Barvy podle maxima dne"
 }

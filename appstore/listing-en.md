@@ -14,7 +14,7 @@ Slide is a ski and freestyle tracker that stays on your iPhone.
 
 Start at the bottom of the lift. Slide splits descents, lifts and rests by itself, even with the screen locked. The live screen shows a big speed reading, distance, vertical, altitude and a hybrid map with the track coloured by speed. Numbers keep working when the map tiles are blank.
 
-History keeps the season (1 September–31 August), records, charts and a replay of the day. The map tab pins every place you have skied.
+History keeps the season (1 September–31 August), records, charts and a replay of the day. The map tab draws every saved track in speed colours, and groups them into pins when you zoom out.
 
 Learn holds an offline freestyle course: beginner, park, then advanced. Inversions (backflip, frontflip, cork) are marked coach-required. The order is trampoline with a spotter, then a water ramp or airbag, then snow only with a coach. Tutorial buttons open a YouTube search. Slide does not host videos.
 
@@ -24,4 +24,4 @@ Nothing is uploaded. There is no account. Share a day as GPX, an image, or a .sl
 ski,snowboard,freestyle,tracker,gps,offline,vertical,runs,snowpark,alps
 
 ## What's new
-Audio coach in your headset, Siri answers for today's speed and distance, resort names on the map, and a large top speed on the day.
+Smooth speed-coloured tracks, a ski colour scale, automatic resort names, a Voice tab for the headset coach and Siri, and a map of every saved run.

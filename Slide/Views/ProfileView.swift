@@ -45,10 +45,6 @@ struct ProfileView: View {
         }
     }
 
-    private var audioCoach: some View {
-        AudioCoachCard(language: language)
-    }
-
     private var languageBlock: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(language.t("profile.language"))
@@ -86,7 +82,6 @@ struct ProfileView: View {
             .tint(Theme.accent)
             .padding(14)
             .background(Theme.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-            audioCoach
             locationCard
             Button {
                 note = controller.toggleSampleDay()
@@ -193,7 +188,7 @@ struct ProfileView: View {
     }
 }
 
-private struct AudioCoachCard: View {
+struct AudioCoachCard: View {
     var language: LanguageSettings
     @AppStorage(AudioCoachSettings.enabled) private var enabled = false
     @AppStorage(AudioCoachSettings.threshold) private var threshold = 60.0

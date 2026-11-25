@@ -46,7 +46,7 @@ struct MainTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
     @Query private var profiles: [RiderProfile]
-    @State private var tab = 0
+    @State private var tab = SlidePreview.screen == "history" ? 2 : (SlidePreview.screen == "voice" ? 4 : (SlidePreview.screen == "map" ? 1 : 0))
 
     var body: some View {
         TabView(selection: $tab) {
@@ -62,14 +62,22 @@ struct MainTabView: View {
             FreestyleView()
                 .tag(3)
                 .tabItem { Label(language.t("tab.freestyle"), systemImage: "figure.skiing.downhill") }
-            ProfileView()
+            VoiceView()
                 .tag(4)
+                .tabItem { Label(language.t("tab.voice"), systemImage: "waveform") }
+            ProfileView()
+                .tag(5)
                 .tabItem { Label(language.t("tab.profile"), systemImage: "person.crop.circle") }
         }
         .onAppear {
             controller.bind(context: modelContext, language: language)
             controller.use(prefs: profiles.first?.prefs ?? .metric)
             _ = DayStore.profile(in: modelContext)
+            if SlidePreview.on, (try? modelContext.fetchCount(FetchDescriptor<SkiDay>())) == 0 {
+                let day = SkiDay(archive: SlidePreview.archive)
+                modelContext.insert(day)
+                try? modelContext.save()
+            }
             syncIdle()
         }
         .onChange(of: scenePhase) { _, phase in

@@ -83,3 +83,35 @@ enum SpeedBand: Int, CaseIterable, Equatable {
         }
     }
 }
+
+/// Display colours for a ski speed. Absolute km/h stops, or stretched so the day's max sits near the top.
+enum SpeedPaint {
+    static let stops: [(kmh: Double, hex: UInt32)] = [
+        (0, 0x3B82F6),
+        (15, 0x14C8C0),
+        (30, 0x3DDC6A),
+        (45, 0xFFE14A),
+        (60, 0xFF9A2E),
+        (75, 0xFF3B4E),
+        (90, 0xE23BFF),
+    ]
+
+    static func paintedKmh(_ metersPerSecond: Double, dayMaxKmh: Double?) -> Double {
+        let raw = max(0, metersPerSecond * 3.6)
+        guard let dayMaxKmh, dayMaxKmh > 20 else { return raw }
+        return min(100, raw / dayMaxKmh * 90)
+    }
+
+    static func rgb(_ metersPerSecond: Double, dayMaxKmh: Double?) -> (Double, Double, Double) {
+        let kmh = paintedKmh(metersPerSecond, dayMaxKmh: dayMaxKmh)
+        let upper = stops.lastIndex { $0.kmh <= kmh } ?? 0
+        let next = min(upper + 1, stops.count - 1)
+        let a = stops[upper]
+        let b = stops[next]
+        let span = max(0.001, b.kmh - a.kmh)
+        let t = upper == next ? 0 : min(1, max(0, (kmh - a.kmh) / span))
+        let ar = Double((a.hex >> 16) & 0xFF), ag = Double((a.hex >> 8) & 0xFF), ab = Double(a.hex & 0xFF)
+        let br = Double((b.hex >> 16) & 0xFF), bg = Double((b.hex >> 8) & 0xFF), bb = Double(b.hex & 0xFF)
+        return ((ar + (br - ar) * t) / 255, (ag + (bg - ag) * t) / 255, (ab + (bb - ab) * t) / 255)
+    }
+}

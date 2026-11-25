@@ -505,5 +505,19 @@
   "siri.title.start": "Empezar seguimiento",
   "siri.title.stop": "Parar seguimiento",
   "siri.param.minutes": "Minutos",
-  "NSSiriUsageDescription": "Slide responde a Siri sobre velocidad, distancia y bajadas de hoy, solo en este teléfono."
+  "NSSiriUsageDescription": "Slide responde a Siri sobre velocidad, distancia y bajadas de hoy, solo en este teléfono.",
+  "tab.voice": "Voz",
+  "voice.title": "Voz",
+  "voice.lead": "Para un Cardo o auricular Bluetooth. La música sigue.",
+  "voice.siri": "Siri",
+  "voice.siri.help": "Di la frase y el nombre de la app. Toca el botón para abrir Atajos.",
+  "voice.add": "Abrir Atajos",
+  "siri.phrase.max": "Cuál es mi velocidad máxima de hoy",
+  "siri.phrase.distance": "Cuánta distancia hice hoy",
+  "siri.phrase.now": "A qué velocidad voy ahora",
+  "siri.phrase.ago": "Qué velocidad llevaba hace cinco minutos",
+  "siri.phrase.start": "Empieza el seguimiento",
+  "siri.phrase.stop": "Para el seguimiento",
+  "siri.phrase.runs": "Cuántas bajadas hoy",
+  "legend.relative": "Colores según el máximo del día"
 }
