@@ -1,0 +1,74 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSLocationWhenInUseUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide uses your location to measure speed, distance and your track, with no network."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide utilise ta position pour mesurer la vitesse, la distance et tracer tes descentes, sans réseau."
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysAndWhenInUseUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Nothing is sent to the internet. GPS stops when you finish."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Rien n'est envoyé sur Internet. Le GPS s'arrête quand tu termines."
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide needs your location for the whole session, including with the screen locked. Nothing is sent to the internet."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Rien n'est envoyé sur Internet."
+          }
+        }
+      }
+    },
+    "NSMotionUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide uses the barometer for altitude and the accelerometer to estimate jump airtime."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide utilise le baromètre pour l'altitude et l'accéléromètre pour estimer le temps de vol des sauts."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

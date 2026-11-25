@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Génère Glisse.xcodeproj à partir des fichiers présents."""
+"""Génère Slide.xcodeproj à partir des fichiers présents."""
 
 import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-APP = ROOT / "Glisse"
-TESTS = ROOT / "GlisseTests"
-PROJ = ROOT / "Glisse.xcodeproj"
+APP = ROOT / "Slide"
+TESTS = ROOT / "SlideTests"
+PROJ = ROOT / "Slide.xcodeproj"
 
 
 def uid(seed: str) -> str:
@@ -46,6 +46,8 @@ def file_type(rel: Path) -> str:
         return "text.plist.xml"
     if name.endswith(".xcassets"):
         return "folder.assetcatalog"
+    if name.endswith(".xcstrings"):
+        return "text.json.xcstrings"
     return "text"
 
 
@@ -59,7 +61,7 @@ for rel in app_files:
     file_refs[("app", str(rel))] = uid(f"fileref-app-{rel}")
     if rel.suffix == ".swift":
         build_files[("app", str(rel))] = uid(f"build-app-{rel}")
-    elif rel.name.endswith(".xcassets") or rel.name.endswith(".xcprivacy"):
+    elif rel.name.endswith(".xcassets") or rel.name.endswith(".xcprivacy") or rel.name.endswith(".xcstrings"):
         build_files[("app", str(rel))] = uid(f"build-res-{rel}")
 for rel in test_files:
     file_refs[("test", str(rel))] = uid(f"fileref-test-{rel}")
@@ -91,6 +93,23 @@ proj_release = uid("cfg-proj-release")
 app_cfg_list = uid("list-app")
 test_cfg_list = uid("list-test")
 proj_cfg_list = uid("list-proj")
+widget_target = uid("target-widget")
+widget_product = uid("product-widget")
+widget_sources = uid("phase-widget-sources")
+widget_frameworks = uid("phase-widget-frameworks")
+widget_embed = uid("phase-embed")
+widget_embed_file = uid("build-embed-widget")
+widget_proxy = uid("proxy-widget")
+widget_dep = uid("dep-widget")
+widget_group = uid("group-widget")
+widget_file_swift = uid("fileref-widget-swift")
+widget_file_plist = uid("fileref-widget-plist")
+widget_build_swift = uid("build-widget-swift")
+widget_build_attr = uid("build-widget-attr")
+widget_cfg_list = uid("list-widget")
+widget_debug = uid("cfg-widget-debug")
+widget_release = uid("cfg-widget-release")
+attr_ref = file_refs[("app", "Activity/SlideActivityAttributes.swift")]
 
 # Directory groups inside the app, so Xcode shows folders.
 dir_groups = {Path("."): app_group}
@@ -121,13 +140,13 @@ w("\t\t\tisa = PBXContainerItemProxy;")
 w(f"\t\t\tcontainerPortal = {project_id} /* Project object */;")
 w("\t\t\tproxyType = 1;")
 w(f"\t\t\tremoteGlobalIDString = {app_target};")
-w("\t\t\tremoteInfo = Glisse;")
+w("\t\t\tremoteInfo = Slide;")
 w("\t\t};")
 w("/* End PBXContainerItemProxy section */")
 w("")
 w("/* Begin PBXFileReference section */")
-w(f"\t\t{app_product} /* Glisse.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glisse.app; sourceTree = BUILT_PRODUCTS_DIR; }};")
-w(f"\t\t{test_product} /* GlisseTests.xctest */ = {{isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GlisseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; }};")
+w(f"\t\t{app_product} /* Slide.app */ = {{isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slide.app; sourceTree = BUILT_PRODUCTS_DIR; }};")
+w(f"\t\t{test_product} /* SlideTests.xctest */ = {{isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; }};")
 for rel in app_files:
     ref = file_refs[("app", str(rel))]
     kind = file_type(rel)
@@ -156,8 +175,9 @@ w("/* Begin PBXGroup section */")
 w(f"\t\t{main_group} = {{")
 w("\t\t\tisa = PBXGroup;")
 w("\t\t\tchildren = (")
-w(f"\t\t\t\t{app_group} /* Glisse */,")
-w(f"\t\t\t\t{test_group} /* GlisseTests */,")
+w(f"\t\t\t\t{app_group} /* Slide */,")
+w(f"\t\t\t\t{widget_group} /* SlideActivity */,")
+w(f"\t\t\t\t{test_group} /* SlideTests */,")
 w(f"\t\t\t\t{products_group} /* Products */,")
 w("\t\t\t);")
 w("\t\t\tsourceTree = \"<group>\";")
@@ -165,8 +185,9 @@ w("\t\t};")
 w(f"\t\t{products_group} /* Products */ = {{")
 w("\t\t\tisa = PBXGroup;")
 w("\t\t\tchildren = (")
-w(f"\t\t\t\t{app_product} /* Glisse.app */,")
-w(f"\t\t\t\t{test_product} /* GlisseTests.xctest */,")
+w(f"\t\t\t\t{app_product} /* Slide.app */,")
+w(f"\t\t\t\t{widget_product} /* SlideActivity.appex */,")
+w(f"\t\t\t\t{test_product} /* SlideTests.xctest */,")
 w("\t\t\t);")
 w("\t\t\tname = Products;")
 w("\t\t\tsourceTree = \"<group>\";")
@@ -177,7 +198,7 @@ all_dirs = sorted(dir_groups, key=lambda p: (len(p.parts), str(p)))
 for directory in all_dirs:
     gid = dir_groups[directory]
     kids = children_of(directory)
-    name = "Glisse" if directory == Path(".") else directory.name
+    name = "Slide" if directory == Path(".") else directory.name
     w(f"\t\t{gid} /* {name} */ = {{")
     w("\t\t\tisa = PBXGroup;")
     w("\t\t\tchildren = (")
@@ -185,26 +206,26 @@ for directory in all_dirs:
         w(f"\t\t\t\t{kid_id} /* {kid_name} */,")
     w("\t\t\t);")
     if directory == Path("."):
-        w("\t\t\tpath = Glisse;")
+        w("\t\t\tpath = Slide;")
     else:
         w(f"\t\t\tpath = {q(directory.name)};")
     w("\t\t\tsourceTree = \"<group>\";")
     w("\t\t};")
 
-w(f"\t\t{test_group} /* GlisseTests */ = {{")
+w(f"\t\t{test_group} /* SlideTests */ = {{")
 w("\t\t\tisa = PBXGroup;")
 w("\t\t\tchildren = (")
 for rel in test_files:
     w(f"\t\t\t\t{file_refs[('test', str(rel))]} /* {rel.name} */,")
 w("\t\t\t);")
-w("\t\t\tpath = GlisseTests;")
+w("\t\t\tpath = SlideTests;")
 w("\t\t\tsourceTree = \"<group>\";")
 w("\t\t};")
 w("/* End PBXGroup section */")
 w("")
 
 w("/* Begin PBXFrameworksBuildPhase section */")
-for phase, name in ((app_frameworks, "Glisse"), (test_frameworks, "GlisseTests")):
+for phase, name in ((app_frameworks, "Slide"), (test_frameworks, "SlideTests")):
     w(f"\t\t{phase} /* Frameworks */ = {{")
     w("\t\t\tisa = PBXFrameworksBuildPhase;")
     w("\t\t\tbuildActionMask = 2147483647;")
@@ -216,26 +237,28 @@ w("/* End PBXFrameworksBuildPhase section */")
 w("")
 
 w("/* Begin PBXNativeTarget section */")
-w(f"\t\t{app_target} /* Glisse */ = {{")
+w(f"\t\t{app_target} /* Slide */ = {{")
 w("\t\t\tisa = PBXNativeTarget;")
-w(f"\t\t\tbuildConfigurationList = {app_cfg_list} /* Build configuration list for PBXNativeTarget \"Glisse\" */;")
+w(f"\t\t\tbuildConfigurationList = {app_cfg_list} /* Build configuration list for PBXNativeTarget \"Slide\" */;")
 w("\t\t\tbuildPhases = (")
 w(f"\t\t\t\t{app_sources} /* Sources */,")
 w(f"\t\t\t\t{app_frameworks} /* Frameworks */,")
 w(f"\t\t\t\t{app_resources} /* Resources */,")
+w(f"\t\t\t\t{widget_embed} /* Embed Foundation Extensions */,")
 w("\t\t\t);")
 w("\t\t\tbuildRules = (")
 w("\t\t\t);")
 w("\t\t\tdependencies = (")
+w(f"\t\t\t\t{widget_dep} /* PBXTargetDependency */,")
 w("\t\t\t);")
-w("\t\t\tname = Glisse;")
-w("\t\t\tproductName = Glisse;")
-w(f"\t\t\tproductReference = {app_product} /* Glisse.app */;")
+w("\t\t\tname = Slide;")
+w("\t\t\tproductName = Slide;")
+w(f"\t\t\tproductReference = {app_product} /* Slide.app */;")
 w("\t\t\tproductType = \"com.apple.product-type.application\";")
 w("\t\t};")
-w(f"\t\t{test_target} /* GlisseTests */ = {{")
+w(f"\t\t{test_target} /* SlideTests */ = {{")
 w("\t\t\tisa = PBXNativeTarget;")
-w(f"\t\t\tbuildConfigurationList = {test_cfg_list} /* Build configuration list for PBXNativeTarget \"GlisseTests\" */;")
+w(f"\t\t\tbuildConfigurationList = {test_cfg_list} /* Build configuration list for PBXNativeTarget \"SlideTests\" */;")
 w("\t\t\tbuildPhases = (")
 w(f"\t\t\t\t{test_sources} /* Sources */,")
 w(f"\t\t\t\t{test_frameworks} /* Frameworks */,")
@@ -245,9 +268,9 @@ w("\t\t\t);")
 w("\t\t\tdependencies = (")
 w(f"\t\t\t\t{dependency} /* PBXTargetDependency */,")
 w("\t\t\t);")
-w("\t\t\tname = GlisseTests;")
-w("\t\t\tproductName = GlisseTests;")
-w(f"\t\t\tproductReference = {test_product} /* GlisseTests.xctest */;")
+w("\t\t\tname = SlideTests;")
+w("\t\t\tproductName = SlideTests;")
+w(f"\t\t\tproductReference = {test_product} /* SlideTests.xctest */;")
 w("\t\t\tproductType = \"com.apple.product-type.bundle.unit-test\";")
 w("\t\t};")
 w("/* End PBXNativeTarget section */")
@@ -269,10 +292,11 @@ w("\t\t\t\t\t\tTestTargetID = " + app_target + ";")
 w("\t\t\t\t\t};")
 w("\t\t\t\t};")
 w("\t\t\t};")
-w(f"\t\t\tbuildConfigurationList = {proj_cfg_list} /* Build configuration list for PBXProject \"Glisse\" */;")
-w("\t\t\tdevelopmentRegion = fr;")
+w(f"\t\t\tbuildConfigurationList = {proj_cfg_list} /* Build configuration list for PBXProject \"Slide\" */;")
+w("\t\t\tdevelopmentRegion = en;")
 w("\t\t\thasScannedForEncodings = 0;")
 w("\t\t\tknownRegions = (")
+w("\t\t\t\ten,")
 w("\t\t\t\tfr,")
 w("\t\t\t\tBase,")
 w("\t\t\t);")
@@ -282,8 +306,9 @@ w(f"\t\t\tproductRefGroup = {products_group} /* Products */;")
 w("\t\t\tprojectDirPath = \"\";")
 w("\t\t\tprojectRoot = \"\";")
 w("\t\t\ttargets = (")
-w(f"\t\t\t\t{app_target} /* Glisse */,")
-w(f"\t\t\t\t{test_target} /* GlisseTests */,")
+w(f"\t\t\t\t{app_target} /* Slide */,")
+w(f"\t\t\t\t{widget_target} /* SlideActivity */,")
+w(f"\t\t\t\t{test_target} /* SlideTests */,")
 w("\t\t\t);")
 w("\t\t};")
 w("/* End PBXProject section */")
@@ -296,7 +321,7 @@ w("\t\t\tbuildActionMask = 2147483647;")
 w("\t\t\tfiles = (")
 for rel in app_files:
     key = ("app", str(rel))
-    if rel.name.endswith(".xcassets") or rel.name.endswith(".xcprivacy"):
+    if rel.name.endswith(".xcassets") or rel.name.endswith(".xcprivacy") or rel.name.endswith(".xcstrings"):
         w(f"\t\t\t\t{build_files[key]} /* {rel.name} */,")
 w("\t\t\t);")
 w("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
@@ -331,7 +356,7 @@ w("")
 w("/* Begin PBXTargetDependency section */")
 w(f"\t\t{dependency} /* PBXTargetDependency */ = {{")
 w("\t\t\tisa = PBXTargetDependency;")
-w(f"\t\t\ttarget = {app_target} /* Glisse */;")
+w(f"\t\t\ttarget = {app_target} /* Slide */;")
 w(f"\t\t\ttargetProxy = {proxy} /* PBXContainerItemProxy */;")
 w("\t\t};")
 w("/* End PBXTargetDependency section */")
@@ -345,19 +370,20 @@ common_target = """
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Glisse/Info.plist;
+				INFOPLIST_FILE = Slide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.glisse.ski;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 """
@@ -375,7 +401,7 @@ test_common = """
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.glisse.ski.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -383,7 +409,7 @@ test_common = """
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Glisse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Glisse";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Slide.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Slide";
 """
 
 proj_common_debug = """
@@ -441,13 +467,13 @@ config(proj_debug, "Debug", proj_common_debug)
 config(proj_release, "Release", proj_common_release)
 config(app_debug, "Debug", common_target)
 config(app_release, "Release", common_target)
-config(test_debug, "Debug", test_common, 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG GLISSE_HOSTED_TESTS $(inherited)";')
-config(test_release, "Release", test_common, 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "GLISSE_HOSTED_TESTS $(inherited)";')
+config(test_debug, "Debug", test_common, 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SLIDE_HOSTED_TESTS $(inherited)";')
+config(test_release, "Release", test_common, 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SLIDE_HOSTED_TESTS $(inherited)";')
 w("/* End XCBuildConfiguration section */")
 w("")
 
 w("/* Begin XCConfigurationList section */")
-w(f"\t\t{proj_cfg_list} /* Build configuration list for PBXProject \"Glisse\" */ = {{")
+w(f"\t\t{proj_cfg_list} /* Build configuration list for PBXProject \"Slide\" */ = {{")
 w("\t\t\tisa = XCConfigurationList;")
 w("\t\t\tbuildConfigurations = (")
 w(f"\t\t\t\t{proj_debug} /* Debug */,")
@@ -456,7 +482,7 @@ w("\t\t\t);")
 w("\t\t\tdefaultConfigurationIsVisible = 0;")
 w("\t\t\tdefaultConfigurationName = Release;")
 w("\t\t};")
-w(f"\t\t{app_cfg_list} /* Build configuration list for PBXNativeTarget \"Glisse\" */ = {{")
+w(f"\t\t{app_cfg_list} /* Build configuration list for PBXNativeTarget \"Slide\" */ = {{")
 w("\t\t\tisa = XCConfigurationList;")
 w("\t\t\tbuildConfigurations = (")
 w(f"\t\t\t\t{app_debug} /* Debug */,")
@@ -465,7 +491,7 @@ w("\t\t\t);")
 w("\t\t\tdefaultConfigurationIsVisible = 0;")
 w("\t\t\tdefaultConfigurationName = Release;")
 w("\t\t};")
-w(f"\t\t{test_cfg_list} /* Build configuration list for PBXNativeTarget \"GlisseTests\" */ = {{")
+w(f"\t\t{test_cfg_list} /* Build configuration list for PBXNativeTarget \"SlideTests\" */ = {{")
 w("\t\t\tisa = XCConfigurationList;")
 w("\t\t\tbuildConfigurations = (")
 w(f"\t\t\t\t{test_debug} /* Debug */,")
@@ -474,7 +500,113 @@ w("\t\t\t);")
 w("\t\t\tdefaultConfigurationIsVisible = 0;")
 w("\t\t\tdefaultConfigurationName = Release;")
 w("\t\t};")
+w(f"\t\t{widget_cfg_list} /* Build configuration list for PBXNativeTarget \"SlideActivity\" */ = {{")
+w("\t\t\tisa = XCConfigurationList;")
+w("\t\t\tbuildConfigurations = (")
+w(f"\t\t\t\t{widget_debug} /* Debug */,")
+w(f"\t\t\t\t{widget_release} /* Release */,")
+w("\t\t\t);")
+w("\t\t\tdefaultConfigurationIsVisible = 0;")
+w("\t\t\tdefaultConfigurationName = Release;")
+w("\t\t};")
 w("/* End XCConfigurationList section */")
+w("")
+w("/* Begin widget extension */")
+w(f"\t\t{widget_product} /* SlideActivity.appex */ = {{isa = PBXFileReference; explicitFileType = \"wrapper.app-extension\"; includeInIndex = 0; path = SlideActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; }};")
+w(f"\t\t{widget_file_swift} /* SlideActivityWidget.swift */ = {{isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideActivityWidget.swift; sourceTree = \"<group>\"; }};")
+w(f"\t\t{widget_file_plist} /* Info.plist */ = {{isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = \"<group>\"; }};")
+w(f"\t\t{widget_build_swift} /* SlideActivityWidget.swift */ = {{isa = PBXBuildFile; fileRef = {widget_file_swift}; }};")
+w(f"\t\t{widget_build_attr} /* SlideActivityAttributes.swift */ = {{isa = PBXBuildFile; fileRef = {attr_ref}; }};")
+w(f"\t\t{widget_embed_file} /* SlideActivity.appex in Embed */ = {{isa = PBXBuildFile; fileRef = {widget_product}; settings = {{ATTRIBUTES = (RemoveHeadersOnCopy, ); }}; }};")
+w(f"\t\t{widget_group} /* SlideActivity */ = {{")
+w("\t\t\tisa = PBXGroup;")
+w("\t\t\tchildren = (")
+w(f"\t\t\t\t{widget_file_swift} /* SlideActivityWidget.swift */,")
+w(f"\t\t\t\t{widget_file_plist} /* Info.plist */,")
+w("\t\t\t);")
+w("\t\t\tpath = SlideActivity;")
+w("\t\t\tsourceTree = \"<group>\";")
+w("\t\t};")
+w(f"\t\t{widget_sources} /* Sources */ = {{")
+w("\t\t\tisa = PBXSourcesBuildPhase;")
+w("\t\t\tbuildActionMask = 2147483647;")
+w("\t\t\tfiles = (")
+w(f"\t\t\t\t{widget_build_swift} /* SlideActivityWidget.swift */,")
+w(f"\t\t\t\t{widget_build_attr} /* SlideActivityAttributes.swift */,")
+w("\t\t\t);")
+w("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+w("\t\t};")
+w(f"\t\t{widget_frameworks} /* Frameworks */ = {{")
+w("\t\t\tisa = PBXFrameworksBuildPhase;")
+w("\t\t\tbuildActionMask = 2147483647;")
+w("\t\t\tfiles = (")
+w("\t\t\t);")
+w("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+w("\t\t};")
+w(f"\t\t{widget_embed} /* Embed Foundation Extensions */ = {{")
+w("\t\t\tisa = PBXCopyFilesBuildPhase;")
+w("\t\t\tbuildActionMask = 2147483647;")
+w("\t\t\tdstPath = \"\";")
+w("\t\t\tdstSubfolderSpec = 13;")
+w("\t\t\tfiles = (")
+w(f"\t\t\t\t{widget_embed_file} /* SlideActivity.appex */,")
+w("\t\t\t);")
+w("\t\t\tname = \"Embed Foundation Extensions\";")
+w("\t\t\trunOnlyForDeploymentPostprocessing = 0;")
+w("\t\t};")
+w(f"\t\t{widget_proxy} /* PBXContainerItemProxy */ = {{")
+w("\t\t\tisa = PBXContainerItemProxy;")
+w(f"\t\t\tcontainerPortal = {project_id} /* Project object */;")
+w("\t\t\tproxyType = 1;")
+w(f"\t\t\tremoteGlobalIDString = {widget_target};")
+w("\t\t\tremoteInfo = SlideActivity;")
+w("\t\t};")
+w(f"\t\t{widget_dep} /* PBXTargetDependency */ = {{")
+w("\t\t\tisa = PBXTargetDependency;")
+w(f"\t\t\ttarget = {widget_target} /* SlideActivity */;")
+w(f"\t\t\ttargetProxy = {widget_proxy} /* PBXContainerItemProxy */;")
+w("\t\t};")
+w(f"\t\t{widget_target} /* SlideActivity */ = {{")
+w("\t\t\tisa = PBXNativeTarget;")
+w(f"\t\t\tbuildConfigurationList = {widget_cfg_list};")
+w("\t\t\tbuildPhases = (")
+w(f"\t\t\t\t{widget_sources} /* Sources */,")
+w(f"\t\t\t\t{widget_frameworks} /* Frameworks */,")
+w("\t\t\t);")
+w("\t\t\tbuildRules = (")
+w("\t\t\t);")
+w("\t\t\tdependencies = (")
+w("\t\t\t);")
+w("\t\t\tname = SlideActivity;")
+w("\t\t\tproductName = SlideActivity;")
+w(f"\t\t\tproductReference = {widget_product};")
+w("\t\t\tproductType = \"com.apple.product-type.app-extension\";")
+w("\t\t};")
+widget_settings = """
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SlideActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.liveactivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+"""
+config(widget_debug, "Debug", widget_settings)
+config(widget_release, "Release", widget_settings)
+w("/* End widget extension */")
 w("\t};")
 w(f"\trootObject = {project_id} /* Project object */;")
 w("}")
@@ -504,9 +636,9 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "{app_target}"
-               BuildableName = "Glisse.app"
-               BlueprintName = "Glisse"
-               ReferencedContainer = "container:Glisse.xcodeproj">
+               BuildableName = "Slide.app"
+               BlueprintName = "Slide"
+               ReferencedContainer = "container:Slide.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -522,9 +654,9 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "{test_target}"
-               BuildableName = "GlisseTests.xctest"
-               BlueprintName = "GlisseTests"
-               ReferencedContainer = "container:Glisse.xcodeproj">
+               BuildableName = "SlideTests.xctest"
+               BlueprintName = "SlideTests"
+               ReferencedContainer = "container:Slide.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -544,9 +676,9 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "{app_target}"
-            BuildableName = "Glisse.app"
-            BlueprintName = "Glisse"
-            ReferencedContainer = "container:Glisse.xcodeproj">
+            BuildableName = "Slide.app"
+            BlueprintName = "Slide"
+            ReferencedContainer = "container:Slide.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -561,9 +693,9 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "{app_target}"
-            BuildableName = "Glisse.app"
-            BlueprintName = "Glisse"
-            ReferencedContainer = "container:Glisse.xcodeproj">
+            BuildableName = "Slide.app"
+            BlueprintName = "Slide"
+            ReferencedContainer = "container:Slide.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -576,7 +708,7 @@ scheme = f"""<?xml version="1.0" encoding="UTF-8"?>
    </ArchiveAction>
 </Scheme>
 """
-(scheme_dir / "Glisse.xcscheme").write_text(scheme)
+(scheme_dir / "Slide.xcscheme").write_text(scheme)
 workspace = PROJ / "project.xcworkspace"
 workspace.mkdir(parents=True, exist_ok=True)
 (workspace / "contents.xcworkspacedata").write_text(

@@ -1,144 +1,239 @@
-# Glisse
+# Slide
 
-Application iPhone pour suivre une journée de ski freestyle, **sans compte et sans réseau**. Elle est pensée pour un iPhone sous iOS 17 (visée : iPhone 15 Pro) et s'installe depuis un Mac avec Xcode et un **Apple ID gratuit**.
+Offline ski and freestyle tracker for iPhone (iOS 17+, aimed at iPhone 15 Pro). No account, no server. Install it from a Mac with Xcode and a **free Apple ID**.
 
-Glisse mesure la vitesse, la distance, le dénivelé et la durée, sépare tout seul les descentes, les remontées et les pauses, garde l'historique sur le téléphone, propose une bibliothèque de tricks en français, et permet d'envoyer une sortie à un ami par AirDrop ou Messages.
+The interface is **English and French**. Profile → Language: System (follows the phone), English, or Français. iOS permission dialogs stay in the phone’s language. Everything inside Slide follows the switch.
 
-Rien n'est envoyé sur un serveur. Il n'y a pas de publicité et pas d'inscription.
+---
 
-## Ce qu'il te faut
+# English
 
-- Un Mac avec macOS récent
-- [Xcode](https://apps.apple.com/app/xcode/id497799835) 16 ou plus récent, gratuit sur le Mac App Store (le premier téléchargement est lourd)
+## What you need
+
+- A Mac with a recent macOS
+- [Xcode](https://apps.apple.com/app/xcode/id497799835) 16 or newer, free on the Mac App Store
+- An iPhone on **iOS 17 or later**
+- A cable for the first install
+- A **free Apple ID**. The paid developer program is not required.
+
+If you are under 13, or the Apple ID is refused because of age, an adult signs in to Xcode with their own free Apple ID. The app still installs on your iPhone.
+
+## Install Slide
+
+### 1. Open the project
+
+1. Copy this folder to the Mac.
+2. Double-click `Slide.xcodeproj`.
+3. If Xcode asks to install extra components, accept.
+
+### 2. Sign in
+
+1. **Xcode → Settings… → Accounts**.
+2. **+** → **Apple ID**, and sign in with the free account.
+3. You should see a team like **Your Name (Personal Team)**.
+
+### 3. Pick the iPhone and the team
+
+1. Plug in the iPhone. If it asks to trust the computer, tap **Trust** and enter the passcode.
+2. At the top of Xcode, next to the Play button, choose **your iPhone**, not a simulator.
+3. In the left column, click the blue **Slide** project, then the **Slide** target.
+4. **Signing & Capabilities**.
+5. Check **Automatically manage signing**.
+6. **Team**: your Personal Team.
+7. Bundle identifier: `ch.geneve.slide.ski`. If it is already taken, change it to something unique such as `ch.geneve.slide.ski.yourname` (no spaces, no capitals). Change the **SlideActivity** target’s bundle id the same way, keeping it as `<app id>.liveactivity`, and give that target the same team.
+
+There is no paid capability (no iCloud, no push, no HealthKit). Background location is already in `Info.plist`. If Xcode warns about it: **Signing & Capabilities → + Capability → Background Modes → Location updates**. A free account can do that.
+
+### 4. Turn on Developer Mode
+
+1. On the iPhone: **Settings → Privacy & Security**.
+2. At the bottom: **Developer Mode**.
+3. Turn it on. The iPhone restarts.
+4. After restart, confirm **Turn On**.
+
+If the row is missing, run the app from Xcode once (step 5). iOS often adds the menu after that.
+
+### 5. Run
+
+1. Scheme **Slide**, destination your iPhone.
+2. Press Play (`Cmd + R`). The first build can take several minutes.
+3. If the iPhone says the developer is not trusted, do the next step.
+
+### 6. Trust the developer
+
+1. **Settings → General → VPN & Device Management**.
+2. Under **Developer App**, tap the profile with the Apple ID email.
+3. **Trust**, then confirm.
+
+Open Slide from the home screen. The icon is a light-green line on a dark background.
+
+### 7. Location “Always”
+
+1. The first **Start** asks for location. Allow **While Using**.
+2. When iOS offers **Always**, accept it.
+3. If you don’t see Always: **Settings → Privacy & Security → Location Services → Slide → Always**.
+
+Always is only for a session, so tracking continues in a pocket with the screen locked. Slide **stops GPS** when you press Stop. A blue pill means iOS is showing that GPS is on.
+
+Also allow **Motion & Fitness** if asked: barometer (altitude) and accelerometer (estimated airtime).
+
+### 8. Every 7 days
+
+A **free** Apple ID certificate lasts about **7 days**. The app will not open until you run it again from Xcode (plug in the phone, press Play).
+
+Do **not** delete the app to “fix” it. Your days live on the phone. A new Run with the **same** bundle id keeps them. Changing the bundle id makes a different app.
+
+## Sharing the app vs sharing a day
+
+A free Apple ID **cannot** send the app itself (no TestFlight). TestFlight and the App Store need the **paid Apple Developer program**, in an **adult’s** name if you are under 18.
+
+You can still send a day with AirDrop or Messages:
+
+- **GPX** track
+- a **stats image**
+- a **.slide** file (full session). Older **.glisse** files still import.
+
+## What the app does
+
+- **Tracking** — speed gauge, max speed, distance, vertical, altitude, time, run count. Live map (hybrid) with the track coloured by speed, follow mode, speed and altitude on the map. Start, pause, stop. The map tiles can be blank offline; the numbers still work. When a fix arrives, Slide asks MapKit to cache the area around you. That only helps if the phone has had a network once, and it is not a full offline map of the resort.
+- **Dynamic Island / Lock Screen** — a Live Activity with current speed while you track. This uses ActivityKit only. It does **not** need a paid entitlement. If Live Activities are off in iOS settings, Slide just skips it.
+- **No home-screen widget.** A widget that reads your saved days would need App Groups, and a free Personal Team cannot use App Groups.
+- **History** — season totals (1 September–31 August), records, speed and altitude charts, bars per run, replay of the track on the map, tap the line to read the speed at that point.
+- **Freestyle** — offline tips in both languages, from park rules up through grabs, rails, butters, 540, and supervised inversions (backflip, frontflip, cork 360). Those are marked **Coach required**. The order is trampoline with a spotter, then water ramp or airbag, then snow only with a coach. The checklist and notes stay on the phone.
+- **Profile** — name, resort, units (km/h by default), language, screen-on while tracking, sample day.
+
+## Tests
+
+In Xcode: **Product → Test** (`Cmd + U`) with an iPhone simulator. The tests replay fake tracks (bad accuracy, speed spikes, a descent, a lift, two runs, airtime, GPX). They do not use GPS.
+
+## Limits
+
+- Map tiles need a cache. Stats, replay markers you already recorded, and the shared image do not.
+- Airtime is an estimate.
+- A full day of precise GPS uses the battery. Cold makes it worse. Start full, inside pocket, Low Power Mode off.
+- Inverted tricks in the library are not an invitation to try them alone on a resort jump.
+
+---
+
+# Français
+
+Application de ski et de freestyle pour iPhone (iOS 17+, visée iPhone 15 Pro). **Sans compte et sans serveur.** Elle s’installe depuis un Mac avec Xcode et un **Apple ID gratuit**.
+
+L’interface est en **anglais et en français**. Profil → Langue : Système (celle du téléphone), English, ou Français. Les demandes iOS (position, mouvement) restent dans la langue du téléphone. Tout l’intérieur de Slide suit le réglage.
+
+## Ce qu’il te faut
+
+- Un Mac avec un macOS récent
+- [Xcode](https://apps.apple.com/app/xcode/id497799835) 16 ou plus récent, gratuit sur le Mac App Store
 - Un iPhone sous **iOS 17 ou plus récent**
-- Un câble pour brancher l'iPhone au Mac (le plus simple pour la première fois)
-- Un **Apple ID gratuit**. Pas besoin du programme développeur payant.
+- Un câble pour la première installation
+- Un **Apple ID gratuit**. Le programme développeur payant n’est pas nécessaire.
 
-Si tu as moins de 13 ans, ou si l'Apple ID refuse à cause de l'âge, un adulte se connecte dans Xcode avec **son** Apple ID gratuit. L'app s'installe quand même sur ton iPhone.
+Si tu as moins de 13 ans, ou si l’Apple ID est refusé à cause de l’âge, un adulte se connecte dans Xcode avec son propre Apple ID gratuit. L’app s’installe quand même sur ton iPhone.
 
-## Installer Glisse sur l'iPhone
+## Installer Slide
 
 ### 1. Ouvrir le projet
 
 1. Copie ce dossier sur le Mac.
-2. Double-clique sur `Glisse.xcodeproj`. Xcode s'ouvre.
-3. Si Xcode propose d'installer des composants supplémentaires, accepte.
+2. Double-clique sur `Slide.xcodeproj`.
+3. Si Xcode propose d’installer des composants, accepte.
 
-### 2. Connecter l'Apple ID
+### 2. Connecter l’Apple ID
 
-1. Dans Xcode : **Xcode → Settings… → Accounts** (Réglages → Comptes).
-2. Clique sur **+** puis **Apple ID**, et connecte-toi avec l'identifiant gratuit.
+1. **Xcode → Settings… → Accounts** (Réglages → Comptes).
+2. **+** puis **Apple ID**, et connecte-toi avec le compte gratuit.
 3. Tu dois voir une équipe du type **« Ton Nom (Personal Team) »**.
 
-### 3. Choisir l'iPhone et l'équipe de signature
+### 3. Choisir l’iPhone et l’équipe
 
-1. Branche l'iPhone. S'il demande « Faire confiance à cet ordinateur ? », touche **Faire confiance** et entre le code du téléphone.
+1. Branche l’iPhone. S’il demande de faire confiance à l’ordinateur, touche **Faire confiance** et entre le code.
 2. En haut de Xcode, à côté du bouton Play, choisis **ton iPhone**, pas un simulateur.
-3. Dans la colonne de gauche, clique sur le projet **Glisse** (l'icône bleue), puis sur la cible **Glisse**.
+3. Dans la colonne de gauche, clique sur le projet bleu **Slide**, puis sur la cible **Slide**.
 4. Onglet **Signing & Capabilities**.
 5. Coche **Automatically manage signing**.
-6. Dans **Team**, choisis le Personal Team.
-7. Le **Bundle Identifier** est `ch.geneve.glisse.ski`. S'il est déjà pris dans le monde, Xcode affiche une erreur rouge. Change-le en quelque chose d'unique, par exemple `ch.geneve.glisse.ski.tonprenom`. Ne mets pas d'espace ni de majuscule.
+6. **Team** : ton Personal Team.
+7. L’identifiant est `ch.geneve.slide.ski`. S’il est déjà pris, change-le en quelque chose d’unique, par exemple `ch.geneve.slide.ski.tonprenom` (pas d’espace, pas de majuscule). Fais la même chose pour la cible **SlideActivity** : même équipe, et l’identifiant doit rester `<identifiant de l’app>.liveactivity`.
 
-Il n'y a **aucune capacité payante** à ajouter (pas d'iCloud, pas de notifications push, pas de HealthKit). Le suivi en arrière-plan est déjà déclaré dans `Info.plist` (`UIBackgroundModes` → `location`). Si Xcode affiche un bandeau sur le mode arrière-plan, ouvre **Signing & Capabilities → + Capability → Background Modes** et coche **Location updates**. Ça ne demande pas de compte payant.
+Aucune capacité payante (pas d’iCloud, pas de notifications push, pas de HealthKit). Le suivi en arrière-plan est déjà dans `Info.plist`. Si Xcode le signale : **Signing & Capabilities → + Capability → Background Modes → Location updates**. Un compte gratuit suffit.
 
-### 4. Activer le Mode développeur sur l'iPhone
+### 4. Activer le Mode développeur
 
-À partir d'iOS 16, un iPhone n'accepte une app installée par Xcode qu'après avoir activé le Mode développeur.
-
-1. Sur l'iPhone : **Réglages → Confidentialité et sécurité**.
+1. Sur l’iPhone : **Réglages → Confidentialité et sécurité**.
 2. Tout en bas : **Mode développeur**.
-3. Active-le. L'iPhone redémarre.
+3. Active-le. L’iPhone redémarre.
 4. Après le redémarrage, confirme **Activer**.
 
-Si la ligne n'existe pas encore, lance une première fois l'app depuis Xcode (étape 6) : iOS ajoute souvent ce menu juste après.
+Si la ligne n’existe pas, lance une fois l’app depuis Xcode (étape 5). iOS ajoute souvent ce menu juste après.
 
-### 5. Lancer l'installation
+### 5. Lancer
 
-1. Dans Xcode, le schéma **Glisse** et ton iPhone sont sélectionnés.
-2. Appuie sur le bouton **Play** (ou `Cmd + R`).
-3. La première compilation peut prendre plusieurs minutes.
-4. Si une erreur parle de « Untrusted Developer » ou si l'app ne s'ouvre pas, passe à l'étape suivante. Le message exact sur l'iPhone est souvent : l'entreprise de développement n'est pas approuvée.
+1. Schéma **Slide**, destination ton iPhone.
+2. Bouton Play (`Cmd + R`). La première compilation peut prendre plusieurs minutes.
+3. Si l’iPhone dit que le développeur n’est pas approuvé, passe à l’étape suivante.
 
-### 6. Faire confiance au développeur sur l'iPhone
+### 6. Faire confiance au développeur
 
-1. **Réglages → Général → VPN et gestion de l'appareil** (parfois **Gestion des profils et de l'appareil**).
-2. Sous **App de développement**, touche le profil à ton adresse Apple.
-3. Touche **Faire confiance à « … »**, puis confirme.
+1. **Réglages → Général → VPN et gestion de l’appareil**.
+2. Sous **App de développement**, touche le profil avec l’adresse Apple.
+3. **Faire confiance**, puis confirme.
 
-Relance Glisse depuis l'écran d'accueil. L'icône est un trait vert clair sur fond sombre.
+Ouvre Slide depuis l’écran d’accueil. L’icône est un trait vert clair sur fond sombre.
 
-### 7. Autoriser la position « Toujours »
+### 7. Position « Toujours »
 
-Au premier **Démarrer**, iOS demande la position.
+1. Au premier **Démarrer**, accepte **Lorsque l’app est active**.
+2. Quand iOS propose **Toujours**, accepte.
+3. Si tu ne vois pas Toujours : **Réglages → Confidentialité et sécurité → Service de localisation → Slide → Toujours**.
 
-1. Accepte **Lorsque l'app est active**.
-2. iOS propose ensuite (tout de suite ou un peu plus tard) l'accès **Toujours**. Accepte-le.
-3. Si tu ne vois pas « Toujours » : **Réglages → Confidentialité et sécurité → Service de localisation → Glisse → Toujours**.
+« Toujours » sert pendant une sortie, pour continuer dans la poche écran verrouillé. Slide **coupe le GPS** quand tu appuies sur Stop. Une pastille bleue veut dire qu’iOS montre que le GPS tourne.
 
-« Toujours » sert uniquement pendant une sortie, pour continuer quand l'écran est verrouillé et le téléphone dans la poche. Glisse **coupe le GPS** quand tu appuies sur Stop. Une pastille ou une barre bleue peut s'afficher : c'est iOS qui indique que le GPS tourne. C'est normal.
-
-Autorise aussi le **mouvement et la forme** si iOS le demande : c'est le baromètre (altitude) et l'accéléromètre (estimation du temps de vol).
+Autorise aussi **Mouvement et forme** si on te le demande : baromètre (altitude) et accéléromètre (airtime estimé).
 
 ### 8. Tous les 7 jours
 
-Avec un Apple ID **gratuit**, le certificat expire au bout d'environ **7 jours**. L'app ne s'ouvre plus tant que tu ne l'as pas relancée depuis Xcode (branche le téléphone, appuie sur Play).
+Avec un Apple ID **gratuit**, le certificat dure environ **7 jours**. L’app ne s’ouvre plus tant que tu ne la relances pas depuis Xcode (branche le téléphone, appuie sur Play).
 
-- **Ne supprime pas l'app** pour la « réparer » : tes journées sont dans le téléphone. Un nouveau Run depuis Xcode, avec le **même** Bundle Identifier, les garde.
-- Si tu changes le Bundle Identifier, iOS considère que c'est une autre app et l'ancienne mémoire ne suit pas.
+**Ne supprime pas l’app** pour la « réparer ». Tes journées sont dans le téléphone. Un nouveau Run avec le **même** identifiant les garde. Changer l’identifiant crée une autre app.
 
-## Partager l'app avec des amis
+## Partager l’app, ou partager une journée
 
-Un Apple ID gratuit **ne peut pas** envoyer l'application elle-même (pas de TestFlight, pas de lien d'installation).
+Un Apple ID gratuit **ne peut pas** envoyer l’application elle-même (pas de TestFlight). TestFlight et l’App Store demandent le **programme Apple Developer payant**, **au nom d’un adulte** si tu es mineur.
 
-**TestFlight** et l'App Store demandent le **programme Apple Developer payant** (compte annuel), **au nom d'un adulte** si tu es mineur. Ce dépôt ne le configure pas.
+Tu peux quand même envoyer une journée par AirDrop ou Messages :
 
-Ce que tu peux partager sans ça, depuis une journée enregistrée :
+- un **GPX**
+- une **image** de stats
+- un fichier **.slide** (la sortie complète). Les anciens fichiers **.glisse** s’importent encore.
 
-- un fichier **GPX** (la trace)
-- une **image** avec les stats
-- un fichier **.glisse** (la sortie complète : descentes, vitesses, sauts estimés)
+## Ce que fait l’app
 
-Boutons dans le détail d'une journée, ou juste après Stop. AirDrop et Messages passent par la feuille de partage iOS. L'ami importe le fichier dans Glisse : Historique → icône de téléchargement, ou « Ouvrir dans Glisse ».
-
-## Utiliser l'app
-
-Quatre onglets :
-
-- **Suivi** — gros chiffre de vitesse (lisible avec des gants), vitesse max, distance, dénivelé, altitude, durée, nombre de descentes. Démarrer, pause, stop.
-- **Historique** — totaux de la saison (1er septembre → 31 août), records (vitesse, plus longue descente, plus gros dénivelé d'une journée), carte colorée par la vitesse, détail de chaque descente.
-- **Freestyle** — conseils hors ligne (étiquette du park, sauts, ollie, rotations, grabs, rails, butters, switch, réception) et une checklist personnelle avec notes.
-- **Profil** — prénom, station, unités (km/h par défaut, ou mph / miles / pieds), écran allumé, journée d'exemple, effacement.
-
-La journée d'exemple (Profil) montre l'historique avant la première vraie sortie. Elle est marquée « Exemple » et se supprime.
+- **Suivi** — jauge de vitesse, max, distance, dénivelé, altitude, durée, nombre de descentes. Carte live (hybride) avec la trace colorée par la vitesse, mode suivi, vitesse et altitude sur la carte. Démarrer, pause, stop. Les tuiles peuvent rester vides hors ligne ; les chiffres marchent. Dès qu’un point GPS arrive, Slide demande à MapKit de mettre en cache les alentours. Ça n’aide que si le téléphone a déjà eu du réseau, et ce n’est pas une carte hors ligne de toute la station.
+- **Dynamic Island / écran verrouillé** — une Live Activity avec la vitesse pendant le suivi. ActivityKit seulement, **sans** capacité payante. Si les activités en direct sont désactivées dans les réglages iOS, Slide n’en lance pas.
+- **Pas de widget d’écran d’accueil.** Un widget qui lirait tes journées aurait besoin d’App Groups, et une équipe personnelle gratuite ne peut pas s’en servir.
+- **Historique** — totaux de saison (1er septembre–31 août), records, graphiques de vitesse et d’altitude, barres par descente, replay de la trace sur la carte, toucher la ligne pour la vitesse à cet endroit.
+- **Freestyle** — textes hors ligne dans les deux langues, des règles du park jusqu’aux grabs, rails, butters, 540, et aux inversés supervisés (backflip, frontflip, cork 360). Ils sont marqués **Avec un coach**. L’ordre : trampoline avec un pareur, puis tremplin d’eau ou airbag, puis neige seulement avec un coach. La checklist et les notes restent dans le téléphone.
+- **Profil** — prénom, station, unités (km/h par défaut), langue, écran allumé pendant le suivi, journée d’exemple.
 
 ## Tests
 
-Dans Xcode : **Product → Test** (`Cmd + U`), avec un simulateur iPhone (iPhone 15 Pro par exemple).
+Dans Xcode : **Product → Test** (`Cmd + U`), avec un simulateur iPhone. Les tests rejouent des traces fictives (mauvaise précision, pics de vitesse, une descente, une remontée, deux runs, airtime, GPX). Ils n’utilisent pas le GPS.
 
-Les tests ne parlent pas au GPS. Ils rejouent des traces fictives : points trop imprécis, pics de vitesse impossibles, bruit quand on est arrêté, une descente, une remontée, deux descentes, l'estimation d'airtime, le GPX et le fichier `.glisse`.
+Sans iPhone, si Swift est installé :
+
+```bash
+swiftc -parse-as-library -o /tmp/slide-tests \
+  Slide/Logic/*.swift \
+  SlideTests/LogicChecks.swift \
+  tooling/linux-main.swift
+/tmp/slide-tests
+```
+
+Ça doit afficher `OK — logique Slide`.
 
 ## Limites
 
-- **100 % hors ligne pour les chiffres.** La carte MapKit peut rester grise tant que le fond de carte n'a pas été mis en cache une fois avec du réseau. Les stats, la liste des descentes et l'image partagée n'en ont pas besoin : le tracé de l'image est dessiné dans l'app.
-- Le **temps de vol** est une estimation de l'accéléromètre. Utile pour comparer tes sauts, pas une mesure exacte. Il n'est compté que si tu vas déjà vite, pour ignorer les gestes à l'arrêt.
-- La détection des descentes utilise la tendance d'altitude et la vitesse, avec un peu de délai (quelques secondes) pour ne pas couper un run à chaque plat. Un tout petit bout de piste peut ne pas être compté. Un pic GPS aberrant est jeté.
-- L'altitude préfère le **baromètre** de l'iPhone, recalé de temps en temps sur le GPS. Le simulateur n'a en général pas de baromètre : l'app retombe sur l'altitude GPS.
-- Le GPS en précision maximale, toute une journée, **use la batterie**. Le froid encore plus. Poche intérieure, batterie pleine, mode économie d'énergie désactivé (il peut couper le GPS).
-- Pas de compte, pas de sync entre téléphones, pas de classement en ligne. Pour comparer, on s'envoie la trace.
-- L'app n'apprend pas les figures inversées (cork, backflip). Ça se fait avec un coach, pas tout seul au park.
-- Secours en Suisse : **144** (ambulance), **1414** (REGA). En France : **112**.
-
-## Lancer les tests de logique sans iPhone
-
-Les fichiers dans `Glisse/Logic` ne dépendent pas d'iOS. Sur un Mac avec Swift, ou là où le compilateur Swift est installé :
-
-```bash
-swiftc -parse-as-library -o /tmp/glisse-tests \
-  Glisse/Logic/*.swift \
-  GlisseTests/LogicChecks.swift \
-  tooling/linux-main.swift
-/tmp/glisse-tests
-```
-
-Ça doit afficher `OK — logique Glisse`. Le fichier `tooling/linux-main.swift` n'est pas dans l'app iPhone.
+- Les tuiles de carte ont besoin d’un cache. Les stats, le replay de points déjà enregistrés et l’image partagée n’en ont pas besoin.
+- L’airtime est une estimation.
+- Une journée de GPS précis use la batterie. Le froid encore plus. Pars chargé, poche intérieure, mode économie d’énergie désactivé.
+- Les figures inversées de la bibliothèque ne sont pas une invitation à les tenter seul sur un saut de station.
