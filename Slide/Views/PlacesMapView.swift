@@ -202,7 +202,7 @@ struct WorldTracksMap: UIViewRepresentable {
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             if let line = overlay as? MKPolyline, SpeedLineStyle.colors[ObjectIdentifier(line)] != nil {
-                return SpeedGradientRenderer(polyline: line)
+                return SpeedGradientRenderer(overlay: line)
             }
             return MKOverlayRenderer(overlay: overlay)
         }
