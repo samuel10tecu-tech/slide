@@ -1,6 +1,5 @@
 package ch.geneve.slide
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.Manifest
 import android.content.Intent
@@ -208,7 +207,7 @@ private fun speedColor(mps: Double): Int {
         kmh >= 15 -> "#14C8C0"
         else -> "#3B82F6"
     }
-    return Color.parseColor(hex)
+    return android.graphics.Color.parseColor(hex)
 }
 
 @Composable

@@ -28,6 +28,7 @@ final class TrackingController {
     var recoverableID: UUID?
     var recoverableTitle = ""
 
+    private var tracker = SessionTracker()
     private var lookedUpResort = false
     private let geocoder = CLGeocoder()
     private var airtimeDetector = AirtimeDetector()

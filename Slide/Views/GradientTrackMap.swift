@@ -6,16 +6,32 @@ enum SpeedLineStyle {
     static var colors: [ObjectIdentifier: [UIColor]] = [:]
 }
 
-final class SpeedGradientRenderer: MKGradientPolylineRenderer {
-    override init(polyline: MKPolyline) {
-        super.init(polyline: polyline)
+final class SpeedGradientRenderer: MKOverlayRenderer {
+    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
+        guard let polyline = overlay as? MKPolyline else { return }
         let painted = SpeedLineStyle.colors[ObjectIdentifier(polyline)] ?? []
-        colors = painted
-        let last = max(painted.count - 1, 1)
-        locations = painted.indices.map { NSNumber(value: Double($0) / Double(last)) }
-        lineWidth = 7
-        lineJoin = .round
-        lineCap = .round
+        let count = polyline.pointCount
+        guard count > 1, !painted.isEmpty else { return }
+        let points = polyline.points()
+        let width = 7 / zoomScale
+        context.setLineWidth(width)
+        context.setLineCap(.round)
+        context.setLineJoin(.round)
+        for index in 1..<count {
+            let start = point(for: points[index - 1])
+            let end = point(for: points[index])
+            let from = painted[min(index - 1, painted.count - 1)].cgColor
+            let to = painted[min(index, painted.count - 1)].cgColor
+            context.saveGState()
+            context.move(to: start)
+            context.addLine(to: end)
+            context.replacePathWithStrokedPath()
+            context.clip()
+            if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [from, to] as CFArray, locations: [0, 1]) {
+                context.drawLinearGradient(gradient, start: start, end: end, options: [])
+            }
+            context.restoreGState()
+        }
     }
 }
 
