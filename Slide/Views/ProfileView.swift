@@ -220,7 +220,7 @@ struct AudioCoachCard: View {
                 part(language.t("audio.part.vertical"), $sayVertical)
                 part(language.t("audio.part.runs"), $sayRuns)
                 Button {
-                    AudioCoach().test(language: language)
+                    AudioCoach.shared.test(language: language)
                     Haptics.tap()
                 } label: {
                     Label(language.t("audio.test"), systemImage: "speaker.wave.2.fill")

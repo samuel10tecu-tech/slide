@@ -55,9 +55,10 @@ enum SlideAnswers {
         if controller.activity == .tracking { return lang.t("siri.already") }
         let profiles = (try? AppContainer.shared.mainContext.fetch(FetchDescriptor<RiderProfile>())) ?? []
         let profile = profiles.first
+        let undecided = controller.auth == .notDetermined
         controller.requestPermissionThenStart(resort: "", rider: profile?.name ?? "")
         if controller.activity == .tracking { return lang.t("siri.started") }
-        return lang.t("siri.denied")
+        return lang.t(undecided ? "siri.permission" : "siri.denied")
     }
 
     @MainActor

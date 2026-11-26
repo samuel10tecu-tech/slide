@@ -31,7 +31,15 @@ enum AudioCoachSettings {
 
 @MainActor
 final class AudioCoach: NSObject, AVSpeechSynthesizerDelegate {
+    /// One coach for the whole app. A throwaway instance would be freed mid-sentence.
+    static let shared = AudioCoach()
+
     private let synth = AVSpeechSynthesizer()
+
+    override init() {
+        super.init()
+        synth.delegate = self
+    }
     private var lastSpoken = Date.distantPast
     private var pending: String?
     private var primed = false
@@ -61,6 +69,20 @@ final class AudioCoach: NSObject, AVSpeechSynthesizerDelegate {
             options: [.duckOthers, .mixWithOthers, .allowBluetoothA2DP]
         )
         try? session.setActive(true)
+    }
+
+    /// Give the audio back to music and podcasts at full volume.
+    func release() {
+        guard !synth.isSpeaking else { return }
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        Task { @MainActor in self.release() }
+    }
+
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        Task { @MainActor in self.release() }
     }
 
     func test(language: LanguageSettings) {

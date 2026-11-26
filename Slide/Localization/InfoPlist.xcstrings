@@ -96,85 +96,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Nothing is sent to the internet. GPS stops when you finish."
+            "value": "Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Your days stay on this phone. GPS stops when you finish."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Rien n'est envoyé sur Internet. Le GPS s'arrête quand tu termines."
+            "value": "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Tes journées restent dans ce téléphone. Le GPS s'arrête quand tu termines."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou, na rychlost, vzdálenost a stopu. Nic nejde na internet. GPS se vypne, když skončíš."
+            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou, na rychlost, vzdálenost a stopu. Tvoje dny zůstávají v tomto telefonu. GPS se vypne, když skončíš."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm, für Tempo, Distanz und die Spur. Nichts geht ins Internet. Das GPS stoppt, wenn du beendest."
+            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm, für Tempo, Distanz und die Spur. Deine Tage bleiben auf diesem Telefon. Das GPS stoppt, wenn du beendest."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada, para velocidad, distancia y el track. Nada se envía a internet. El GPS se para al terminar."
+            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada, para velocidad, distancia y el track. Tus días se quedan en este teléfono. El GPS se para al terminar."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato, per velocità, distanza e traccia. Niente va su internet. Il GPS si ferma quando termini."
+            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato, per velocità, distanza e traccia. Le tue giornate restano su questo telefono. Il GPS si ferma quando termini."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slideはセッション中ずっと、画面ロック中も、速度・距離・トラックのために位置情報が要る。インターネットには送らない。終了するとGPSは止まる。"
+            "value": "Slideはセッション中ずっと、画面ロック中も、速度・距離・トラックのために位置情報が要る。記録はこのiPhoneの中だけに残る。終了するとGPSは止まる。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide는 세션 내내, 화면이 잠겨 있어도, 속도·거리·트랙을 위해 위치가 필요해. 인터넷으로는 안 보내. 끝내면 GPS가 멈춰."
+            "value": "Slide는 세션 내내, 화면이 잠겨 있어도, 속도·거리·트랙을 위해 위치가 필요해. 기록은 이 폰에만 남아. 끝내면 GPS가 멈춰."
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm, for fart, distanse og sporet. Ingenting sendes til internett. GPS stopper når du er ferdig."
+            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm, for fart, distanse og sporet. Dagene dine blir på denne telefonen. GPS stopper når du er ferdig."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm, voor snelheid, afstand en het spoor. Niets gaat naar internet. Gps stopt als je klaar bent."
+            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm, voor snelheid, afstand en het spoor. Je dagen blijven op deze telefoon. Gps stopt als je klaar bent."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie, do prędkości, dystansu i śladu. Nic nie idzie do internetu. GPS staje, gdy kończysz."
+            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie, do prędkości, dystansu i śladu. Twoje dni zostają na tym telefonie. GPS staje, gdy kończysz."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado, para velocidade, distância e o traçado. Nada vai para a internet. O GPS pára quando terminas."
+            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado, para velocidade, distância e o traçado. Os teus dias ficam neste telemóvel. O GPS pára quando terminas."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide behöver din plats under hela åket, även med låst skärm, för fart, sträcka och spåret. Inget skickas till internet. GPS stannar när du slutar."
+            "value": "Slide behöver din plats under hela åket, även med låst skärm, för fart, sträcka och spåret. Dina dagar stannar på den här telefonen. GPS stannar när du slutar."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide 在整段记录里都需要定位，锁屏时也要，用来测速度、距离和轨迹。不会发到网上。你结束时 GPS 会停。"
+            "value": "Slide 在整段记录里都需要定位，锁屏时也要，用来测速度、距离和轨迹。记录只留在这部手机上。你结束时 GPS 会停。"
           }
         }
       }
@@ -185,85 +185,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide needs your location for the whole session, including with the screen locked. Nothing is sent to the internet."
+            "value": "Slide needs your location for the whole session, including with the screen locked. Your days stay on this phone."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Rien n'est envoyé sur Internet."
+            "value": "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Tes journées restent dans ce téléphone."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou. Nic nejde na internet."
+            "value": "Slide potřebuje polohu po celou jízdu, i se zamčenou obrazovkou. Tvoje dny zůstávají v tomto telefonu."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm. Nichts geht ins Internet."
+            "value": "Slide braucht deinen Ort für die ganze Ausfahrt, auch bei gesperrtem Bildschirm. Deine Tage bleiben auf diesem Telefon."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada. Nada se envía a internet."
+            "value": "Slide necesita tu ubicación durante toda la sesión, también con la pantalla bloqueada. Tus días se quedan en este teléfono."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato. Niente va su internet."
+            "value": "Slide ha bisogno della posizione per tutta l'uscita, anche a schermo bloccato. Le tue giornate restano su questo telefono."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slideはセッション中ずっと、画面ロック中も位置情報が要る。インターネットには送らない。"
+            "value": "Slideはセッション中ずっと、画面ロック中も位置情報が要る。記録はこのiPhoneの中だけに残る。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide는 세션 내내, 화면이 잠겨 있어도 위치가 필요해. 인터넷으로는 안 보내."
+            "value": "Slide는 세션 내내, 화면이 잠겨 있어도 위치가 필요해. 기록은 이 폰에만 남아."
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm. Ingenting sendes til internett."
+            "value": "Slide trenger posisjonen din under hele turen, også med låst skjerm. Dagene dine blir på denne telefonen."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm. Niets gaat naar internet."
+            "value": "Slide heeft je locatie nodig voor de hele rit, ook met een vergrendeld scherm. Je dagen blijven op deze telefoon."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie. Nic nie idzie do internetu."
+            "value": "Slide potrzebuje lokalizacji przez cały wyjazd, także przy zablokowanym ekranie. Twoje dni zostają na tym telefonie."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado. Nada vai para a internet."
+            "value": "O Slide precisa da tua localização durante toda a saída, também com o ecrã bloqueado. Os teus dias ficam neste telemóvel."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide behöver din plats under hela åket, även med låst skärm. Inget skickas till internet."
+            "value": "Slide behöver din plats under hela åket, även med låst skärm. Dina dagar stannar på den här telefonen."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Slide 在整段记录里都需要定位，锁屏时也要。不会发到网上。"
+            "value": "Slide 在整段记录里都需要定位，锁屏时也要。记录只留在这部手机上。"
           }
         }
       }

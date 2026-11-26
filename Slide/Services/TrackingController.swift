@@ -47,7 +47,7 @@ final class TrackingController {
     private var latestRelative: Double?
     private var powerObserver: NSObjectProtocol?
     private var language: LanguageSettings?
-    private let audio = AudioCoach()
+    private let audio = AudioCoach.shared
     private var personalBest = 0.0
     private let liveActivity = LiveActivityBridge()
     private var lastMapPush = Date.distantPast
@@ -74,6 +74,7 @@ final class TrackingController {
             self?.ingestMotion(time: time, magnitude: magnitude)
         }
         auth = location.currentStatus
+        LiveActivityBridge.endOrphans()
         powerObserver = NotificationCenter.default.addObserver(
             forName: .NSProcessInfoPowerStateDidChange,
             object: nil,
@@ -108,6 +109,10 @@ final class TrackingController {
     }
 
     func requestPermissionThenStart(resort: String, rider: String) {
+        guard !AppContainer.openedInMemory else {
+            notice = .memoryNotReady
+            return
+        }
         self.resort = resort
         riderName = rider
         switch location.currentStatus {
@@ -154,6 +159,7 @@ final class TrackingController {
         }
         stopSensors()
         liveActivity.end()
+        audio.release()
         mapSamples = tracker.samples
         if tracker.samples.isEmpty {
             deleteCurrentDay()
@@ -178,8 +184,8 @@ final class TrackingController {
             .sorted { $0.startedAt > $1.startedAt }
         if let day = open.first {
             recoverableID = day.uuid
-            let place = day.resort.isEmpty ? "Sortie" : day.resort
-            recoverableTitle = "\(place) · \(FormatFR.clock(day.startedAt))"
+            let time = FormatFR.clock(day.startedAt)
+            recoverableTitle = day.resort.isEmpty ? time : "\(day.resort) · \(time)"
         } else {
             recoverableID = nil
             recoverableTitle = ""
@@ -205,6 +211,9 @@ final class TrackingController {
         activity = .tracking
         startSensors()
         publish()
+        if let state = makeActivityState() {
+            liveActivity.start(resort: resort, state: state)
+        }
     }
 
     func closeRecovered() {
@@ -349,9 +358,9 @@ final class TrackingController {
         latestRelative = nil
         activity = .tracking
         recoverableID = nil
-        personalBest = ((try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []).map(\.maxSpeed).max() ?? 0
+        let realDays = (try? context?.fetch(FetchDescriptor<SkiDay>(predicate: #Predicate { !$0.isSample }))) ?? []
+        personalBest = realDays.map(\.maxSpeed).max() ?? 0
         audio.resetSession(personalBest: personalBest)
-        if AudioCoachSettings.isOn { audio.prepare() }
         startSensors()
         flush(complete: false)
         publish()
@@ -488,7 +497,7 @@ final class TrackingController {
     }
 
     func todayTotals() -> (distance: Double, vertical: Double, maxSpeed: Double, runs: Int) {
-        let start = Calendar.zurich.startOfDay(for: Date())
+        let start = Calendar.slide.startOfDay(for: Date())
         let stored = (try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []
         var distance = 0.0
         var vertical = 0.0
@@ -518,7 +527,7 @@ final class TrackingController {
             if best == nil || gap < best!.0 { best = (gap, speed) }
         }
         for sample in tracker.samples { consider(time: sample.time, speed: sample.speed) }
-        let start = Calendar.zurich.startOfDay(for: Date())
+        let start = Calendar.slide.startOfDay(for: Date())
         let stored = (try? context?.fetch(FetchDescriptor<SkiDay>())) ?? []
         for day in stored where day.startedAt >= start {
             guard let archive = day.readArchive() else { continue }

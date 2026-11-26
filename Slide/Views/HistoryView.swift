@@ -473,13 +473,17 @@ struct DayDetailView: View {
     private func commitResort() {
         let trimmed = resortDraft.trimmingCharacters(in: .whitespacesAndNewlines)
         day.resort = trimmed
-        guard var current = archive else {
+        // Patch only the resort into the archive as it is stored now. The copy shown here
+        // may be older (the day could have been saved or finished while this view was open).
+        guard var fresh = day.readArchive() else {
             try? modelContext.save()
             return
         }
-        current.resort = trimmed
-        day.write(current)
-        archive = current
+        if fresh.resort != trimmed {
+            fresh.resort = trimmed
+            day.write(fresh)
+        }
+        archive = fresh
         try? modelContext.save()
     }
 }

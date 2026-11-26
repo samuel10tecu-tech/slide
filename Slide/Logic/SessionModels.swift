@@ -200,14 +200,36 @@ struct SessionArchive: Equatable, Codable, Identifiable {
 enum SessionFile {
     static func encode(_ archive: SessionArchive) throws -> Data {
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        encoder.dateEncodingStrategy = .iso8601
+        encoder.outputFormatting = [.sortedKeys]
+        encoder.dateEncodingStrategy = .custom { date, encoder in
+            var container = encoder.singleValueContainer()
+            try container.encode(fractional().string(from: date))
+        }
         return try encoder.encode(archive)
     }
 
     static func decode(_ data: Data) throws -> SessionArchive {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let text = try container.decode(String.self)
+            if let date = fractional().date(from: text) ?? whole().date(from: text) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Not an ISO 8601 date: \(text)")
+        }
         return try decoder.decode(SessionArchive.self, from: data)
+    }
+
+    private static func fractional() -> ISO8601DateFormatter {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }
+
+    private static func whole() -> ISO8601DateFormatter {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter
     }
 }

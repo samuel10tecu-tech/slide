@@ -23,11 +23,11 @@ enum Geo {
 }
 
 extension Calendar {
-    /// Calendrier de Genève : la saison et les dates affichées suivent l'heure locale.
-    static var zurich: Calendar {
+    /// Gregorian calendar in the phone's time zone: "today", seasons and clock times follow where you ski.
+    static var slide: Calendar {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: "Europe/Zurich") ?? .gmt
-        calendar.locale = Locale(identifier: "fr_CH")
+        calendar.timeZone = .current
+        calendar.locale = .current
         return calendar
     }
 }
@@ -44,13 +44,13 @@ struct Season: Equatable, Identifiable, Hashable {
     }
 
     /// Saison alpine : 1er septembre → 31 août.
-    static func containing(_ date: Date, calendar: Calendar = .zurich) -> Season {
+    static func containing(_ date: Date, calendar: Calendar = .slide) -> Season {
         let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
         let startYear = month >= 9 ? year : year - 1
         let start = dateAt(year: startYear, month: 9, day: 1, calendar: calendar) ?? date
         let end = dateAt(year: startYear + 1, month: 9, day: 1, calendar: calendar) ?? date
-        return Season(start: start, end: end, title: "Saison \(startYear)–\(startYear + 1)")
+        return Season(start: start, end: end, title: "\(startYear)–\(startYear + 1)")
     }
 
     private static func dateAt(year: Int, month: Int, day: Int, calendar: Calendar) -> Date? {
