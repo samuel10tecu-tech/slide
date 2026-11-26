@@ -89,6 +89,8 @@ final class AudioCoach: NSObject, AVSpeechSynthesizerDelegate {
         }
 
         let kmh = summary.speed * 3.6
+        let mark = AudioCoachSettings.thresholdKmh
+        if runs.count > spokenRuns || kmh < mark - 10 { thresholdArmed = true }
         var phrase: String?
         if runs.count > spokenRuns, let run = runs.last {
             spokenRuns = runs.count
@@ -99,26 +101,20 @@ final class AudioCoach: NSObject, AVSpeechSynthesizerDelegate {
         } else if summary.maxSpeed > announcedDayMax + 0.28 {
             announcedDayMax = summary.maxSpeed
             phrase = language.t("audio.say.day", speed(summary.maxSpeed, language, prefs))
-        } else if thresholdArmed && kmh >= AudioCoachSettings.thresholdKmh {
+        } else if thresholdArmed && kmh >= mark {
             thresholdArmed = false
-            phrase = ([language.t("audio.say.over", speed(summary.speed, language, prefs))] + parts(summary, todayDistance, runs.count, elapsed, language, prefs)).joined(separator: " ")
+            phrase = language.t("audio.say.over", speed(mark / 3.6, language, prefs))
         } else {
             let nextBucket = bucket(for: todayDistance)
             if nextBucket > distanceBucket {
                 distanceBucket = nextBucket
-                var line = [language.t("audio.say.distance", FormatFR.distance(todayDistance, prefs: prefs, french: language.frenchNumbers))]
-                line.append(language.t("audio.say.speed", speed(summary.speed, language, prefs)))
-                let avg = elapsed > 1 ? todayDistance / elapsed : summary.speed
-                line.append(language.t("audio.say.avg", speed(avg, language, prefs)))
-                line.append(contentsOf: parts(summary, todayDistance, runs.count, elapsed, language, prefs, includeSpeed: false, includeDistance: false))
-                phrase = line.joined(separator: " ")
+                phrase = language.t("audio.say.distance", FormatFR.distance(todayDistance, prefs: prefs, french: language.frenchNumbers))
             } else if AudioCoachSettings.periodMinutes > 0,
                       Date().timeIntervalSince(lastPeriodic) >= Double(AudioCoachSettings.periodMinutes) * 60 {
                 lastPeriodic = Date()
                 phrase = ([language.t("audio.say.update")] + parts(summary, todayDistance, runs.count, elapsed, language, prefs)).joined(separator: " ")
             }
         }
-        if kmh < AudioCoachSettings.thresholdKmh - 8 { thresholdArmed = true }
         if let phrase { queue(phrase, language) }
         flushPending(language)
     }

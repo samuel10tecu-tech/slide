@@ -6,32 +6,77 @@ enum SpeedLineStyle {
     static var colors: [ObjectIdentifier: [UIColor]] = [:]
 }
 
-final class SpeedGradientRenderer: MKOverlayRenderer {
-    override func draw(_ mapRect: MKMapRect, zoomScale: MKZoomScale, in context: CGContext) {
-        guard let polyline = overlay as? MKPolyline else { return }
-        let painted = SpeedLineStyle.colors[ObjectIdentifier(polyline)] ?? []
-        let count = polyline.pointCount
-        guard count > 1, !painted.isEmpty else { return }
-        let points = polyline.points()
-        let width = 7 / zoomScale
-        context.setLineWidth(width)
-        context.setLineCap(.round)
-        context.setLineJoin(.round)
-        for index in 1..<count {
-            let start = point(for: points[index - 1])
-            let end = point(for: points[index])
-            let from = painted[min(index - 1, painted.count - 1)].cgColor
-            let to = painted[min(index, painted.count - 1)].cgColor
-            context.saveGState()
-            context.move(to: start)
-            context.addLine(to: end)
-            context.replacePathWithStrokedPath()
-            context.clip()
-            if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [from, to] as CFArray, locations: [0, 1]) {
-                context.drawLinearGradient(gradient, start: start, end: end, options: [])
+extension TrackGeometry {
+    /// One continuous stroke per descent or gap, from the stored points.
+    static func strokes(_ samples: [TrackSample]) -> [[TrackSample]] {
+        let light = smooth(samples, minMeters: 2)
+        guard light.count >= 2 else { return [] }
+        var groups: [[TrackSample]] = []
+        var current: [TrackSample] = [light[0]]
+        for sample in light.dropFirst() {
+            let last = current[current.count - 1]
+            let moved = Geo.haversineMeters(lat1: last.latitude, lon1: last.longitude, lat2: sample.latitude, lon2: sample.longitude)
+            let gap = sample.time.timeIntervalSince(last.time)
+            let endedRun = last.phase == .skiing && sample.phase != .skiing
+            if moved > 70 || gap > 25 || endedRun {
+                if current.count >= 2 { groups.append(current) }
+                current = [sample]
+            } else {
+                current.append(sample)
             }
-            context.restoreGState()
         }
+        if current.count >= 2 { groups.append(current) }
+        return groups
+    }
+
+    static func gradientLine(_ samples: [TrackSample], dayMaxKmh: Double?) -> MKPolyline? {
+        guard samples.count >= 2 else { return nil }
+        let coords = samples.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
+        let line: MKPolyline = coords.withUnsafeBufferPointer { buffer in
+            MKPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+        }
+        SpeedLineStyle.colors[ObjectIdentifier(line)] = samples.map { sample in
+            let rgb = SpeedPaint.rgb(sample.speed, dayMaxKmh: dayMaxKmh)
+            return UIColor(red: rgb.0, green: rgb.1, blue: rgb.2, alpha: 1)
+        }
+        return line
+    }
+
+    static func gradientRenderer(for line: MKPolyline) -> MKOverlayRenderer? {
+        guard let colors = SpeedLineStyle.colors[ObjectIdentifier(line)], colors.count >= 2 else { return nil }
+        let renderer = MKGradientPolylineRenderer(overlay: line)
+        renderer.setColors(colors, locations: gradientStops(line, count: colors.count))
+        renderer.lineWidth = 6
+        renderer.lineJoin = .round
+        renderer.lineCap = .round
+        return renderer
+    }
+
+    private static func gradientStops(_ line: MKPolyline, count: Int) -> [CGFloat] {
+        let points = line.points()
+        let pointCount = line.pointCount
+        guard pointCount == count, pointCount > 1 else {
+            let last = CGFloat(max(count - 1, 1))
+            return (0..<count).map { CGFloat($0) / last }
+        }
+        var walked: [CGFloat] = [0]
+        var total: CGFloat = 0
+        for index in 1..<pointCount {
+            let dx = points[index].x - points[index - 1].x
+            let dy = points[index].y - points[index - 1].y
+            total += CGFloat(sqrt(dx * dx + dy * dy))
+            walked.append(total)
+        }
+        guard total > 0 else {
+            let last = CGFloat(count - 1)
+            return (0..<count).map { CGFloat($0) / last }
+        }
+        var stops = walked.map { $0 / total }
+        for index in 1..<stops.count where stops[index] <= stops[index - 1] {
+            stops[index] = min(1, stops[index - 1] + 0.000_001)
+        }
+        stops[stops.count - 1] = 1
+        return stops
     }
 }
 
@@ -63,19 +108,15 @@ struct GradientTrackMap: UIViewRepresentable {
     func updateUIView(_ map: MKMapView, context: Context) {
         context.coordinator.samples = samples
         context.coordinator.onSelect = onSelect
+        for overlay in map.overlays {
+            SpeedLineStyle.colors.removeValue(forKey: ObjectIdentifier(overlay))
+        }
         map.removeOverlays(map.overlays)
         map.removeAnnotations(map.annotations.filter { !($0 is MKUserLocation) })
-        let drawn = TrackGeometry.smooth(samples)
-        if drawn.count >= 2 {
-            let coords = drawn.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
-            let line: MKPolyline = coords.withUnsafeBufferPointer { buffer in
-                MKPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+        for group in TrackGeometry.strokes(samples) {
+            if let line = TrackGeometry.gradientLine(group, dayMaxKmh: dayMaxKmh) {
+                map.addOverlay(line)
             }
-            SpeedLineStyle.colors[ObjectIdentifier(line)] = drawn.map { sample in
-                let rgb = SpeedPaint.rgb(sample.speed, dayMaxKmh: dayMaxKmh)
-                return UIColor(red: rgb.0, green: rgb.1, blue: rgb.2, alpha: 1)
-            }
-            map.addOverlay(line)
         }
         if let replay {
             let pin = MKPointAnnotation()
@@ -98,8 +139,8 @@ struct GradientTrackMap: UIViewRepresentable {
         init(onSelect: ((TrackSample) -> Void)?) { self.onSelect = onSelect }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let line = overlay as? MKPolyline, SpeedLineStyle.colors[ObjectIdentifier(line)] != nil {
-                return SpeedGradientRenderer(overlay: line)
+            if let line = overlay as? MKPolyline, let renderer = TrackGeometry.gradientRenderer(for: line) {
+                return renderer
             }
             return MKOverlayRenderer(overlay: overlay)
         }
@@ -124,7 +165,7 @@ struct GradientTrackMap: UIViewRepresentable {
 
 extension TrackGeometry {
     /// Keeps the shape and the fast points, and drops the points that sit on a straight line.
-    static func smooth(_ samples: [TrackSample], minMeters: Double = 8) -> [TrackSample] {
+    static func smooth(_ samples: [TrackSample], minMeters: Double = 2) -> [TrackSample] {
         guard samples.count > 3 else { return samples }
         var kept: [TrackSample] = [samples[0]]
         for sample in samples.dropFirst().dropLast() {

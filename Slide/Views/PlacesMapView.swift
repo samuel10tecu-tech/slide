@@ -201,8 +201,8 @@ struct WorldTracksMap: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let line = overlay as? MKPolyline, SpeedLineStyle.colors[ObjectIdentifier(line)] != nil {
-                return SpeedGradientRenderer(overlay: line)
+            if let line = overlay as? MKPolyline, let renderer = TrackGeometry.gradientRenderer(for: line) {
+                return renderer
             }
             return MKOverlayRenderer(overlay: overlay)
         }
@@ -255,6 +255,10 @@ struct WorldTracksMap: UIViewRepresentable {
         }
 
         private func draw(_ map: MKMapView, far: Bool) {
+            for overlay in map.overlays {
+                SpeedLineStyle.colors.removeValue(forKey: ObjectIdentifier(overlay))
+                TrackOwners.dayIDs.removeValue(forKey: ObjectIdentifier(overlay))
+            }
             map.removeOverlays(map.overlays)
             map.removeAnnotations(map.annotations)
             if far {
@@ -272,16 +276,11 @@ struct WorldTracksMap: UIViewRepresentable {
             }
             let region = map.region
             for track in parent.tracks where intersects(track, region) {
-                let coords = track.samples.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
-                let line: MKPolyline = coords.withUnsafeBufferPointer { buffer in
-                    MKPolyline(coordinates: buffer.baseAddress!, count: buffer.count)
+                for group in TrackGeometry.strokes(track.samples) {
+                    guard let line = TrackGeometry.gradientLine(group, dayMaxKmh: track.dayMaxKmh) else { continue }
+                    TrackOwners.dayIDs[ObjectIdentifier(line)] = track.id
+                    map.addOverlay(line)
                 }
-                SpeedLineStyle.colors[ObjectIdentifier(line)] = track.samples.map { sample in
-                    let rgb = SpeedPaint.rgb(sample.speed, dayMaxKmh: track.dayMaxKmh)
-                    return UIColor(red: rgb.0, green: rgb.1, blue: rgb.2, alpha: 1)
-                }
-                TrackOwners.dayIDs[ObjectIdentifier(line)] = track.id
-                map.addOverlay(line)
             }
         }
 
@@ -322,17 +321,6 @@ struct WorldTracksMap: UIViewRepresentable {
 
 extension DrawnTrack {
     static func simplify(_ samples: [TrackSample]) -> [TrackSample] {
-        let smooth = TrackGeometry.smooth(samples)
-        guard smooth.count > 180 else { return smooth }
-        let step = Int(ceil(Double(smooth.count) / 160.0))
-        var picked: [TrackSample] = []
-        picked.reserveCapacity(170)
-        var index = 0
-        while index < smooth.count {
-            picked.append(smooth[index])
-            index += step
-        }
-        if let last = smooth.last, picked.last?.id != last.id { picked.append(last) }
-        return picked
+        TrackGeometry.smooth(samples, minMeters: 2)
     }
 }

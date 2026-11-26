@@ -11666,85 +11666,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Speed mark"
+            "value": "When you reach this speed"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seuil de vitesse"
+            "value": "Quand tu atteins cette vitesse"
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hranice rychlosti"
+            "value": "Když dosáhneš této rychlosti"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tempo-Marke"
+            "value": "Ab dieser Geschwindigkeit"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Umbral de velocidad"
+            "value": "Al llegar a esta velocidad"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Soglia di velocità"
+            "value": "Quando raggiungi questa velocità"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "速度のしきい値"
+            "value": "この速度に達したら"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "속도 기준"
+            "value": "이 속도에 닿으면"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fartsgrense"
+            "value": "Når du når denne farten"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Snelheidsgrens"
+            "value": "Bij deze snelheid"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Próg prędkości"
+            "value": "Gdy osiągniesz tę prędkość"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Limite de velocidade"
+            "value": "Ao chegar a esta velocidade"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fartgräns"
+            "value": "När du når den här farten"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "速度线"
+            "value": "达到这个速度时"
           }
         }
       }
@@ -11755,85 +11755,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Every"
+            "value": "Total distance every"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tous les"
+            "value": "Distance totale tous les"
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Každých"
+            "value": "Celková vzdálenost každých"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle"
+            "value": "Gesamtdistanz alle"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cada"
+            "value": "Distancia total cada"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ogni"
+            "value": "Distanza totale ogni"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "毎"
+            "value": "総距離ごと"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "매"
+            "value": "총 거리마다"
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hver"
+            "value": "Total distanse hver"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elke"
+            "value": "Totale afstand elke"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Co"
+            "value": "Całkowity dystans co"
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "A cada"
+            "value": "Distância total a cada"
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Var"
+            "value": "Total sträcka var"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "每"
+            "value": "总距离每隔"
           }
         }
       }
@@ -12734,85 +12734,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Over %@."
+            "value": "You reached %@."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Au-dessus de %@."
+            "value": "Tu as atteint %@."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nad %@."
+            "value": "Dosáhl jsi %@."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über %@."
+            "value": "Du hast %@ erreicht."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Por encima de %@."
+            "value": "Has llegado a %@."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oltre %@."
+            "value": "Hai raggiunto %@."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ を超えた。"
+            "value": "%@ に達した。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ 넘음."
+            "value": "%@ 에 닿았어."
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Over %@."
+            "value": "Du nådde %@."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Boven %@."
+            "value": "Je haalde %@."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Powyżej %@."
+            "value": "Osiągnięto %@."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acima de %@."
+            "value": "Chegaste a %@."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Över %@."
+            "value": "Du nådde %@."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "超过 %@。"
+            "value": "到了 %@。"
           }
         }
       }
@@ -13001,85 +13001,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distance %@."
+            "value": "Total distance %@."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distance %@."
+            "value": "Distance totale %@."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vzdálenost %@."
+            "value": "Celková vzdálenost %@."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distanz %@."
+            "value": "Gesamtdistanz %@."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distancia %@."
+            "value": "Distancia total %@."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distanza %@."
+            "value": "Distanza totale %@."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "距離 %@。"
+            "value": "総距離 %@。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "거리 %@."
+            "value": "총 거리 %@."
           }
         },
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distanse %@."
+            "value": "Total distanse %@."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Afstand %@."
+            "value": "Totale afstand %@."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dystans %@."
+            "value": "Całkowity dystans %@."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Distância %@."
+            "value": "Distância total %@."
           }
         },
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sträcka %@."
+            "value": "Total sträcka %@."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "距离 %@。"
+            "value": "总距离 %@。"
           }
         }
       }

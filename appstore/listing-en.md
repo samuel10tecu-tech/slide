@@ -24,4 +24,4 @@ Nothing is uploaded. There is no account. Share a day as GPX, an image, or a .sl
 ski,snowboard,freestyle,tracker,gps,offline,vertical,runs,snowpark,alps
 
 ## What's new
-Smooth speed-coloured tracks, a ski colour scale, automatic resort names, a Voice tab for the headset coach and Siri, and a map of every saved run.
+One smooth speed-coloured line per run, and a voice coach that says when you reach a speed and your total distance.

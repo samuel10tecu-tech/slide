@@ -24,4 +24,4 @@ Rien n'est envoyé. Pas de compte. Tu peux partager une journée en GPX, en imag
 ski,freestyle,hors ligne,gps,dénivelé,snowpark,alpes,trace,vitesse,station
 
 ## Nouveautés
-Traces lisses colorées par la vitesse, échelle de couleurs ski, nom de station automatique, onglet Voix pour le coach et Siri, et toutes les traces sur la carte.
+Une seule trace lisse colorée par la vitesse, et un coach qui annonce la vitesse atteinte et la distance totale.
