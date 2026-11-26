@@ -89,7 +89,7 @@ jobs:
         working-directory: android
         env:
           SLIDE_KEYSTORE: slide-debug.keystore
-        run: gradle assembleDebug --no-daemon
+        run: gradle testDebugUnitTest assembleDebug --no-daemon
 
       - name: Attach Slide.apk
         env:

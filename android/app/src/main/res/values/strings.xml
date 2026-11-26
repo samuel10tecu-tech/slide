@@ -12,6 +12,7 @@
     <string name="live">Session on</string>
     <string name="kmh">km/h</string>
     <string name="need_location">Location is off. Allow it to track.</string>
+    <string name="gps_off">GPS is off. Turn on location, then press Start again.</string>
     <string name="notify_title">Slide is tracking</string>
     <string name="notify_text">Speed and runs stay on this phone.</string>
     <string name="max_today">Max speed today</string>

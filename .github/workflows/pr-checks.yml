@@ -1,0 +1,56 @@
+name: Checks
+
+# Build and test pull requests without publishing anything.
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    name: Android tests and APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Android SDK
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          MANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$MANAGER" --licenses >/dev/null || true
+          "$MANAGER" --install "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Gradle
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.10.2/bin" >> "$GITHUB_PATH"
+
+      - name: Unit tests and debug build
+        working-directory: android
+        run: gradle testDebugUnitTest assembleDebug --no-daemon
+
+  ios-logic:
+    name: iOS tracking logic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Logic checks
+        run: |
+          set -euo pipefail
+          swiftc -parse-as-library -o /tmp/slide-tests \
+            Slide/Logic/*.swift SlideTests/LogicChecks.swift tooling/linux-main.swift
+          /tmp/slide-tests
