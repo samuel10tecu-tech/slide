@@ -2,6 +2,13 @@
 
 Copy these into App Store Connect. Replace the two URLs with the address where `site/` is published.
 
+## Where things are
+
+- App Store Connect app: **Slide: Ski Tracker** (the name "Slide" is taken; the home-screen name stays "Slide"), Apple ID `6839823198`, SKU `slide-ski-001`, bundle id `ch.geneve.slide.ski` (+ `ch.geneve.slide.ski.liveactivity`).
+- TestFlight internal group **Family** gets every build automatically.
+- Upload a new build: `TEAM_ID=<team id> bash tooling/testflight.sh` (signs with the Apple ID in Xcode → Settings → Accounts).
+- API calls: `op run --env-file=.env.1password -- python3 tooling/asc.py get "/v1/apps/6839823198/builds"`. `.env.1password` holds only 1Password references and stays out of git; it needs PyJWT and cryptography.
+
 ## App information
 
 - **Privacy Policy URL:** `https://<your-site>/privacy.html`
