@@ -11,8 +11,8 @@ android {
         applicationId = "ch.geneve.slide"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.5"
+        versionCode = 7
+        versionName = "1.5.1"
     }
     signingConfigs {
         create("slideDebug") {
@@ -52,4 +52,5 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.3")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
+    testImplementation("junit:junit:4.13.2")
 }

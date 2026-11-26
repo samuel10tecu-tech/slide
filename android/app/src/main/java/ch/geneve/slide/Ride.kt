@@ -55,12 +55,12 @@ class Engine {
     fun add(sample: Sample) {
         val prev = last
         last = sample
-        maxSpeed = max(maxSpeed, sample.speed)
+        if (sample.speed < MAX_SPEED) maxSpeed = max(maxSpeed, sample.speed)
         var step = 0.0
         if (prev != null) {
             val dt = (sample.t - prev.t) / 1000.0
             val moved = haversine(prev.lat, prev.lon, sample.lat, sample.lon)
-            if (dt in 0.3..45.0 && sample.speed < 55 && moved < 250) step = moved
+            if (dt in 0.3..45.0 && sample.speed < MAX_SPEED && moved < 250) step = moved
         }
         window.addLast(sample)
         while (window.size > 6) window.removeFirst()
@@ -70,7 +70,7 @@ class Engine {
             val drop = (prev?.alt ?: sample.alt) - sample.alt
             if (drop > 0) vertical += drop
             if (open == null) {
-                open = Run(runs.size + 1, sample.speed, 0.0, 0.0)
+                open = Run(runs.size + 1, if (sample.speed < MAX_SPEED) sample.speed else 0.0, 0.0, 0.0)
                 openDistance = 0.0
                 openVertical = 0.0
             }
@@ -78,16 +78,37 @@ class Engine {
             val dropOpen = (prev?.alt ?: sample.alt) - sample.alt
             if (dropOpen > 0) openVertical += dropOpen
             open?.apply {
-                max = max(max, sample.speed)
+                if (sample.speed < MAX_SPEED) max = max(max, sample.speed)
                 distance = openDistance
                 vertical = openVertical
             }
         } else if (open != null) {
-            val finished = open!!
-            if (finished.distance >= 25 || finished.vertical >= 8) runs.add(finished)
-            open = null
+            closeOpenRun()
         }
         phase = next
+    }
+
+    /** Count the run in progress when the session stops in the middle of a descent. */
+    fun finish() {
+        closeOpenRun()
+    }
+
+    fun replay(samples: List<Sample>) {
+        clear()
+        samples.forEach { add(it) }
+    }
+
+    private fun closeOpenRun() {
+        val finished = open ?: return
+        if (finished.distance >= MIN_RUN_DISTANCE || finished.vertical >= MIN_RUN_VERTICAL) runs.add(finished)
+        open = null
+    }
+
+    companion object {
+        /** Above this (198 km/h) a fix is a GPS jump, not a skier. */
+        const val MAX_SPEED = 55.0
+        const val MIN_RUN_DISTANCE = 25.0
+        const val MIN_RUN_VERTICAL = 8.0
     }
 
     private fun classify(sample: Sample): String {
@@ -124,7 +145,7 @@ object DayStore {
             runs.put(JSONObject().put("index", it.index).put("max", it.max).put("distance", it.distance).put("vertical", it.vertical))
         }
         val track = JSONArray()
-        day.track.forEach { track.put(JSONArray().put(it.lat).put(it.lon).put(it.speed)) }
+        day.track.forEach { track.put(JSONArray().put(it.lat).put(it.lon).put(it.speed).put(it.t).put(it.alt)) }
         val json = JSONObject()
             .put("id", day.id)
             .put("started", day.started)
@@ -136,8 +157,16 @@ object DayStore {
             .put("lon", day.lon)
             .put("runs", runs)
             .put("track", track)
-        file.writeText(json.toString())
+        // Write a temporary file first so a kill mid-write never leaves a broken day.
+        val temp = File(dir(context), "${day.id}.json.tmp")
+        temp.writeText(json.toString())
+        if (!temp.renameTo(file)) {
+            file.writeText(json.toString())
+            temp.delete()
+        }
     }
+
+    fun find(context: Context, id: String): DayFile? = load(context).firstOrNull { it.id == id }
 
     fun load(context: Context): List<DayFile> {
         return dir(context).listFiles { f -> f.extension == "json" }.orEmpty().mapNotNull { file ->
@@ -151,7 +180,7 @@ object DayStore {
                 val trackJson = json.optJSONArray("track") ?: JSONArray()
                 val track = (0 until trackJson.length()).map { i ->
                     val row = trackJson.getJSONArray(i)
-                    Sample(0, row.getDouble(0), row.getDouble(1), 0.0, row.getDouble(2))
+                    Sample(row.optLong(3, 0L), row.getDouble(0), row.getDouble(1), row.optDouble(4, 0.0), row.getDouble(2))
                 }
                 DayFile(
                     json.getString("id"), json.getLong("started"), json.optString("resort"),
@@ -165,7 +194,13 @@ object DayStore {
     fun newId() = UUID.randomUUID().toString()
 
     fun gpx(day: DayFile): String {
-        val points = day.track.joinToString("\n") { "<trkpt lat=\"${it.lat}\" lon=\"${it.lon}\"></trkpt>" }
+        val stamp = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).apply {
+            timeZone = java.util.TimeZone.getTimeZone("UTC")
+        }
+        val points = day.track.joinToString("\n") { point ->
+            val extra = if (point.t > 0) "<ele>${point.alt}</ele><time>${stamp.format(java.util.Date(point.t))}</time>" else ""
+            "<trkpt lat=\"${point.lat}\" lon=\"${point.lon}\">$extra</trkpt>"
+        }
         return """<?xml version="1.0" encoding="UTF-8"?><gpx version="1.1" creator="Slide"><trk><name>Slide</name><trkseg>$points</trkseg></trk></gpx>"""
     }
 }

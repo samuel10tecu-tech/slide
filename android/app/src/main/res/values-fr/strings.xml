@@ -10,6 +10,7 @@
     <string name="ready">Prêt à skier</string>
     <string name="live">Sortie en cours</string>
     <string name="need_location">La position est coupée. Autorise-la pour suivre.</string>
+    <string name="gps_off">Le GPS est coupé. Active la localisation, puis appuie à nouveau sur Démarrer.</string>
     <string name="notify_title">Slide enregistre</string>
     <string name="notify_text">Vitesse et descentes restent dans le téléphone.</string>
     <string name="max_today">Vitesse max aujourd\'hui</string>

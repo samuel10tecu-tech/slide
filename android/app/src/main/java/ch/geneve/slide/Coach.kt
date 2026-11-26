@@ -5,6 +5,7 @@ import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import java.util.Locale
 
 object Coach {
@@ -15,13 +16,39 @@ object Coach {
     private var lastMark = 0.0
     private var announcedRuns = 0
     private var lastPeriodic = 0L
+    @Volatile private var focus: AudioFocusRequest? = null
+
+    /** Start each session from zero so run and distance cues are not skipped. */
+    fun reset() {
+        armed = true
+        bucket = 0
+        lastMark = 0.0
+        announcedRuns = 0
+        lastPeriodic = System.currentTimeMillis()
+    }
+
+    /** Give the audio back to music at full volume. */
+    @Synchronized
+    fun release(context: Context) {
+        val request = focus ?: return
+        focus = null
+        context.getSystemService(AudioManager::class.java).abandonAudioFocusRequest(request)
+    }
 
     fun speak(context: Context, text: String, force: Boolean = false) {
         val now = System.currentTimeMillis()
         if (!force && now - lastSpoken < 8_000) return
         if (tts == null) {
-            tts = TextToSpeech(context.applicationContext) { status ->
-                if (status == TextToSpeech.SUCCESS) say(context, text)
+            val app = context.applicationContext
+            tts = TextToSpeech(app) { status ->
+                if (status == TextToSpeech.SUCCESS) say(app, text)
+            }.apply {
+                setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                    override fun onStart(utteranceId: String?) {}
+                    override fun onDone(utteranceId: String?) = release(app)
+                    @Deprecated("Deprecated in Java")
+                    override fun onError(utteranceId: String?) = release(app)
+                })
             }
             return
         }
@@ -34,10 +61,12 @@ object Coach {
             .setUsage(AudioAttributes.USAGE_ASSISTANCE_NAVIGATION_GUIDANCE)
             .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
             .build()
-        val focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+        release(context)
+        val request = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
             .setAudioAttributes(attrs)
             .build()
-        audio.requestAudioFocus(focus)
+        audio.requestAudioFocus(request)
+        focus = request
         val prefs = context.getSharedPreferences("slide", Context.MODE_PRIVATE)
         val lang = prefs.getString("lang", "en") ?: "en"
         tts?.language = when (lang) {
@@ -89,14 +118,19 @@ object Coach {
 
     private fun fmt(mps: Double) = "${"%.0f".format(mps * 3.6)} km/h"
 
-    fun todayMax(context: Context): Double {
+    // The session in progress is saved every 20 s, so leave its file out and use the live numbers.
+    private fun savedToday(context: Context): List<DayFile> {
         val start = startOfDay()
-        return DayStore.load(context).filter { it.started >= start }.maxOfOrNull { it.max } ?: Live.engine.maxSpeed
+        return DayStore.load(context).filter { it.started >= start && !(Live.tracking && it.id == Live.id) }
+    }
+
+    fun todayMax(context: Context): Double {
+        val saved = savedToday(context).maxOfOrNull { it.max } ?: 0.0
+        return if (Live.tracking) maxOf(saved, Live.engine.maxSpeed) else saved
     }
 
     fun todayDistance(context: Context): Double {
-        val start = startOfDay()
-        return DayStore.load(context).filter { it.started >= start }.sumOf { it.distance } + if (Live.tracking) Live.engine.distance else 0.0
+        return savedToday(context).sumOf { it.distance } + if (Live.tracking) Live.engine.distance else 0.0
     }
 
     private fun startOfDay(): Long {
@@ -104,6 +138,7 @@ object Coach {
         cal.set(java.util.Calendar.HOUR_OF_DAY, 0)
         cal.set(java.util.Calendar.MINUTE, 0)
         cal.set(java.util.Calendar.SECOND, 0)
+        cal.set(java.util.Calendar.MILLISECOND, 0)
         return cal.timeInMillis
     }
 }

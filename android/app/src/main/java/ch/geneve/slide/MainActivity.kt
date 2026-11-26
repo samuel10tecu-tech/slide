@@ -5,7 +5,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -59,7 +62,8 @@ import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
     private val permission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { granted ->
-        if (granted[Manifest.permission.ACCESS_FINE_LOCATION] == true) TrackService.start(this)
+        if (granted[Manifest.permission.ACCESS_FINE_LOCATION] == true) beginIfGpsOn()
+        else Toast.makeText(this, R.string.need_location, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,11 +81,22 @@ class MainActivity : ComponentActivity() {
         val note = if (android.os.Build.VERSION.SDK_INT >= 33) {
             ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         } else true
-        if (fine && note) TrackService.start(this) else {
+        if (fine && note) beginIfGpsOn() else {
             val asks = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION)
             if (android.os.Build.VERSION.SDK_INT >= 33) asks += Manifest.permission.POST_NOTIFICATIONS
             permission.launch(asks.toTypedArray())
         }
+    }
+
+    /** With GPS off the session would record nothing, so send the rider to the switch first. */
+    private fun beginIfGpsOn() {
+        val location = getSystemService(LocationManager::class.java)
+        if (!location.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, R.string.gps_off, Toast.LENGTH_LONG).show()
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            return
+        }
+        TrackService.start(this)
     }
 }
 
