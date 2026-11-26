@@ -14,3 +14,6 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 GoogleService-Info.plist
+
+# 1Password references for tooling/asc.py stay local (this repository is public).
+.env.1password
