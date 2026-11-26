@@ -46,9 +46,9 @@
 	<key>MinimumOSVersion</key>
 	<string>17.0</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Nothing is sent to the internet. GPS stops when you finish.</string>
+	<string>Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Your days stay on this phone. GPS stops when you finish.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Slide needs your location for the whole session, including with the screen locked. Nothing is sent to the internet.</string>
+	<string>Slide needs your location for the whole session, including with the screen locked. Your days stay on this phone.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Slide uses your location to measure speed, distance and your track, with no network.</string>
 	<key>NSMotionUsageDescription</key>
@@ -60,8 +60,6 @@
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 	</dict>
-	<key>NSSiriUsageDescription</key>
-	<string>Slide answers Siri about today's speed, distance and runs, on this phone only.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

@@ -92,15 +92,15 @@ enum FormatFR {
         return decimal(Units.feet(fromMeters: meters), fractionDigits: 0, french: french) + " ft"
     }
 
-    static func dayTitle(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .zurich) -> String {
+    static func dayTitle(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .slide) -> String {
         dated(date, format: "EEEE d MMMM", french: french, localeID: localeID, calendar: calendar)
     }
 
-    static func dayShort(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .zurich) -> String {
+    static func dayShort(_ date: Date, french: Bool = true, localeID: String? = nil, calendar: Calendar = .slide) -> String {
         dated(date, format: "EEE d MMM", french: french, localeID: localeID, calendar: calendar)
     }
 
-    static func clock(_ date: Date, calendar: Calendar = .zurich) -> String {
+    static func clock(_ date: Date, calendar: Calendar = .slide) -> String {
         dated(date, format: "HH:mm", french: true, localeID: nil, calendar: calendar)
     }
 
@@ -113,7 +113,7 @@ enum FormatFR {
         return formatter.string(from: date)
     }
 
-    static func fileStamp(_ date: Date, calendar: Calendar = .zurich) -> String {
+    static func fileStamp(_ date: Date, calendar: Calendar = .slide) -> String {
         let formatter = DateFormatter()
         formatter.calendar = calendar
         formatter.locale = Locale(identifier: "en_US_POSIX")

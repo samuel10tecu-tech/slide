@@ -188,6 +188,9 @@ pairs = {
 "siri.already": ("Already tracking.", "Le suivi est déjà allumé."),
 "siri.idle": ("Not tracking.", "Pas de suivi en cours."),
 "siri.denied": ("Location is off. Allow it in Settings.", "La position est coupée. Autorise-la dans Réglages."),
+"store.failed.title": ("Slide can't open your saved days", "Slide n'arrive pas à ouvrir tes journées"),
+"store.failed.detail": ("Your days are still on the phone. Don't delete Slide. Close it, open it again, or install the latest update.", "Tes journées sont toujours dans le téléphone. Ne supprime pas Slide. Ferme-la, rouvre-la, ou installe la dernière mise à jour."),
+"siri.permission": ("Open Slide once to allow location, then ask again.", "Ouvre Slide une fois pour autoriser la position, puis redemande."),
 "siri.title.max": ("Max speed today", "Vitesse max aujourd'hui"),
 "siri.title.distance": ("Distance today", "Distance aujourd'hui"),
 "siri.title.ago": ("Speed minutes ago", "Vitesse il y a quelques minutes"),
@@ -646,12 +649,12 @@ info = {
             "Slide utilise ta position pour mesurer la vitesse, la distance et tracer tes descentes, sans réseau.",
         ),
         "NSLocationAlwaysAndWhenInUseUsageDescription": entry(
-            "Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Nothing is sent to the internet. GPS stops when you finish.",
-            "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Rien n'est envoyé sur Internet. Le GPS s'arrête quand tu termines.",
+            "Slide needs your location for the whole session, including with the screen locked, to measure speed, distance and the track. Your days stay on this phone. GPS stops when you finish.",
+            "Slide a besoin de ta position pendant toute la sortie, y compris écran verrouillé, pour la vitesse, la distance et le tracé. Tes journées restent dans ce téléphone. Le GPS s'arrête quand tu termines.",
         ),
         "NSLocationAlwaysUsageDescription": entry(
-            "Slide needs your location for the whole session, including with the screen locked. Nothing is sent to the internet.",
-            "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Rien n'est envoyé sur Internet.",
+            "Slide needs your location for the whole session, including with the screen locked. Your days stay on this phone.",
+            "Slide a besoin de ta position pendant toute la sortie, même écran verrouillé. Tes journées restent dans ce téléphone.",
         ),
         "NSMotionUsageDescription": entry(
             "Slide uses the barometer for altitude and the accelerometer to estimate jump airtime.",

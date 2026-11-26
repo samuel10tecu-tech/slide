@@ -9,7 +9,13 @@ struct SlideApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            Group {
+                if AppContainer.openedInMemory {
+                    StoreFailedView()
+                } else {
+                    MainTabView()
+                }
+            }
                 .environment(controller)
                 .environment(language)
                 .environment(\.locale, language.swiftUILocale)
@@ -21,10 +27,15 @@ struct SlideApp: App {
 }
 
 enum AppContainer {
+    /// True when the saved days could not be opened. Slide then refuses to track,
+    /// because anything recorded into the temporary store would vanish on quit.
+    private(set) static var openedInMemory = false
+
     static let shared: ModelContainer = {
         do {
             return try ModelContainer(for: SkiDay.self, TrickEntry.self, RiderProfile.self)
         } catch {
+            openedInMemory = true
             do {
                 let memory = ModelConfiguration(isStoredInMemoryOnly: true)
                 return try ModelContainer(
@@ -108,5 +119,28 @@ struct MainTabView: View {
     private func syncIdle() {
         let keep = profiles.first?.keepScreenOn ?? false
         UIApplication.shared.isIdleTimerDisabled = controller.activity == .tracking && keep
+    }
+}
+
+/// Shown instead of the app when the store on disk could not be opened.
+struct StoreFailedView: View {
+    @Environment(LanguageSettings.self) private var language
+
+    var body: some View {
+        VStack(spacing: 18) {
+            Image(systemName: "externaldrive.badge.exclamationmark")
+                .font(.system(size: 52, weight: .semibold))
+                .foregroundStyle(Theme.orange)
+            Text(language.t("store.failed.title"))
+                .font(.title2.weight(.bold))
+                .multilineTextAlignment(.center)
+            Text(language.t("store.failed.detail"))
+                .font(.body)
+                .foregroundStyle(Theme.muted)
+                .multilineTextAlignment(.center)
+        }
+        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(ScreenBackground())
     }
 }

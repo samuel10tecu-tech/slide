@@ -89,6 +89,7 @@ enum LogicChecks {
         try airtimeIgnoresTinyAndLongAndUnarmed()
         try gpxRoundTripCoordinates()
         try sessionFileRoundTrip()
+        try sessionFileKeepsFractionsAndReadsOldFiles()
         try seasonBoundaries()
         try speedBands()
         try durationAndDecimalFormat()
@@ -428,16 +429,29 @@ enum LogicChecks {
         try expect(decoded.samples.count == archive.samples.count, "points")
     }
 
+    static func sessionFileKeepsFractionsAndReadsOldFiles() throws {
+        let archive = SampleDay.make(on: Date(timeIntervalSince1970: 1_763_000_000.25))
+        let decoded = try SessionFile.decode(try SessionFile.encode(archive))
+        try expectClose(decoded.raw[1].time.timeIntervalSince1970, archive.raw[1].time.timeIntervalSince1970, tol: 0.002, "fractions of a second kept")
+        try expectClose(decoded.startedAt.timeIntervalSince1970, archive.startedAt.timeIntervalSince1970, tol: 0.002, "start kept")
+
+        // Files written before v1.5 used whole-second ISO 8601 dates.
+        let legacy = JSONEncoder()
+        legacy.dateEncodingStrategy = .iso8601
+        let old = try SessionFile.decode(try legacy.encode(archive))
+        try expect(old.runs.count == archive.runs.count, "old file still opens")
+    }
+
     static func seasonBoundaries() throws {
-        let calendar = Calendar.zurich
+        let calendar = Calendar.slide
         let november = try date(2026, 11, 25, calendar)
         let march = try date(2026, 3, 2, calendar)
         let opening = try date(2026, 9, 1, calendar)
         let eve = try date(2026, 8, 31, calendar)
-        try expect(Season.containing(november).title == "Saison 2026–2027", Season.containing(november).title)
-        try expect(Season.containing(march).title == "Saison 2025–2026", Season.containing(march).title)
-        try expect(Season.containing(opening).title == "Saison 2026–2027", Season.containing(opening).title)
-        try expect(Season.containing(eve).title == "Saison 2025–2026", Season.containing(eve).title)
+        try expect(Season.containing(november).title == "2026–2027", Season.containing(november).title)
+        try expect(Season.containing(march).title == "2025–2026", Season.containing(march).title)
+        try expect(Season.containing(opening).title == "2026–2027", Season.containing(opening).title)
+        try expect(Season.containing(eve).title == "2025–2026", Season.containing(eve).title)
         try expect(Season.containing(november).contains(november), "la date est dans sa saison")
     }
 

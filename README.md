@@ -201,10 +201,6 @@ You can still send a day with AirDrop or Messages:
 - **Map** — every saved track as one smooth speed-coloured line when you zoom in. Pins and clusters when you are zoomed far out. Tap a track to open that day.
 - **Resort** — named automatically from an offline list of ski areas. If none match and the phone is online, the map service fills the name. A name you type in History is kept.
 
-## Optional account
-
-This build has no sign-in. Slide stays fully usable with no account, and days stay on the phone. To add Google or email later: create a Firebase project, put `GoogleService-Info.plist` in the `Slide` folder (the file is gitignored — do not commit it), then in Xcode add the packages `https://github.com/firebase/firebase-ios-sdk` (products FirebaseAuth and FirebaseCore) and `https://github.com/google/GoogleSignIn-iOS`. The account card appears only when that plist is in the app and those packages are linked.
-
 ## Tests
 
 In Xcode: **Product → Test** (`Cmd + U`) with an iPhone simulator. The tests replay fake tracks (bad accuracy, speed spikes, a descent, a lift, two runs, airtime, GPX). They do not use GPS.

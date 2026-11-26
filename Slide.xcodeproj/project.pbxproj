@@ -28,7 +28,6 @@
 		36F5261EAD928BA30A9194D1 /* TrackFilter.swift */ = {isa = PBXBuildFile; fileRef = 76F0D286633A59B0D568A0BF /* TrackFilter.swift */; };
 		683A2C9AED5551E9BD2A3BD7 /* LogicChecks.swift */ = {isa = PBXBuildFile; fileRef = 528408DAF7EB9E936C28F71E /* LogicChecks.swift */; };
 		837E53C8B39755C519BCB6B2 /* PrivacyInfo.xcprivacy */ = {isa = PBXBuildFile; fileRef = 8320E52604313F853EA3706F /* PrivacyInfo.xcprivacy */; };
-		A60C78B3619CEF4E57DE108C /* AccountAuth.swift */ = {isa = PBXBuildFile; fileRef = 25BB182D9C56C69E19E2844C /* AccountAuth.swift */; };
 		A5A68DB9A20C50CBBEC3FE4B /* AudioCoach.swift */ = {isa = PBXBuildFile; fileRef = 6B354EEE676F347893960350 /* AudioCoach.swift */; };
 		11AC402EE5D8FDDA68CBE529 /* LiveActivityBridge.swift */ = {isa = PBXBuildFile; fileRef = B095DAF0FDFBD53D9FC53BA7 /* LiveActivityBridge.swift */; };
 		B0CE6F8B37AE64E49FD7EFEC /* LocationService.swift */ = {isa = PBXBuildFile; fileRef = 7B9C80F5A43A615038F96CD1 /* LocationService.swift */; };
@@ -84,7 +83,6 @@
 		DEEE59A7810FFFB09A62D693 /* SessionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionTracker.swift"; sourceTree = "<group>"; };
 		76F0D286633A59B0D568A0BF /* TrackFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackFilter.swift"; sourceTree = "<group>"; };
 		8320E52604313F853EA3706F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
-		25BB182D9C56C69E19E2844C /* AccountAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountAuth.swift"; sourceTree = "<group>"; };
 		6B354EEE676F347893960350 /* AudioCoach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioCoach.swift"; sourceTree = "<group>"; };
 		B095DAF0FDFBD53D9FC53BA7 /* LiveActivityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveActivityBridge.swift"; sourceTree = "<group>"; };
 		7B9C80F5A43A615038F96CD1 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationService.swift"; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 		353B72CBF87D57DFA5AD2286 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				25BB182D9C56C69E19E2844C /* AccountAuth.swift */,
 				6B354EEE676F347893960350 /* AudioCoach.swift */,
 				B095DAF0FDFBD53D9FC53BA7 /* LiveActivityBridge.swift */,
 				7B9C80F5A43A615038F96CD1 /* LocationService.swift */,
@@ -409,7 +406,6 @@
 				5740C483AE95359EF52D6598 /* SessionModels.swift */,
 				3113E972CEE384B56064814D /* SessionTracker.swift */,
 				36F5261EAD928BA30A9194D1 /* TrackFilter.swift */,
-				A60C78B3619CEF4E57DE108C /* AccountAuth.swift */,
 				A5A68DB9A20C50CBBEC3FE4B /* AudioCoach.swift */,
 				11AC402EE5D8FDDA68CBE529 /* LiveActivityBridge.swift */,
 				B0CE6F8B37AE64E49FD7EFEC /* LocationService.swift */,
@@ -467,6 +463,7 @@
 							MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 							ONLY_ACTIVE_ARCH = YES;
 							SDKROOT = iphoneos;
+							SLIDE_BUNDLE_ID = ch.geneve.slide.ski;
 							SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 							SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -485,6 +482,7 @@
 							IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 							MTL_ENABLE_DEBUG_INFO = NO;
 							SDKROOT = iphoneos;
+							SLIDE_BUNDLE_ID = ch.geneve.slide.ski;
 							SWIFT_COMPILATION_MODE = wholemodule;
 							SWIFT_OPTIMIZATION_LEVEL = "-O";
 							VALIDATE_PRODUCT = YES;
@@ -506,8 +504,8 @@
 								"$(inherited)",
 								"@executable_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID)";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -534,8 +532,8 @@
 								"$(inherited)",
 								"@executable_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID)";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -560,8 +558,8 @@
 								"@executable_path/Frameworks",
 								"@loader_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.tests;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID).tests";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -587,8 +585,8 @@
 								"@executable_path/Frameworks",
 								"@loader_path/Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.tests;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID).tests";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -726,8 +724,8 @@
 								"@executable_path/Frameworks",
 								"@executable_path/../../Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.liveactivity;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID).liveactivity";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SKIP_INSTALL = YES;
@@ -751,8 +749,8 @@
 								"@executable_path/Frameworks",
 								"@executable_path/../../Frameworks",
 							);
-							MARKETING_VERSION = 1.4;
-							PRODUCT_BUNDLE_IDENTIFIER = ch.geneve.slide.ski.liveactivity;
+							MARKETING_VERSION = 1.5;
+							PRODUCT_BUNDLE_IDENTIFIER = "$(SLIDE_BUNDLE_ID).liveactivity";
 							PRODUCT_NAME = "$(TARGET_NAME)";
 							SDKROOT = iphoneos;
 							SKIP_INSTALL = YES;

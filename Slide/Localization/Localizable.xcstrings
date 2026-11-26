@@ -14775,6 +14775,273 @@
         }
       }
     },
+    "store.failed.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide can't open your saved days"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide n'arrive pas à ouvrir tes journées"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide nemůže otevřít uložené dny"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide kann deine gespeicherten Tage nicht öffnen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide no puede abrir tus días guardados"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide non riesce ad aprire le tue giornate"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slideが保存した日を開けない"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide가 저장된 날을 열 수 없어"
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide klarer ikke å åpne de lagrede dagene"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide kan je opgeslagen dagen niet openen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide nie może otworzyć zapisanych dni"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Slide não consegue abrir os teus dias"
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide kan inte öppna dina sparade dagar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide 打不开已保存的日子"
+          }
+        }
+      }
+    },
+    "store.failed.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your days are still on the phone. Don't delete Slide. Close it, open it again, or install the latest update."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tes journées sont toujours dans le téléphone. Ne supprime pas Slide. Ferme-la, rouvre-la, ou installe la dernière mise à jour."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoje dny jsou pořád v telefonu. Nemaž Slide. Zavři aplikaci, otevři ji znovu nebo nainstaluj nejnovější aktualizaci."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Tage sind noch auf dem Telefon. Lösch Slide nicht. Schließ die App, öffne sie wieder oder installiere das neueste Update."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus días siguen en el teléfono. No borres Slide. Ciérrala, vuelve a abrirla o instala la última actualización."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le tue giornate sono ancora sul telefono. Non eliminare Slide. Chiudila, riaprila o installa l'ultimo aggiornamento."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記録はまだこの電話にある。Slideを削除しないで。閉じてもう一度開くか、最新のアップデートを入れて。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기록은 아직 폰에 있어. Slide를 지우지 마. 닫았다가 다시 열거나 최신 업데이트를 설치해."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dagene dine er fortsatt på telefonen. Ikke slett Slide. Lukk appen, åpne den igjen, eller installer den nyeste oppdateringen."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je dagen staan nog op de telefoon. Verwijder Slide niet. Sluit de app, open hem opnieuw of installeer de nieuwste update."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Twoje dni wciąż są w telefonie. Nie usuwaj Slide. Zamknij aplikację, otwórz ją ponownie albo zainstaluj najnowszą aktualizację."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os teus dias continuam no telemóvel. Não apagues o Slide. Fecha-o, abre-o outra vez ou instala a atualização mais recente."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dina dagar finns kvar på telefonen. Radera inte Slide. Stäng appen, öppna den igen eller installera den senaste uppdateringen."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的记录还在手机里。不要删除 Slide。关掉再打开，或者安装最新更新。"
+          }
+        }
+      }
+    },
+    "siri.permission": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Slide once to allow location, then ask again."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvre Slide une fois pour autoriser la position, puis redemande."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevři jednou Slide, povol polohu a zeptej se znovu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffne Slide einmal, um den Ort zu erlauben, und frag dann noch mal."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Slide una vez para permitir la ubicación y vuelve a pedirlo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri Slide una volta per consentire la posizione, poi richiedi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一度Slideを開いて位置情報を許可してから、もう一度聞いて。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide를 한 번 열어서 위치를 허용한 다음 다시 물어봐."
+          }
+        },
+        "nb": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Åpne Slide én gang for å tillate posisjon, og spør så igjen."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Slide één keer om locatie toe te staan en vraag het daarna opnieuw."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz raz Slide, żeby zezwolić na lokalizację, i zapytaj ponownie."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre o Slide uma vez para permitir a localização e pede outra vez."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öppna Slide en gång för att tillåta plats och fråga sedan igen."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先打开一次 Slide 允许定位，然后再问一次。"
+          }
+        }
+      }
+    },
     "siri.title.max": {
       "extractionState": "manual",
       "localizations": {

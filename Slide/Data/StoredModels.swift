@@ -118,7 +118,9 @@ enum DayStore {
     }
 
     static func upsert(_ archive: SessionArchive, in context: ModelContext) {
-        if let existing = all(in: context).first(where: { $0.uuid == archive.id }) {
+        let id = archive.id
+        let match = FetchDescriptor<SkiDay>(predicate: #Predicate { $0.uuid == id })
+        if let existing = (try? context.fetch(match))?.first {
             existing.write(archive)
         } else {
             context.insert(SkiDay(archive: archive))

@@ -34,6 +34,7 @@ final class GPXAndUnitsTests: XCTestCase {
 
     func testGPXRoundTrip() throws { try LogicChecks.gpxRoundTripCoordinates() }
     func testSessionFileRoundTrip() throws { try LogicChecks.sessionFileRoundTrip() }
+    func testSessionFileKeepsFractions() throws { try LogicChecks.sessionFileKeepsFractionsAndReadsOldFiles() }
     func testSeasonBoundaries() throws { try LogicChecks.seasonBoundaries() }
     func testSpeedBands() throws { try LogicChecks.speedBands() }
     func testFormats() throws {

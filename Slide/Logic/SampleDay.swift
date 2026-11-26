@@ -2,8 +2,8 @@ import Foundation
 
 enum SampleDay {
     /// Une journée fictive, générée par le même détecteur que le suivi réel.
-    static func make(on day: Date = Date(), resort: String = "Les Crosets (exemple)") -> SessionArchive {
-        let calendar = Calendar.zurich
+    static func make(on day: Date = Date(), resort: String = "Les Crosets") -> SessionArchive {
+        let calendar = Calendar.slide
         var parts = calendar.dateComponents([.year, .month, .day], from: day)
         parts.hour = 9
         parts.minute = 40
