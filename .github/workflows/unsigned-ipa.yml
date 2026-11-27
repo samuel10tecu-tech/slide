@@ -73,7 +73,7 @@ jobs:
           echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
           MANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
           yes | "$MANAGER" --licenses >/dev/null || true
-          "$MANAGER" --install "platforms;android-35" "build-tools;35.0.0"
+          "$MANAGER" --install "platforms;android-36" "build-tools;36.0.0"
 
       - name: Debug keystore
         working-directory: android/app
@@ -81,9 +81,9 @@ jobs:
 
       - name: Gradle
         run: |
-          curl -fsSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o /tmp/gradle.zip
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.13-bin.zip -o /tmp/gradle.zip
           unzip -q /tmp/gradle.zip -d /opt
-          echo "/opt/gradle-8.10.2/bin" >> "$GITHUB_PATH"
+          echo "/opt/gradle-8.13/bin" >> "$GITHUB_PATH"
 
       - name: Assemble
         working-directory: android

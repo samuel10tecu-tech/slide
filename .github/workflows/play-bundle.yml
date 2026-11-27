@@ -1,0 +1,75 @@
+name: Play bundle
+
+# Builds the signed Android App Bundle (.aab) for Google Play. Run it by hand from the Actions tab.
+# Needs three repository secrets, set once:
+#   SLIDE_UPLOAD_KEYSTORE_B64      base64 of the upload keystore (.jks)
+#   SLIDE_UPLOAD_STORE_PASSWORD    keystore password (also used as the key password)
+#   SLIDE_UPLOAD_KEY_ALIAS         key alias, usually "upload"
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    name: Signed release bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Android SDK
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          MANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$MANAGER" --licenses >/dev/null || true
+          "$MANAGER" --install "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Gradle
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.13-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.13/bin" >> "$GITHUB_PATH"
+
+      - name: Upload key
+        env:
+          KEYSTORE_B64: ${{ secrets.SLIDE_UPLOAD_KEYSTORE_B64 }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$KEYSTORE_B64" ]]; then
+            echo "Set the SLIDE_UPLOAD_KEYSTORE_B64 secret first." >&2
+            exit 1
+          fi
+          echo "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/upload.jks"
+          echo "SLIDE_UPLOAD_KEYSTORE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+
+      - name: Tests and bundle
+        working-directory: android
+        env:
+          SLIDE_UPLOAD_STORE_PASSWORD: ${{ secrets.SLIDE_UPLOAD_STORE_PASSWORD }}
+          SLIDE_UPLOAD_KEY_ALIAS: ${{ secrets.SLIDE_UPLOAD_KEY_ALIAS }}
+        run: gradle testReleaseUnitTest bundleRelease --no-daemon
+
+      - name: Check the signature
+        run: |
+          set -euo pipefail
+          AAB=$(find android/app/build/outputs/bundle/release -name '*.aab' | head -1)
+          jarsigner -verify "$AAB" | tail -1
+          cp "$AAB" Slide.aab
+
+      - name: Keep the bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Slide-aab
+          path: Slide.aab
+          if-no-files-found: error
+          retention-days: 30
