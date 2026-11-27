@@ -1,6 +1,6 @@
 # App Store Connect — TestFlight and App Review answers
 
-Copy these into App Store Connect. Replace the two URLs with the address where `site/` is published.
+Copy these into App Store Connect. The site in `site/` is published by GitHub Pages at https://samuel10tecu-tech.github.io/slide/.
 
 ## Where things are
 
@@ -11,9 +11,9 @@ Copy these into App Store Connect. Replace the two URLs with the address where `
 
 ## App information
 
-- **Privacy Policy URL:** `https://<your-site>/privacy.html`
-- **Support URL:** `https://<your-site>/support.html`
-- **Marketing URL (optional):** `https://<your-site>/`
+- **Privacy Policy URL:** `https://samuel10tecu-tech.github.io/slide/privacy.html`
+- **Support URL:** `https://samuel10tecu-tech.github.io/slide/support.html`
+- **Marketing URL (optional):** `https://samuel10tecu-tech.github.io/slide/`
 - **Category:** Sports (secondary: Health & Fitness)
 - **Age rating:** 4+. Answer "None" to every content question. The freestyle course describes tricks but has no violence, gambling or user-generated content.
 - **Content rights:** no third-party content. The tutorial buttons open a YouTube search; Slide hosts no videos.
