@@ -70,4 +70,6 @@ dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
     testImplementation("junit:junit:4.13.2")
+    // Real org.json on the JVM test classpath (Android only ships stubs there).
+    testImplementation("org.json:json:20240303")
 }
