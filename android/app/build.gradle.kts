@@ -11,8 +11,8 @@ android {
         applicationId = "ch.geneve.slide"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.5.1"
+        versionCode = 8
+        versionName = "1.6"
     }
     signingConfigs {
         // Upload key for Google Play. The keystore and passwords come from the environment
