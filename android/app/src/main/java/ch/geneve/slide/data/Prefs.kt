@@ -41,12 +41,12 @@ object Profile {
         relativeSpeed = prefs.getBoolean("slide.speed.relative", false)
     }
 
-    fun setName(value: String) { name = value; prefs.edit().putString("profile.name", value).apply() }
-    fun setHome(value: String) { homeMountain = value; prefs.edit().putString("profile.home", value).apply() }
-    fun setKeepScreenOn(value: Boolean) { keepScreenOn = value; prefs.edit().putBoolean("profile.keepScreenOn", value).apply() }
-    fun setRelative(value: Boolean) { relativeSpeed = value; prefs.edit().putBoolean("slide.speed.relative", value).apply() }
+    fun saveName(value: String) { name = value; prefs.edit().putString("profile.name", value).apply() }
+    fun saveHome(value: String) { homeMountain = value; prefs.edit().putString("profile.home", value).apply() }
+    fun saveKeepScreenOn(value: Boolean) { keepScreenOn = value; prefs.edit().putBoolean("profile.keepScreenOn", value).apply() }
+    fun saveRelative(value: Boolean) { relativeSpeed = value; prefs.edit().putBoolean("slide.speed.relative", value).apply() }
 
-    fun setUnits(value: UnitPrefs) {
+    fun saveUnits(value: UnitPrefs) {
         units = value
         prefs.edit()
             .putBoolean("profile.speedMetric", value.speedMetric)
@@ -77,11 +77,11 @@ object CoachSettings {
         parts = partKeys.associateWith { prefs.getBoolean("audio.part.$it", true) }
     }
 
-    fun setEnabled(value: Boolean) { enabled = value; prefs.edit().putBoolean("audio", value).apply() }
-    fun setThreshold(value: Double) { thresholdKmh = value; prefs.edit().putFloat("threshold", value.toFloat()).apply() }
-    fun setEvery(value: Double) { everyKm = value; prefs.edit().putFloat("every", value.toFloat()).apply() }
-    fun setPeriod(value: Int) { periodMinutes = value; prefs.edit().putInt("period", value).apply() }
-    fun setPart(key: String, value: Boolean) {
+    fun saveEnabled(value: Boolean) { enabled = value; prefs.edit().putBoolean("audio", value).apply() }
+    fun saveThreshold(value: Double) { thresholdKmh = value; prefs.edit().putFloat("threshold", value.toFloat()).apply() }
+    fun saveEvery(value: Double) { everyKm = value; prefs.edit().putFloat("every", value.toFloat()).apply() }
+    fun savePeriod(value: Int) { periodMinutes = value; prefs.edit().putInt("period", value).apply() }
+    fun savePart(key: String, value: Boolean) {
         parts = parts + (key to value)
         prefs.edit().putBoolean("audio.part.$key", value).apply()
     }

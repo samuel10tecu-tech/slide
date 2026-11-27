@@ -283,7 +283,7 @@ fun DayDetailScreen(id: String, onBack: () -> Unit) {
                         dayMaxKmh = dayMax,
                         modifier = Modifier.fillMaxWidth().height(300.dp).card(radius = 20),
                     ) { picked = it }
-                    SpeedLegend(Profile.relativeSpeed, { Profile.setRelative(it) }, L10n.t("legend.relative"))
+                    SpeedLegend(Profile.relativeSpeed, { Profile.saveRelative(it) }, L10n.t("legend.relative"))
                     picked?.let {
                         Text(
                             "${L10n.t("history.point.speed")} · ${Fmt.speed(it.speed, prefs, f)} ${Fmt.speedUnit(prefs)} · ${Fmt.altitude(it.rawAltitude, prefs, f)} · ${Fmt.clock(it.time)}",

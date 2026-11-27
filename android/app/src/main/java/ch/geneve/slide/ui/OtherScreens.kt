@@ -108,7 +108,7 @@ fun MapScreen(onOpen: (String) -> Unit) {
                     modifier = Modifier.card(C.background.copy(alpha = 0.85f), 16).padding(14.dp))
             }
             Spacer(Modifier.weight(1f))
-            SpeedLegend(relative, { Profile.setRelative(it) }, L10n.t("legend.relative"))
+            SpeedLegend(relative, { Profile.saveRelative(it) }, L10n.t("legend.relative"))
             Spacer(Modifier.height(16.dp))
         }
     }
@@ -329,23 +329,23 @@ fun VoiceScreen() {
 private fun CoachCard() {
     val context = LocalContext.current
     Column(Modifier.fillMaxWidth().card().padding(14.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        ToggleRow(L10n.t("audio.title"), L10n.t("audio.detail"), CoachSettings.enabled) { CoachSettings.setEnabled(it) }
+        ToggleRow(L10n.t("audio.title"), L10n.t("audio.detail"), CoachSettings.enabled) { CoachSettings.saveEnabled(it) }
         if (CoachSettings.enabled) {
             SliderRow(L10n.t("audio.threshold"), "${CoachSettings.thresholdKmh.toInt()} km/h", CoachSettings.thresholdKmh.toFloat(), 20f..130f, 21) {
-                CoachSettings.setThreshold((Math.round(it / 5f) * 5f).toDouble())
+                CoachSettings.saveThreshold((Math.round(it / 5f) * 5f).toDouble())
             }
             SliderRow(L10n.t("audio.every"), "%.1f km".format(CoachSettings.everyKm), CoachSettings.everyKm.toFloat(), 0.5f..10f, 18) {
-                CoachSettings.setEvery((Math.round(it * 2f) / 2f).toDouble())
+                CoachSettings.saveEvery((Math.round(it * 2f) / 2f).toDouble())
             }
             val period = CoachSettings.periodMinutes
             SliderRow(L10n.t("audio.period"), if (period < 1) L10n.t("audio.period.off") else "$period min", period.toFloat(), 0f..30f, 29) {
-                CoachSettings.setPeriod(Math.round(it))
+                CoachSettings.savePeriod(Math.round(it))
             }
             Text(L10n.t("audio.include"), color = C.muted, fontSize = 15.sp, fontWeight = FontWeight.Bold)
             CoachSettings.partKeys.forEach { key ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(L10n.t("audio.part.$key"), color = C.text, fontSize = 15.sp, modifier = Modifier.weight(1f))
-                    Switch(CoachSettings.part(key), { CoachSettings.setPart(key, it) }, colors = SwitchDefaults.colors(checkedTrackColor = C.accent))
+                    Switch(CoachSettings.part(key), { CoachSettings.savePart(key, it) }, colors = SwitchDefaults.colors(checkedTrackColor = C.accent))
                 }
             }
             Row(
@@ -413,15 +413,15 @@ fun ProfileScreen(locationGranted: Boolean, locationAsked: Boolean) {
             }
             Text(L10n.t("android.profile.language.note"), color = C.muted, fontSize = 13.sp)
         }
-        Field(L10n.t("profile.name"), Profile.name, L10n.t("profile.name.prompt")) { Profile.setName(it) }
-        Field(L10n.t("profile.resort"), Profile.homeMountain, L10n.t("profile.resort.prompt")) { Profile.setHome(it) }
+        Field(L10n.t("profile.name"), Profile.name, L10n.t("profile.name.prompt")) { Profile.saveName(it) }
+        Field(L10n.t("profile.resort"), Profile.homeMountain, L10n.t("profile.resort.prompt")) { Profile.saveHome(it) }
         Text(L10n.t("profile.hint"), color = C.muted, fontSize = 13.sp)
         val u = Profile.units
-        UnitPicker(L10n.t("profile.speed"), L10n.t("profile.unit.kmh"), L10n.t("profile.unit.mph"), u.speedMetric) { Profile.setUnits(u.copy(speedMetric = it)) }
-        UnitPicker(L10n.t("profile.distance"), L10n.t("profile.unit.km"), L10n.t("profile.unit.mi"), u.distanceMetric) { Profile.setUnits(u.copy(distanceMetric = it)) }
-        UnitPicker(L10n.t("profile.altitude"), L10n.t("profile.unit.m"), L10n.t("profile.unit.ft"), u.altitudeMetric) { Profile.setUnits(u.copy(altitudeMetric = it)) }
+        UnitPicker(L10n.t("profile.speed"), L10n.t("profile.unit.kmh"), L10n.t("profile.unit.mph"), u.speedMetric) { Profile.saveUnits(u.copy(speedMetric = it)) }
+        UnitPicker(L10n.t("profile.distance"), L10n.t("profile.unit.km"), L10n.t("profile.unit.mi"), u.distanceMetric) { Profile.saveUnits(u.copy(distanceMetric = it)) }
+        UnitPicker(L10n.t("profile.altitude"), L10n.t("profile.unit.m"), L10n.t("profile.unit.ft"), u.altitudeMetric) { Profile.saveUnits(u.copy(altitudeMetric = it)) }
         Box(Modifier.card(radius = 16).padding(14.dp)) {
-            ToggleRow(L10n.t("profile.screen"), L10n.t("profile.screen.detail"), Profile.keepScreenOn) { Profile.setKeepScreenOn(it) }
+            ToggleRow(L10n.t("profile.screen"), L10n.t("profile.screen.detail"), Profile.keepScreenOn) { Profile.saveKeepScreenOn(it) }
         }
         Column(Modifier.fillMaxWidth().card(radius = 16).padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionTitle(L10n.t("profile.location"))
