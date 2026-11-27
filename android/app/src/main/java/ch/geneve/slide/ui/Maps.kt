@@ -195,6 +195,9 @@ private class MapState {
     var marker: Marker? = null
     var tapper: MapEventsOverlay? = null
     var samples: List<TrackSample> = emptyList()
+    var tracks: List<DrawnTrack> = emptyList()
+    var onOpen: (String) -> Unit = {}
+    var onGroup: (PlaceCluster) -> Unit = {}
 }
 
 fun dotIcon(context: Context, color: Color): BitmapDrawable {
@@ -259,10 +262,14 @@ fun WorldMap(tracks: List<DrawnTrack>, modifier: Modifier, onOpen: (String) -> U
         map.onResume()
         onDispose { map.onPause(); map.onDetach() }
     }
+    // The map listener is created once, so it reads the latest tracks and callbacks from [state].
+    state.tracks = tracks
+    state.onOpen = onOpen
+    state.onGroup = onGroup
     fun draw(view: MapView) {
+        val tracks = state.tracks
         val far = view.zoomLevelDouble < 10.5
         val signature = tracks.joinToString(",") { it.id } + if (far) "|far" else "|near"
-        android.util.Log.i("SlideMap", "draw tracks=${tracks.size} zoom=${view.zoomLevelDouble} far=$far same=${signature == state.signature} size=${view.width}x${view.height} center=${view.mapCenter}")
         if (signature == state.signature) return
         state.signature = signature
         view.overlays.clear()
@@ -274,14 +281,14 @@ fun WorldMap(tracks: List<DrawnTrack>, modifier: Modifier, onOpen: (String) -> U
                     setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
                     setInfoWindow(null)
                     setOnMarkerClickListener { _, _ ->
-                        if (cluster.dayIds.size == 1) onOpen(cluster.dayIds.first()) else onGroup(cluster)
+                        if (cluster.dayIds.size == 1) state.onOpen(cluster.dayIds.first()) else state.onGroup(cluster)
                         true
                     }
                 })
             }
         } else {
             val width = 6f * view.resources.displayMetrics.density
-            for (track in tracks) view.overlays.addAll(TrackGeometry.gradientLines(track.samples, track.dayMaxKmh, width) { onOpen(track.id) })
+            for (track in tracks) view.overlays.addAll(TrackGeometry.gradientLines(track.samples, track.dayMaxKmh, width) { state.onOpen(track.id) })
         }
         view.invalidate()
     }
