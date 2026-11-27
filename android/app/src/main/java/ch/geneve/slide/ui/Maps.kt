@@ -262,6 +262,7 @@ fun WorldMap(tracks: List<DrawnTrack>, modifier: Modifier, onOpen: (String) -> U
     fun draw(view: MapView) {
         val far = view.zoomLevelDouble < 10.5
         val signature = tracks.joinToString(",") { it.id } + if (far) "|far" else "|near"
+        android.util.Log.i("SlideMap", "draw tracks=${tracks.size} zoom=${view.zoomLevelDouble} far=$far same=${signature == state.signature} size=${view.width}x${view.height} center=${view.mapCenter}")
         if (signature == state.signature) return
         state.signature = signature
         view.overlays.clear()

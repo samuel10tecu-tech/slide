@@ -20,3 +20,4 @@ for screen in track map history day freestyle trick voice profile; do
   echo "captured $LANG_CODE-$screen"
 done
 adb logcat -d -s AndroidRuntime:E > "$OUT/$LANG_CODE-crashes.txt" || true
+adb logcat -d -s SlideMap:I > "$OUT/$LANG_CODE-map-log.txt" || true

@@ -36,6 +36,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import ch.geneve.slide.data.CoachSettings
 import ch.geneve.slide.data.DayStore
 import ch.geneve.slide.data.L10n
@@ -154,7 +156,7 @@ class MainActivity : ComponentActivity() {
                                 selected = tab == index,
                                 onClick = { tab = index; day = null; trick = null },
                                 icon = { Icon(icon, null) },
-                                label = { Text(L10n.t(key), maxLines = 1) },
+                                label = { Text(L10n.t(key), maxLines = 1, softWrap = false, fontSize = 11.sp, overflow = TextOverflow.Ellipsis) },
                                 alwaysShowLabel = false,
                                 colors = NavigationBarItemDefaults.colors(
                                     selectedIconColor = C.accent, selectedTextColor = C.accent, indicatorColor = C.surface2,
