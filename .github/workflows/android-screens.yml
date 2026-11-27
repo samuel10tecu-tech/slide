@@ -49,9 +49,9 @@ jobs:
           unzip -q /tmp/gradle.zip -d /opt
           echo "/opt/gradle-8.13/bin" >> "$GITHUB_PATH"
 
-      - name: Debug APK
+      - name: Shrunk APK (release R8 rules, debug signing)
         working-directory: android
-        run: gradle assembleDebug --no-daemon
+        run: gradle assembleMinified --no-daemon
 
       - name: Enable KVM
         run: |
@@ -67,7 +67,7 @@ jobs:
           arch: x86_64
           profile: pixel_7
           disable-animations: true
-          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ matrix.language }}
+          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/minified -name '*.apk' | head -1)" build/screens ${{ matrix.language }}
 
       - name: Keep the screenshots
         uses: actions/upload-artifact@v4
