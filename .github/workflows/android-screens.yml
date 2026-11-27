@@ -19,6 +19,10 @@ permissions:
 jobs:
   screens:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{ fromJSON(inputs.language && format('["{0}"]', inputs.language) || '["en","fr"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,12 +67,12 @@ jobs:
           arch: x86_64
           profile: pixel_7
           disable-animations: true
-          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ inputs.language || 'en' }}
+          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ matrix.language }}
 
       - name: Keep the screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: android-screens-${{ inputs.language || 'en' }}
+          name: android-screens-${{ matrix.language }}
           path: build/screens
           if-no-files-found: error
           retention-days: 14

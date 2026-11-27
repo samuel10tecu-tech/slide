@@ -287,26 +287,32 @@ fun WorldMap(tracks: List<DrawnTrack>, modifier: Modifier, onOpen: (String) -> U
     Box(modifier) {
         AndroidView(factory = {
             map.apply {
-                addMapListener(object : MapListener {
-                    override fun onScroll(event: ScrollEvent?) = false
+                addMapListener(org.osmdroid.events.DelayedMapListener(object : MapListener {
+                    override fun onScroll(event: ScrollEvent?): Boolean {
+                        draw(this@apply)
+                        return false
+                    }
                     override fun onZoom(event: ZoomEvent?): Boolean {
                         draw(this@apply)
                         return false
                     }
-                })
+                }, 150))
             }
         }, update = { view ->
-            draw(view)
             if (!state.fitted && tracks.isNotEmpty()) {
                 state.fitted = true
-                val all = tracks.flatMap { listOf(it.samples.first(), it.samples.last()) }
-                val box = TrackGeometry.bounds(all)
-                if (box != null) view.post { view.zoomToBoundingBox(box, false) }
-                else view.controller.setCenter(GeoPoint(tracks.first().latitude, tracks.first().longitude))
+                val box = TrackGeometry.bounds(tracks.flatMap { it.samples })
+                // Fit once the view has its size, then draw for the new zoom (tracks near, pins far).
+                view.post {
+                    if (box != null) view.zoomToBoundingBox(box, false)
+                    state.signature = ""
+                    draw(view)
+                }
             } else if (tracks.isEmpty() && !state.fitted) {
                 view.controller.setZoom(6.0)
                 view.controller.setCenter(GeoPoint(46.2, 7.5))
             }
+            draw(view)
         }, modifier = Modifier.fillMaxSize())
         OsmAttribution(Modifier.align(Alignment.BottomEnd))
     }
