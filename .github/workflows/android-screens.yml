@@ -1,0 +1,78 @@
+name: Android screens
+
+# Runs the Android app on an emulator in demo mode and keeps screenshots of every screen.
+# Runs on pull requests that touch android/, or by hand from the Actions tab.
+on:
+  pull_request:
+    paths:
+      - "android/**"
+      - "tooling/android_screens.sh"
+  workflow_dispatch:
+    inputs:
+      language:
+        description: "App language (en, fr, de, ...)"
+        default: "en"
+
+permissions:
+  contents: read
+
+jobs:
+  screens:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{ fromJSON(inputs.language && format('["{0}"]', inputs.language) || '["en","fr"]') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Android SDK
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}"
+          echo "ANDROID_HOME=$SDK" >> "$GITHUB_ENV"
+          MANAGER="$SDK/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$MANAGER" --licenses >/dev/null || true
+          "$MANAGER" --install "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Gradle
+        run: |
+          curl -fsSL https://services.gradle.org/distributions/gradle-8.13-bin.zip -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt
+          echo "/opt/gradle-8.13/bin" >> "$GITHUB_PATH"
+
+      - name: Debug APK
+        working-directory: android
+        run: gradle assembleDebug --no-daemon
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Screenshots on an emulator
+        uses: reactivecircus/android-emulator-runner@v2.33.0
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_7
+          disable-animations: true
+          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ matrix.language }}
+
+      - name: Keep the screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-screens-${{ matrix.language }}
+          path: build/screens
+          if-no-files-found: error
+          retention-days: 14
