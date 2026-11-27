@@ -44,10 +44,21 @@ android {
             }
         }
         release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             val path = System.getenv("SLIDE_UPLOAD_KEYSTORE")
             if (path != null && file(path).exists()) {
                 signingConfig = signingConfigs.getByName("upload")
             }
+        }
+        // Debug-signed copy of the release shrinking, used by the emulator screenshots to catch R8 problems.
+        create("minified") {
+            initWith(getByName("debug"))
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            matchingFallbacks += listOf("debug")
         }
     }
     buildFeatures { compose = true }
