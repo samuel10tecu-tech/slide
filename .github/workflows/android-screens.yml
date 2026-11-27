@@ -1,7 +1,12 @@
 name: Android screens
 
-# Runs the Android app on an emulator in demo mode and keeps screenshots of every screen. Start it from the Actions tab.
+# Runs the Android app on an emulator in demo mode and keeps screenshots of every screen.
+# Runs on pull requests that touch android/, or by hand from the Actions tab.
 on:
+  pull_request:
+    paths:
+      - "android/**"
+      - "tooling/android_screens.sh"
   workflow_dispatch:
     inputs:
       language:
@@ -58,12 +63,12 @@ jobs:
           arch: x86_64
           profile: pixel_7
           disable-animations: true
-          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ inputs.language }}
+          script: bash tooling/android_screens.sh "$(find android/app/build/outputs/apk/debug -name '*.apk' | head -1)" build/screens ${{ inputs.language || 'en' }}
 
       - name: Keep the screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: android-screens-${{ inputs.language }}
+          name: android-screens-${{ inputs.language || 'en' }}
           path: build/screens
           if-no-files-found: error
           retention-days: 14
