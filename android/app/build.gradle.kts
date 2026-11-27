@@ -6,15 +6,26 @@ plugins {
 
 android {
     namespace = "ch.geneve.slide"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "ch.geneve.slide"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 7
         versionName = "1.5.1"
     }
     signingConfigs {
+        // Upload key for Google Play. The keystore and passwords come from the environment
+        // (GitHub secrets in CI, 1Password locally) and are never committed.
+        create("upload") {
+            val path = System.getenv("SLIDE_UPLOAD_KEYSTORE")
+            if (path != null && file(path).exists()) {
+                storeFile = file(path)
+                storePassword = System.getenv("SLIDE_UPLOAD_STORE_PASSWORD")
+                keyAlias = System.getenv("SLIDE_UPLOAD_KEY_ALIAS") ?: "upload"
+                keyPassword = System.getenv("SLIDE_UPLOAD_KEY_PASSWORD") ?: System.getenv("SLIDE_UPLOAD_STORE_PASSWORD")
+            }
+        }
         create("slideDebug") {
             val store = file(System.getenv("SLIDE_KEYSTORE") ?: "slide-debug.keystore")
             if (store.exists()) {
@@ -30,6 +41,12 @@ android {
             val store = file(System.getenv("SLIDE_KEYSTORE") ?: "slide-debug.keystore")
             if (store.exists()) {
                 signingConfig = signingConfigs.getByName("slideDebug")
+            }
+        }
+        release {
+            val path = System.getenv("SLIDE_UPLOAD_KEYSTORE")
+            if (path != null && file(path).exists()) {
+                signingConfig = signingConfigs.getByName("upload")
             }
         }
     }
