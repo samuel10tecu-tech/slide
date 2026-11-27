@@ -244,7 +244,9 @@ class LogicParityTest {
     }
 
     @Test fun resortIndex() {
-        assertEquals("Les Crosets", ResortIndex.match(46.184, 6.842)?.name)
+        // The smallest matching radius wins, as on iOS: the Champoussin circle sits inside Les Crosets.
+        assertEquals("Champoussin", ResortIndex.match(46.184, 6.842)?.name)
+        assertEquals("Avoriaz", ResortIndex.match(46.192, 6.774)?.name)
         assertNull(ResortIndex.match(0.0, 0.0))
     }
 

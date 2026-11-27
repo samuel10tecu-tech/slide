@@ -3,8 +3,8 @@
     <shortcut
         android:shortcutId="max_today"
         android:enabled="true"
-        android:shortcutShortLabel="@string/max_today"
-        android:shortcutLongLabel="@string/max_today">
+        android:shortcutShortLabel="@string/siri_title_max"
+        android:shortcutLongLabel="@string/siri_title_max">
         <intent
             android:action="ch.geneve.slide.SPEAK_MAX"
             android:targetPackage="ch.geneve.slide"
@@ -13,8 +13,8 @@
     <shortcut
         android:shortcutId="distance_today"
         android:enabled="true"
-        android:shortcutShortLabel="@string/distance_today"
-        android:shortcutLongLabel="@string/distance_today">
+        android:shortcutShortLabel="@string/siri_title_distance"
+        android:shortcutLongLabel="@string/siri_title_distance">
         <intent
             android:action="ch.geneve.slide.SPEAK_DISTANCE"
             android:targetPackage="ch.geneve.slide"
