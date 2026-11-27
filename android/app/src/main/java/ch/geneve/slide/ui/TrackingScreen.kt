@@ -129,10 +129,11 @@ fun TrackingScreen(onFinished: () -> Unit) {
     }
 
     val active = Tracking.activity != Activity.IDLE
+    val preview = ch.geneve.slide.Preview.on
     Column(Modifier.fillMaxSize()) {
-        if (active) {
+        if (active || preview) {
             Box(Modifier.fillMaxWidth().height(if (compact) 180.dp else 300.dp)) {
-                TrackMap(Tracking.mapSamples, follow = follow, replay = null, dayMaxKmh = null, modifier = Modifier.fillMaxSize()) { picked = it }
+                TrackMap(if (preview && Tracking.mapSamples.isEmpty()) ch.geneve.slide.Preview.samples else Tracking.mapSamples, follow = follow && !preview, replay = null, dayMaxKmh = null, modifier = Modifier.fillMaxSize()) { picked = it }
                 Column(Modifier.align(Alignment.BottomStart).padding(10.dp)) {
                     picked?.let {
                         Text(
@@ -264,8 +265,9 @@ private fun GpsPill() {
 private fun Gauge() {
     val s = Tracking.summary
     val prefs = Profile.units
-    val speed = if (s.hasFix) s.speed else 0.0
-    val tint = if (Tracking.activity == Activity.TRACKING && s.hasFix) C.speed(speed) else C.snow
+    val preview = ch.geneve.slide.Preview.on && Tracking.activity != Activity.TRACKING
+    val speed = (if (s.hasFix) s.speed else 0.0) + if (preview) 67.4 / 3.6 else 0.0
+    val tint = if ((Tracking.activity == Activity.TRACKING && s.hasFix) || preview) C.speed(speed) else C.snow
     val (phaseTitle, phaseColor) = when (Tracking.activity) {
         Activity.IDLE -> L10n.t("tracking.phase.ready") to C.muted
         Activity.PAUSED -> L10n.t("tracking.phase.pause") to C.orange

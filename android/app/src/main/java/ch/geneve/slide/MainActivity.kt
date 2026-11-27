@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
         Configuration.getInstance().load(this, getSharedPreferences("osmdroid", MODE_PRIVATE))
         Configuration.getInstance().userAgentValue = packageName
         SlideApp.init(this)
+        Preview.start(intent)
         handle(intent)
         setContent { SlideTheme { Root() } }
     }
@@ -111,9 +112,9 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun Root() {
-        var tab by rememberSaveable { mutableIntStateOf(0) }
-        var day by rememberSaveable { mutableStateOf<String?>(null) }
-        var trick by rememberSaveable { mutableStateOf<String?>(null) }
+        var tab by rememberSaveable { mutableIntStateOf(Preview.tab) }
+        var day by rememberSaveable { mutableStateOf(Preview.day) }
+        var trick by rememberSaveable { mutableStateOf(Preview.trick) }
         var summary by rememberSaveable { mutableStateOf(false) }
 
         LaunchedEffect(Tracking.activity, Profile.keepScreenOn) {
@@ -215,4 +216,42 @@ object SlideApp {
         DayStore.init(context)
         Tracking.init(context)
     }
+}
+
+/**
+ * Demo mode for screenshots, like the iOS -slidePreview argument:
+ * `adb shell am start -n ch.geneve.slide/.MainActivity --es slidePreview history --es slideLanguage fr`.
+ */
+object Preview {
+    var screen: String? = null
+        private set
+    var tab = 0
+        private set
+    var day: String? = null
+        private set
+    var trick: String? = null
+        private set
+    val on get() = screen != null
+
+    fun start(intent: Intent?) {
+        val wanted = intent?.getStringExtra("slidePreview") ?: return
+        screen = wanted
+        intent.getStringExtra("slideLanguage")?.let { L10n.choose(it) }
+        val sample = DayStore.days.firstOrNull { it.isSample } ?: run {
+            DayStore.save(ch.geneve.slide.logic.SampleDay.make())
+            DayStore.days.first { it.isSample }
+        }
+        tab = when (wanted) {
+            "map" -> 1
+            "history", "day" -> 2
+            "freestyle", "trick" -> 3
+            "voice" -> 4
+            "profile" -> 5
+            else -> 0
+        }
+        if (wanted == "day") day = sample.id
+        if (wanted == "trick") trick = "backflip"
+    }
+
+    val samples by lazy { DayStore.read(DayStore.days.first { it.isSample }.id)?.samples ?: emptyList() }
 }
